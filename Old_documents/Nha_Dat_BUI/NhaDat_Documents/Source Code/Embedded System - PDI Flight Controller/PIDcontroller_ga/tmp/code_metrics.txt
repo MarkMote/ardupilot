@@ -1,0 +1,47 @@
+Gene-Auto generated code metrics
+Summary
+--------
+Included external files: 	1
+Generated Functions: 		3
+Used external functions: 	0
+Exported Global variables: 	0
+Imported Global variables: 	0
+Local variables: 			75
+Statements: 				107
+Comment lines: 				305
+Code lines: 				525
+Code size: 					42.97 KB
+========
+Module PIDcontroller
+Code file: PIDcontroller.c
+Header file: PIDcontroller.h
+Dependencies: GATypes.h, PIDcontroller_types.h, 
+
+Number of ... 
+Included external files: 	2
+Generated Functions: 		2
+Used external functions: 	0
+Exported Global variables: 	0
+Imported Global variables: 	0
+Local variables: 			75
+Statements: 				107
+Comment lines: 				207
+Code lines: 				449
+Code size: 					39.99 KB
+========
+Module PIDcontroller_types
+Code file: PIDcontroller_types.c
+Header file: PIDcontroller_types.h
+Dependencies: GATypes.h, 
+
+Number of ... 
+Included external files: 	1
+Generated Functions: 		0
+Used external functions: 	0
+Exported Global variables: 	0
+Imported Global variables: 	0
+Local variables: 			0
+Statements: 				0
+Comment lines: 				50
+Code lines: 				47
+Code size: 					2.48 KB

@@ -1,0 +1,3133 @@
+<GASystemModel xmlns="http://www.geneauto.org/GASystemModel" xmlns:gadt="http://www.geneauto.org/GADataType" xmlns:gaxml="http://www.geneauto.org/GAXML" lastSavedBy="AugustineBui" lastSavedOn="Fri Mar 14 09:27:59 2014" modelName="PIDcontroller" modelVersion="6.5" type="gaxml:model">
+    <TransformationHistory type="gaxml:history">
+        <Transformation readTime="2014-03-14 09:28:46.554" toolName="TSimulinkImporter" writeTime="2014-03-14 09:28:47.277"/>
+        <Transformation readTime="2014-03-14 09:28:48.046" toolName="TFMPreprocessor" writeTime="2014-03-14 09:28:48.441"/>
+        <Transformation readTime="2014-03-14 09:28:48.923" toolName="TBlockSequencer_coq" writeTime="2014-03-14 09:28:49.129"/>
+        <Transformation readTime="2014-03-14 09:28:49.365" toolName="TTyper" writeTime="2014-03-14 09:28:49.640"/>
+        <Transformation readTime="2014-03-14 09:28:49.977" toolName="TFMCodeModelGenerator" writeTime="2014-03-14 09:28:51.110"/>
+    </TransformationHistory>
+    <SystemBlock directFeedThrough="true" fcnName="PIDcontroller" id="1" isVirtual="false" name="PIDcontroller" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;" sampleTime="0.0" type="SubSystem">
+        <blocks type="gaxml:collection">
+            <SourceBlock assignedPriority="2" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="1" id="2" isVirtual="false" name="t" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SourceBlock: name=t&gt;" sampleTime="-1.0" type="Inport">
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="11" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="1933"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="7" name="Port">
+                        <value type="gaxml:object">
+                            <StringValue id="8" value="1"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="3" name="DataType">
+                        <value type="gaxml:object">
+                            <StringValue id="4" value="double"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="9" name="SignalType">
+                        <value type="gaxml:object">
+                            <StringValue id="10" value="auto"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="5" name="PortDimensions">
+                        <value type="gaxml:object">
+                            <ExpressionValue id="1624">
+                                <value type="gaxml:object">
+                                    <IntegerExpression id="1625" integerPart="1" litValue="1">
+                                        <dataType type="gaxml:object">
+                                            <TRealInteger id="1626" nBits="8"/>
+                                        </dataType>
+                                    </IntegerExpression>
+                                </value>
+                            </ExpressionValue>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="15" positionY="13" sizeX="30" sizeY="14"/>
+                </diagramInfo>
+                <portReference type="gaxml:pointer">1850</portReference>
+            </SourceBlock>
+            <SourceBlock assignedPriority="4" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="4" id="12" isVirtual="false" name="e" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SourceBlock: name=e&gt;" sampleTime="-1.0" type="Inport">
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="21" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TArray id="2137">
+                                <baseType type="gaxml:object">
+                                    <TRealDouble id="2138"/>
+                                </baseType>
+                                <dimensions type="gaxml:collection">
+                                    <IntegerExpression id="2139" integerPart="4" litValue="4">
+                                        <dataType type="gaxml:object">
+                                            <TRealInteger id="2140" nBits="8"/>
+                                        </dataType>
+                                    </IntegerExpression>
+                                </dimensions>
+                            </TArray>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="17" name="Port">
+                        <value type="gaxml:object">
+                            <StringValue id="18" value="2"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="13" name="DataType">
+                        <value type="gaxml:object">
+                            <StringValue id="14" value="double"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="19" name="SignalType">
+                        <value type="gaxml:object">
+                            <StringValue id="20" value="auto"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="15" name="PortDimensions">
+                        <value type="gaxml:object">
+                            <ExpressionValue id="1627">
+                                <value type="gaxml:object">
+                                    <IntegerExpression id="1628" integerPart="4" litValue="4">
+                                        <dataType type="gaxml:object">
+                                            <TRealInteger id="1629" nBits="8"/>
+                                        </dataType>
+                                    </IntegerExpression>
+                                </value>
+                            </ExpressionValue>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="15" positionY="53" sizeX="30" sizeY="14"/>
+                </diagramInfo>
+                <portReference type="gaxml:pointer">1852</portReference>
+            </SourceBlock>
+            <SourceBlock assignedPriority="16" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="9" id="22" isVirtual="false" name="gains" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SourceBlock: name=gains&gt;" sampleTime="-1.0" type="Inport">
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="31" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TArray id="2153">
+                                <baseType type="gaxml:object">
+                                    <TRealDouble id="2154"/>
+                                </baseType>
+                                <dimensions type="gaxml:collection">
+                                    <IntegerExpression id="2155" integerPart="12" litValue="12">
+                                        <dataType type="gaxml:object">
+                                            <TRealInteger id="2156" nBits="8"/>
+                                        </dataType>
+                                    </IntegerExpression>
+                                </dimensions>
+                            </TArray>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="27" name="Port">
+                        <value type="gaxml:object">
+                            <StringValue id="28" value="3"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="23" name="DataType">
+                        <value type="gaxml:object">
+                            <StringValue id="24" value="double"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="29" name="SignalType">
+                        <value type="gaxml:object">
+                            <StringValue id="30" value="auto"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="25" name="PortDimensions">
+                        <value type="gaxml:object">
+                            <ExpressionValue id="1630">
+                                <value type="gaxml:object">
+                                    <IntegerExpression id="1631" integerPart="12" litValue="12">
+                                        <dataType type="gaxml:object">
+                                            <TRealInteger id="1632" nBits="8"/>
+                                        </dataType>
+                                    </IntegerExpression>
+                                </value>
+                            </ExpressionValue>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="15" positionY="88" sizeX="30" sizeY="14"/>
+                </diagramInfo>
+                <portReference type="gaxml:pointer">1854</portReference>
+            </SourceBlock>
+            <CombinatorialBlock assignedPriority="17" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="10" id="32" isVirtual="false" name="Demux" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;CombinatorialBlock: name=Demux&gt;" sampleTime="0.0" type="Demux">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="35" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TArray id="2141">
+                                <baseType type="gaxml:object">
+                                    <TRealDouble id="2142"/>
+                                </baseType>
+                                <dimensions type="gaxml:collection">
+                                    <IntegerExpression id="2143" integerPart="4" litValue="4">
+                                        <dataType type="gaxml:object">
+                                            <TRealInteger id="2144" nBits="8"/>
+                                        </dataType>
+                                    </IntegerExpression>
+                                </dimensions>
+                            </TArray>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="36" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2161"/>
+                        </dataType>
+                    </OutDataPort>
+                    <OutDataPort id="37" portNumber="2">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2162"/>
+                        </dataType>
+                    </OutDataPort>
+                    <OutDataPort id="38" portNumber="3">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2163"/>
+                        </dataType>
+                    </OutDataPort>
+                    <OutDataPort id="39" portNumber="4">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2164"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="33" name="Outputs">
+                        <value type="gaxml:object">
+                            <ExpressionValue id="1633">
+                                <value type="gaxml:object">
+                                    <IntegerExpression id="1634" integerPart="4" litValue="4">
+                                        <dataType type="gaxml:object">
+                                            <TRealInteger id="1635" nBits="8"/>
+                                        </dataType>
+                                    </IntegerExpression>
+                                </value>
+                            </ExpressionValue>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="90" positionY="91" sizeX="40" sizeY="103"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="59" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="23" id="40" isVirtual="false" name="Demux1" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;CombinatorialBlock: name=Demux1&gt;" sampleTime="0.0" type="Demux">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="43" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TArray id="2157">
+                                <baseType type="gaxml:object">
+                                    <TRealDouble id="2158"/>
+                                </baseType>
+                                <dimensions type="gaxml:collection">
+                                    <IntegerExpression id="2159" integerPart="12" litValue="12">
+                                        <dataType type="gaxml:object">
+                                            <TRealInteger id="2160" nBits="8"/>
+                                        </dataType>
+                                    </IntegerExpression>
+                                </dimensions>
+                            </TArray>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="44" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2193"/>
+                        </dataType>
+                    </OutDataPort>
+                    <OutDataPort id="45" portNumber="2">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2194"/>
+                        </dataType>
+                    </OutDataPort>
+                    <OutDataPort id="46" portNumber="3">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2195"/>
+                        </dataType>
+                    </OutDataPort>
+                    <OutDataPort id="47" portNumber="4">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2196"/>
+                        </dataType>
+                    </OutDataPort>
+                    <OutDataPort id="48" portNumber="5">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2197"/>
+                        </dataType>
+                    </OutDataPort>
+                    <OutDataPort id="49" portNumber="6">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2198"/>
+                        </dataType>
+                    </OutDataPort>
+                    <OutDataPort id="50" portNumber="7">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2199"/>
+                        </dataType>
+                    </OutDataPort>
+                    <OutDataPort id="51" portNumber="8">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2200"/>
+                        </dataType>
+                    </OutDataPort>
+                    <OutDataPort id="52" portNumber="9">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2201"/>
+                        </dataType>
+                    </OutDataPort>
+                    <OutDataPort id="53" portNumber="10">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2202"/>
+                        </dataType>
+                    </OutDataPort>
+                    <OutDataPort id="54" portNumber="11">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2203"/>
+                        </dataType>
+                    </OutDataPort>
+                    <OutDataPort id="55" portNumber="12">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2204"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="41" name="Outputs">
+                        <value type="gaxml:object">
+                            <ExpressionValue id="1636">
+                                <value type="gaxml:object">
+                                    <IntegerExpression id="1637" integerPart="12" litValue="12">
+                                        <dataType type="gaxml:object">
+                                            <TRealInteger id="1638" nBits="8"/>
+                                        </dataType>
+                                    </IntegerExpression>
+                                </value>
+                            </ExpressionValue>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="90" positionY="222" sizeX="40" sizeY="301"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="60" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="60" id="204" isVirtual="false" name="Mux" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;CombinatorialBlock: name=Mux&gt;" sampleTime="0.0" type="Mux">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="205" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2272"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="206" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2263"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="207" portNumber="3" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2269"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="208" portNumber="4" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2266"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="209" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TArray id="2273">
+                                <baseType type="gaxml:object">
+                                    <TRealDouble id="2274"/>
+                                </baseType>
+                                <dimensions type="gaxml:collection">
+                                    <IntegerExpression id="2275" integerPart="4" litValue="4">
+                                        <dataType type="gaxml:object">
+                                            <TRealInteger id="2276" nBits="8"/>
+                                        </dataType>
+                                    </IntegerExpression>
+                                </dimensions>
+                            </TArray>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="475" positionY="265" sizeX="5" sizeY="105"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="1" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="3" id="1550" isVirtual="false" name="dt" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;CombinatorialBlock: name=dt&gt;" sampleTime="-1.0" type="Sum">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="1557" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="1935"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="1558" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2128"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="1559" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="1938"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="1553" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="1554" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1555" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="1556" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1551" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="1552" value="+-"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="225" positionY="12" sizeX="30" sizeY="31"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <SequentialBlock assignedPriority="3" assignedPrioritySource="GrLoc" directFeedThrough="false" executionOrder="2" id="1560" isVirtual="false" name="t_prev" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SequentialBlock: name=t_prev&gt;" sampleTime="-1.0" type="UnitDelay">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="1563" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="1934"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="1564" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2127"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="1561" name="InitialValue">
+                        <value type="gaxml:object">
+                            <ExpressionValue id="1843">
+                                <value type="gaxml:object">
+                                    <RealExpression fractionalPart="5" id="1844" isNegative="true" litValue="-0.5">
+                                        <dataType type="gaxml:object">
+                                            <TRealDouble id="1845"/>
+                                        </dataType>
+                                    </RealExpression>
+                                </value>
+                            </ExpressionValue>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="130" positionY="28" sizeX="35" sizeY="34"/>
+                </diagramInfo>
+            </SequentialBlock>
+            <SinkBlock assignedPriority="61" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="61" id="1565" isVirtual="false" name="y" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SinkBlock: name=y&gt;" sampleTime="-1.0" type="Outport">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="1576" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TArray id="2277">
+                                <baseType type="gaxml:object">
+                                    <TRealDouble id="2278"/>
+                                </baseType>
+                                <dimensions type="gaxml:collection">
+                                    <IntegerExpression id="2279" integerPart="4" litValue="4">
+                                        <dataType type="gaxml:object">
+                                            <TRealInteger id="2280" nBits="8"/>
+                                        </dataType>
+                                    </IntegerExpression>
+                                </dimensions>
+                            </TArray>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="1574" name="Port">
+                        <value type="gaxml:object">
+                            <StringValue id="1575" value="1"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1566" name="DataType">
+                        <value type="gaxml:object">
+                            <StringValue id="1567" value="auto"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1568" name="InitialOutput">
+                        <value type="gaxml:object">
+                            <ExpressionValue id="1846"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1572" name="PortDimensions">
+                        <value type="gaxml:object">
+                            <ExpressionValue id="1847">
+                                <value type="gaxml:object">
+                                    <IntegerExpression id="1848" integerPart="1" isNegative="true" litValue="-1">
+                                        <dataType type="gaxml:object">
+                                            <TRealInteger id="1849" nBits="8"/>
+                                        </dataType>
+                                    </IntegerExpression>
+                                </value>
+                            </ExpressionValue>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1570" name="OutputWhenDisabled">
+                        <value type="gaxml:object">
+                            <StringValue id="1571" value="held"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="500" positionY="313" sizeX="30" sizeY="14"/>
+                </diagramInfo>
+                <portReference type="gaxml:pointer">1856</portReference>
+            </SinkBlock>
+            <CombinatorialBlock assignedPriority="9" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="24" id="344" isVirtual="false" name="Divide" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_phi&gt;/&lt;CombinatorialBlock: name=Divide&gt;" sampleTime="-1.0" type="Product">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="353" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2166"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="354" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2208"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="355" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2027"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="345" name="Multiplication">
+                        <value type="gaxml:object">
+                            <StringValue id="346" value="Element-wise(.*)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="349" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="350" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="351" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="352" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="347" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="348" value="**"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="155" positionY="82" sizeX="30" sizeY="31"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="23" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="28" id="356" isVirtual="false" name="Divide1" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_phi&gt;/&lt;CombinatorialBlock: name=Divide1&gt;" sampleTime="-1.0" type="Product">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="365" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2217"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="366" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2209"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="367" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2043"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="357" name="Multiplication">
+                        <value type="gaxml:object">
+                            <StringValue id="358" value="Element-wise(.*)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="361" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="362" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="363" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="364" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="359" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="360" value="**"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="290" positionY="92" sizeX="30" sizeY="31"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="51" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="44" id="368" isVirtual="false" name="Divide2" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_phi&gt;/&lt;CombinatorialBlock: name=Divide2&gt;" sampleTime="-1.0" type="Product">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="377" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2218"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="378" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2210"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="379" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2083"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="369" name="Multiplication">
+                        <value type="gaxml:object">
+                            <StringValue id="370" value="Element-wise(.*)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="373" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="374" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="375" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="376" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="371" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="372" value="**"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="290" positionY="162" sizeX="30" sizeY="31"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="26" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="50" id="505" isVirtual="false" name="Sum" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_phi&gt;/&lt;CombinatorialBlock: name=Sum&gt;" sampleTime="-1.0" type="Sum">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="512" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2219"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="513" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2245"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="514" portNumber="3" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2262"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="515" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2099"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="508" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="509" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="510" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="511" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="506" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="507" value="+++"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="455" positionY="100" sizeX="20" sizeY="20"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="43" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="49" id="299" isVirtual="false" name="Divide" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_phi&gt;/&lt;SystemBlock: name=Derivative&gt;/&lt;CombinatorialBlock: name=Divide&gt;" sampleTime="-1.0" type="Product">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="308" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2261"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="309" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2129"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="310" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2097"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="300" name="Multiplication">
+                        <value type="gaxml:object">
+                            <StringValue id="301" value="Element-wise(.*)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="304" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="305" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="306" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="307" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="302" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="303" value="*/"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="265" positionY="151" sizeX="30" sizeY="33"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="47" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="48" id="311" isVirtual="false" name="Subtract1" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_phi&gt;/&lt;SystemBlock: name=Derivative&gt;/&lt;CombinatorialBlock: name=Subtract1&gt;" sampleTime="-1.0" type="Sum">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="318" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2254"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="319" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2186"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="320" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2095"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="314" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="315" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="316" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="317" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="312" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="313" value="+-"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="180" positionY="157" sizeX="30" sizeY="31"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <SequentialBlock assignedPriority="55" assignedPrioritySource="GrLoc" directFeedThrough="false" executionOrder="19" id="321" isVirtual="false" name="u_prev" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_phi&gt;/&lt;SystemBlock: name=Derivative&gt;/&lt;SequentialBlock: name=u_prev&gt;" sampleTime="-1.0" type="UnitDelay">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="324" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2253"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="325" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2185"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="322" name="InitialValue">
+                        <value type="gaxml:object">
+                            <ExpressionValue id="1660">
+                                <value type="gaxml:object">
+                                    <IntegerExpression id="1661" litValue="0">
+                                        <dataType type="gaxml:object">
+                                            <TRealInteger id="1662" nBits="8"/>
+                                        </dataType>
+                                    </IntegerExpression>
+                                </value>
+                            </ExpressionValue>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="115" positionY="178" sizeX="35" sizeY="34"/>
+                </diagramInfo>
+            </SequentialBlock>
+            <CombinatorialBlock assignedPriority="18" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="40" id="432" isVirtual="false" name="Add" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_phi&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;CombinatorialBlock: name=Add&gt;" sampleTime="-1.0" type="Sum">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="439" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2238"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="440" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2178"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="441" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2071"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="435" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="436" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="437" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="438" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="433" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="434" value="++"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="315" positionY="91" sizeX="30" sizeY="33"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="12" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="33" id="442" isVirtual="false" name="Multiply" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_phi&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;CombinatorialBlock: name=Multiply&gt;" sampleTime="-1.0" type="Product">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="451" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2130"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="452" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2146"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="453" portNumber="3" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2237"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="454" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2057"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="443" name="Multiplication">
+                        <value type="gaxml:object">
+                            <StringValue id="444" value="Element-wise(.*)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="447" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="448" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="449" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="450" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="445" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="446" value="***"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="240" positionY="83" sizeX="30" sizeY="34"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="31" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="32" id="455" isVirtual="false" name="add_u_u_prev" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_phi&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;CombinatorialBlock: name=add_u_u_prev&gt;" sampleTime="-1.0" type="Sum">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="462" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2230"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="463" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2170"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="464" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2055"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="458" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="459" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="460" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="461" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="456" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="457" value="++"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="140" positionY="121" sizeX="30" sizeY="33"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <SourceBlock assignedPriority="5" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="5" id="465" isVirtual="false" name="half" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_phi&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;SourceBlock: name=half&gt;" sampleTime="0.0" type="Constant">
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="472" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2145"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="466" name="Value">
+                        <value type="gaxml:object">
+                            <ExpressionValue id="1673">
+                                <value type="gaxml:object">
+                                    <RealExpression fractionalPart="5" id="1674" litValue="0.5">
+                                        <dataType type="gaxml:object">
+                                            <TRealDouble id="1675"/>
+                                        </dataType>
+                                    </RealExpression>
+                                </value>
+                            </ExpressionValue>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="468" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="469" value="Inherit from 'Constant value'"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="470" name="VectorParams1D">
+                        <value type="gaxml:object">
+                            <StringValue id="471" value="on"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="140" positionY="65" sizeX="30" sizeY="30"/>
+                </diagramInfo>
+            </SourceBlock>
+            <SequentialBlock assignedPriority="35" assignedPrioritySource="GrLoc" directFeedThrough="false" executionOrder="11" id="473" isVirtual="false" name="u_prev" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_phi&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;SequentialBlock: name=u_prev&gt;" sampleTime="-1.0" type="UnitDelay">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="476" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2229"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="477" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2169"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="474" name="InitialValue">
+                        <value type="gaxml:object">
+                            <ExpressionValue id="1676">
+                                <value type="gaxml:object">
+                                    <IntegerExpression id="1677" litValue="0">
+                                        <dataType type="gaxml:object">
+                                            <TRealInteger id="1678" nBits="8"/>
+                                        </dataType>
+                                    </IntegerExpression>
+                                </value>
+                            </ExpressionValue>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="75" positionY="148" sizeX="35" sizeY="34"/>
+                </diagramInfo>
+            </SequentialBlock>
+            <SequentialBlock assignedPriority="39" assignedPrioritySource="GrLoc" directFeedThrough="false" executionOrder="15" id="478" isVirtual="false" name="y_prev" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_phi&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;SequentialBlock: name=y_prev&gt;" sampleTime="-1.0" type="UnitDelay">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="481" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2246"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="482" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2177"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="479" name="InitialValue">
+                        <value type="gaxml:object">
+                            <ExpressionValue id="1679">
+                                <value type="gaxml:object">
+                                    <IntegerExpression id="1680" litValue="0">
+                                        <dataType type="gaxml:object">
+                                            <TRealInteger id="1681" nBits="8"/>
+                                        </dataType>
+                                    </IntegerExpression>
+                                </value>
+                            </ExpressionValue>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="310" positionY="148" sizeX="35" sizeY="34"/>
+                </diagramInfo>
+            </SequentialBlock>
+            <CombinatorialBlock assignedPriority="10" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="25" id="679" isVirtual="false" name="Divide" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_psi&gt;/&lt;CombinatorialBlock: name=Divide&gt;" sampleTime="-1.0" type="Product">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="688" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2168"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="689" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2214"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="690" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2031"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="680" name="Multiplication">
+                        <value type="gaxml:object">
+                            <StringValue id="681" value="Element-wise(.*)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="684" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="685" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="686" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="687" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="682" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="683" value="**"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="155" positionY="82" sizeX="30" sizeY="31"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="24" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="29" id="691" isVirtual="false" name="Divide1" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_psi&gt;/&lt;CombinatorialBlock: name=Divide1&gt;" sampleTime="-1.0" type="Product">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="700" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2220"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="701" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2215"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="702" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2046"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="692" name="Multiplication">
+                        <value type="gaxml:object">
+                            <StringValue id="693" value="Element-wise(.*)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="696" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="697" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="698" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="699" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="694" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="695" value="**"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="290" positionY="92" sizeX="30" sizeY="31"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="52" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="45" id="703" isVirtual="false" name="Divide2" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_psi&gt;/&lt;CombinatorialBlock: name=Divide2&gt;" sampleTime="-1.0" type="Product">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="712" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2221"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="713" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2216"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="714" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2086"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="704" name="Multiplication">
+                        <value type="gaxml:object">
+                            <StringValue id="705" value="Element-wise(.*)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="708" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="709" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="710" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="711" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="706" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="707" value="**"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="290" positionY="162" sizeX="30" sizeY="31"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="27" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="53" id="840" isVirtual="false" name="Sum" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_psi&gt;/&lt;CombinatorialBlock: name=Sum&gt;" sampleTime="-1.0" type="Sum">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="847" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2222"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="848" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2247"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="849" portNumber="3" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2265"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="850" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2105"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="843" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="844" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="845" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="846" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="841" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="842" value="+++"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="455" positionY="100" sizeX="20" sizeY="20"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="44" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="52" id="634" isVirtual="false" name="Divide" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_psi&gt;/&lt;SystemBlock: name=Derivative&gt;/&lt;CombinatorialBlock: name=Divide&gt;" sampleTime="-1.0" type="Product">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="643" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2264"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="644" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2131"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="645" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2103"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="635" name="Multiplication">
+                        <value type="gaxml:object">
+                            <StringValue id="636" value="Element-wise(.*)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="639" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="640" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="641" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="642" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="637" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="638" value="*/"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="265" positionY="151" sizeX="30" sizeY="33"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="48" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="51" id="646" isVirtual="false" name="Subtract1" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_psi&gt;/&lt;SystemBlock: name=Derivative&gt;/&lt;CombinatorialBlock: name=Subtract1&gt;" sampleTime="-1.0" type="Sum">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="653" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2256"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="654" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2188"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="655" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2101"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="649" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="650" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="651" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="652" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="647" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="648" value="+-"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="180" positionY="157" sizeX="30" sizeY="31"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <SequentialBlock assignedPriority="56" assignedPrioritySource="GrLoc" directFeedThrough="false" executionOrder="20" id="656" isVirtual="false" name="u_prev" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_psi&gt;/&lt;SystemBlock: name=Derivative&gt;/&lt;SequentialBlock: name=u_prev&gt;" sampleTime="-1.0" type="UnitDelay">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="659" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2255"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="660" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2187"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="657" name="InitialValue">
+                        <value type="gaxml:object">
+                            <ExpressionValue id="1711">
+                                <value type="gaxml:object">
+                                    <IntegerExpression id="1712" litValue="0">
+                                        <dataType type="gaxml:object">
+                                            <TRealInteger id="1713" nBits="8"/>
+                                        </dataType>
+                                    </IntegerExpression>
+                                </value>
+                            </ExpressionValue>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="115" positionY="178" sizeX="35" sizeY="34"/>
+                </diagramInfo>
+            </SequentialBlock>
+            <CombinatorialBlock assignedPriority="19" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="41" id="767" isVirtual="false" name="Add" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_psi&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;CombinatorialBlock: name=Add&gt;" sampleTime="-1.0" type="Sum">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="774" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2240"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="775" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2180"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="776" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2074"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="770" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="771" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="772" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="773" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="768" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="769" value="++"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="315" positionY="91" sizeX="30" sizeY="33"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="13" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="35" id="777" isVirtual="false" name="Multiply" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_psi&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;CombinatorialBlock: name=Multiply&gt;" sampleTime="-1.0" type="Product">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="786" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2132"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="787" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2148"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="788" portNumber="3" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2239"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="789" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2061"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="778" name="Multiplication">
+                        <value type="gaxml:object">
+                            <StringValue id="779" value="Element-wise(.*)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="782" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="783" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="784" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="785" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="780" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="781" value="***"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="240" positionY="83" sizeX="30" sizeY="34"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="32" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="34" id="790" isVirtual="false" name="add_u_u_prev" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_psi&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;CombinatorialBlock: name=add_u_u_prev&gt;" sampleTime="-1.0" type="Sum">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="797" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2232"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="798" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2172"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="799" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2059"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="793" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="794" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="795" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="796" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="791" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="792" value="++"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="140" positionY="121" sizeX="30" sizeY="33"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <SourceBlock assignedPriority="6" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="6" id="800" isVirtual="false" name="half" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_psi&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;SourceBlock: name=half&gt;" sampleTime="0.0" type="Constant">
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="807" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2147"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="801" name="Value">
+                        <value type="gaxml:object">
+                            <ExpressionValue id="1724">
+                                <value type="gaxml:object">
+                                    <RealExpression fractionalPart="5" id="1725" litValue="0.5">
+                                        <dataType type="gaxml:object">
+                                            <TRealDouble id="1726"/>
+                                        </dataType>
+                                    </RealExpression>
+                                </value>
+                            </ExpressionValue>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="803" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="804" value="Inherit from 'Constant value'"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="805" name="VectorParams1D">
+                        <value type="gaxml:object">
+                            <StringValue id="806" value="on"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="140" positionY="65" sizeX="30" sizeY="30"/>
+                </diagramInfo>
+            </SourceBlock>
+            <SequentialBlock assignedPriority="36" assignedPrioritySource="GrLoc" directFeedThrough="false" executionOrder="12" id="808" isVirtual="false" name="u_prev" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_psi&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;SequentialBlock: name=u_prev&gt;" sampleTime="-1.0" type="UnitDelay">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="811" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2231"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="812" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2171"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="809" name="InitialValue">
+                        <value type="gaxml:object">
+                            <ExpressionValue id="1727">
+                                <value type="gaxml:object">
+                                    <IntegerExpression id="1728" litValue="0">
+                                        <dataType type="gaxml:object">
+                                            <TRealInteger id="1729" nBits="8"/>
+                                        </dataType>
+                                    </IntegerExpression>
+                                </value>
+                            </ExpressionValue>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="75" positionY="148" sizeX="35" sizeY="34"/>
+                </diagramInfo>
+            </SequentialBlock>
+            <SequentialBlock assignedPriority="40" assignedPrioritySource="GrLoc" directFeedThrough="false" executionOrder="16" id="813" isVirtual="false" name="y_prev" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_psi&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;SequentialBlock: name=y_prev&gt;" sampleTime="-1.0" type="UnitDelay">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="816" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2248"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="817" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2179"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="814" name="InitialValue">
+                        <value type="gaxml:object">
+                            <ExpressionValue id="1730">
+                                <value type="gaxml:object">
+                                    <IntegerExpression id="1731" litValue="0">
+                                        <dataType type="gaxml:object">
+                                            <TRealInteger id="1732" nBits="8"/>
+                                        </dataType>
+                                    </IntegerExpression>
+                                </value>
+                            </ExpressionValue>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="310" positionY="148" sizeX="35" sizeY="34"/>
+                </diagramInfo>
+            </SequentialBlock>
+            <CombinatorialBlock assignedPriority="11" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="26" id="1014" isVirtual="false" name="Divide" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_theta&gt;/&lt;CombinatorialBlock: name=Divide&gt;" sampleTime="-1.0" type="Product">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="1023" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2167"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="1024" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2211"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="1025" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2035"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="1015" name="Multiplication">
+                        <value type="gaxml:object">
+                            <StringValue id="1016" value="Element-wise(.*)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1019" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="1020" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1021" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="1022" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1017" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="1018" value="**"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="155" positionY="82" sizeX="30" sizeY="31"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="25" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="30" id="1026" isVirtual="false" name="Divide1" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_theta&gt;/&lt;CombinatorialBlock: name=Divide1&gt;" sampleTime="-1.0" type="Product">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="1035" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2223"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="1036" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2212"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="1037" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2049"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="1027" name="Multiplication">
+                        <value type="gaxml:object">
+                            <StringValue id="1028" value="Element-wise(.*)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1031" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="1032" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1033" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="1034" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1029" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="1030" value="**"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="290" positionY="92" sizeX="30" sizeY="31"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="53" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="46" id="1038" isVirtual="false" name="Divide2" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_theta&gt;/&lt;CombinatorialBlock: name=Divide2&gt;" sampleTime="-1.0" type="Product">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="1047" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2224"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="1048" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2213"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="1049" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2089"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="1039" name="Multiplication">
+                        <value type="gaxml:object">
+                            <StringValue id="1040" value="Element-wise(.*)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1043" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="1044" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1045" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="1046" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1041" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="1042" value="**"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="290" positionY="162" sizeX="30" sizeY="31"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="28" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="56" id="1175" isVirtual="false" name="Sum" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_theta&gt;/&lt;CombinatorialBlock: name=Sum&gt;" sampleTime="-1.0" type="Sum">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="1182" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2225"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="1183" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2249"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="1184" portNumber="3" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2268"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="1185" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2111"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="1178" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="1179" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1180" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="1181" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1176" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="1177" value="+++"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="455" positionY="100" sizeX="20" sizeY="20"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="45" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="55" id="969" isVirtual="false" name="Divide" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_theta&gt;/&lt;SystemBlock: name=Derivative&gt;/&lt;CombinatorialBlock: name=Divide&gt;" sampleTime="-1.0" type="Product">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="978" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2267"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="979" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2133"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="980" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2109"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="970" name="Multiplication">
+                        <value type="gaxml:object">
+                            <StringValue id="971" value="Element-wise(.*)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="974" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="975" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="976" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="977" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="972" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="973" value="*/"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="265" positionY="151" sizeX="30" sizeY="33"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="49" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="54" id="981" isVirtual="false" name="Subtract1" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_theta&gt;/&lt;SystemBlock: name=Derivative&gt;/&lt;CombinatorialBlock: name=Subtract1&gt;" sampleTime="-1.0" type="Sum">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="988" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2258"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="989" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2190"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="990" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2107"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="984" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="985" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="986" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="987" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="982" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="983" value="+-"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="180" positionY="157" sizeX="30" sizeY="31"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <SequentialBlock assignedPriority="57" assignedPrioritySource="GrLoc" directFeedThrough="false" executionOrder="21" id="991" isVirtual="false" name="u_prev" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_theta&gt;/&lt;SystemBlock: name=Derivative&gt;/&lt;SequentialBlock: name=u_prev&gt;" sampleTime="-1.0" type="UnitDelay">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="994" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2257"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="995" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2189"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="992" name="InitialValue">
+                        <value type="gaxml:object">
+                            <ExpressionValue id="1762">
+                                <value type="gaxml:object">
+                                    <IntegerExpression id="1763" litValue="0">
+                                        <dataType type="gaxml:object">
+                                            <TRealInteger id="1764" nBits="8"/>
+                                        </dataType>
+                                    </IntegerExpression>
+                                </value>
+                            </ExpressionValue>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="115" positionY="178" sizeX="35" sizeY="34"/>
+                </diagramInfo>
+            </SequentialBlock>
+            <CombinatorialBlock assignedPriority="20" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="42" id="1102" isVirtual="false" name="Add" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_theta&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;CombinatorialBlock: name=Add&gt;" sampleTime="-1.0" type="Sum">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="1109" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2242"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="1110" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2182"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="1111" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2077"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="1105" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="1106" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1107" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="1108" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1103" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="1104" value="++"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="315" positionY="91" sizeX="30" sizeY="33"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="14" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="37" id="1112" isVirtual="false" name="Multiply" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_theta&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;CombinatorialBlock: name=Multiply&gt;" sampleTime="-1.0" type="Product">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="1121" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2134"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="1122" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2150"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="1123" portNumber="3" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2241"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="1124" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2065"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="1113" name="Multiplication">
+                        <value type="gaxml:object">
+                            <StringValue id="1114" value="Element-wise(.*)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1117" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="1118" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1119" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="1120" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1115" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="1116" value="***"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="240" positionY="83" sizeX="30" sizeY="34"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="33" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="36" id="1125" isVirtual="false" name="add_u_u_prev" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_theta&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;CombinatorialBlock: name=add_u_u_prev&gt;" sampleTime="-1.0" type="Sum">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="1132" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2234"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="1133" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2174"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="1134" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2063"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="1128" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="1129" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1130" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="1131" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1126" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="1127" value="++"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="140" positionY="121" sizeX="30" sizeY="33"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <SourceBlock assignedPriority="7" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="7" id="1135" isVirtual="false" name="half" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_theta&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;SourceBlock: name=half&gt;" sampleTime="0.0" type="Constant">
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="1142" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2149"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="1136" name="Value">
+                        <value type="gaxml:object">
+                            <ExpressionValue id="1775">
+                                <value type="gaxml:object">
+                                    <RealExpression fractionalPart="5" id="1776" litValue="0.5">
+                                        <dataType type="gaxml:object">
+                                            <TRealDouble id="1777"/>
+                                        </dataType>
+                                    </RealExpression>
+                                </value>
+                            </ExpressionValue>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1138" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="1139" value="Inherit from 'Constant value'"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1140" name="VectorParams1D">
+                        <value type="gaxml:object">
+                            <StringValue id="1141" value="on"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="140" positionY="65" sizeX="30" sizeY="30"/>
+                </diagramInfo>
+            </SourceBlock>
+            <SequentialBlock assignedPriority="37" assignedPrioritySource="GrLoc" directFeedThrough="false" executionOrder="13" id="1143" isVirtual="false" name="u_prev" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_theta&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;SequentialBlock: name=u_prev&gt;" sampleTime="-1.0" type="UnitDelay">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="1146" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2233"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="1147" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2173"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="1144" name="InitialValue">
+                        <value type="gaxml:object">
+                            <ExpressionValue id="1778">
+                                <value type="gaxml:object">
+                                    <IntegerExpression id="1779" litValue="0">
+                                        <dataType type="gaxml:object">
+                                            <TRealInteger id="1780" nBits="8"/>
+                                        </dataType>
+                                    </IntegerExpression>
+                                </value>
+                            </ExpressionValue>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="75" positionY="148" sizeX="35" sizeY="34"/>
+                </diagramInfo>
+            </SequentialBlock>
+            <SequentialBlock assignedPriority="41" assignedPrioritySource="GrLoc" directFeedThrough="false" executionOrder="17" id="1148" isVirtual="false" name="y_prev" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_theta&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;SequentialBlock: name=y_prev&gt;" sampleTime="-1.0" type="UnitDelay">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="1151" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2250"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="1152" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2181"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="1149" name="InitialValue">
+                        <value type="gaxml:object">
+                            <ExpressionValue id="1781">
+                                <value type="gaxml:object">
+                                    <IntegerExpression id="1782" litValue="0">
+                                        <dataType type="gaxml:object">
+                                            <TRealInteger id="1783" nBits="8"/>
+                                        </dataType>
+                                    </IntegerExpression>
+                                </value>
+                            </ExpressionValue>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="310" positionY="148" sizeX="35" sizeY="34"/>
+                </diagramInfo>
+            </SequentialBlock>
+            <CombinatorialBlock assignedPriority="22" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="27" id="1349" isVirtual="false" name="Divide" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_z&gt;/&lt;CombinatorialBlock: name=Divide&gt;" sampleTime="-1.0" type="Product">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="1358" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2165"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="1359" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2205"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="1360" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2039"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="1350" name="Multiplication">
+                        <value type="gaxml:object">
+                            <StringValue id="1351" value="Element-wise(.*)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1354" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="1355" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1356" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="1357" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1352" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="1353" value="**"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="105" positionY="92" sizeX="30" sizeY="31"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="29" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="31" id="1361" isVirtual="false" name="Divide1" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_z&gt;/&lt;CombinatorialBlock: name=Divide1&gt;" sampleTime="-1.0" type="Product">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="1370" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2226"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="1371" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2206"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="1372" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2052"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="1362" name="Multiplication">
+                        <value type="gaxml:object">
+                            <StringValue id="1363" value="Element-wise(.*)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1366" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="1367" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1368" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="1369" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1364" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="1365" value="**"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="240" positionY="102" sizeX="30" sizeY="31"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="54" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="47" id="1373" isVirtual="false" name="Divide2" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_z&gt;/&lt;CombinatorialBlock: name=Divide2&gt;" sampleTime="-1.0" type="Product">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="1382" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2227"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="1383" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2207"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="1384" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2092"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="1374" name="Multiplication">
+                        <value type="gaxml:object">
+                            <StringValue id="1375" value="Element-wise(.*)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1378" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="1379" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1380" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="1381" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1376" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="1377" value="**"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="240" positionY="172" sizeX="30" sizeY="31"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="30" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="59" id="1510" isVirtual="false" name="Sum" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_z&gt;/&lt;CombinatorialBlock: name=Sum&gt;" sampleTime="-1.0" type="Sum">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="1517" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2228"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="1518" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2251"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="1519" portNumber="3" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2271"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="1520" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2117"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="1513" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="1514" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1515" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="1516" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1511" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="1512" value="+++"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="405" positionY="110" sizeX="20" sizeY="20"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="46" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="58" id="1304" isVirtual="false" name="Divide" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_z&gt;/&lt;SystemBlock: name=Derivative&gt;/&lt;CombinatorialBlock: name=Divide&gt;" sampleTime="-1.0" type="Product">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="1313" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2270"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="1314" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2135"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="1315" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2115"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="1305" name="Multiplication">
+                        <value type="gaxml:object">
+                            <StringValue id="1306" value="Element-wise(.*)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1309" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="1310" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1311" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="1312" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1307" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="1308" value="*/"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="265" positionY="151" sizeX="30" sizeY="33"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="50" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="57" id="1316" isVirtual="false" name="Subtract1" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_z&gt;/&lt;SystemBlock: name=Derivative&gt;/&lt;CombinatorialBlock: name=Subtract1&gt;" sampleTime="-1.0" type="Sum">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="1323" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2260"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="1324" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2192"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="1325" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2113"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="1319" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="1320" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1321" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="1322" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1317" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="1318" value="+-"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="180" positionY="157" sizeX="30" sizeY="31"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <SequentialBlock assignedPriority="58" assignedPrioritySource="GrLoc" directFeedThrough="false" executionOrder="22" id="1326" isVirtual="false" name="u_prev" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_z&gt;/&lt;SystemBlock: name=Derivative&gt;/&lt;SequentialBlock: name=u_prev&gt;" sampleTime="-1.0" type="UnitDelay">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="1329" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2259"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="1330" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2191"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="1327" name="InitialValue">
+                        <value type="gaxml:object">
+                            <ExpressionValue id="1813">
+                                <value type="gaxml:object">
+                                    <IntegerExpression id="1814" litValue="0">
+                                        <dataType type="gaxml:object">
+                                            <TRealInteger id="1815" nBits="8"/>
+                                        </dataType>
+                                    </IntegerExpression>
+                                </value>
+                            </ExpressionValue>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="115" positionY="178" sizeX="35" sizeY="34"/>
+                </diagramInfo>
+            </SequentialBlock>
+            <CombinatorialBlock assignedPriority="21" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="43" id="1437" isVirtual="false" name="Add" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_z&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;CombinatorialBlock: name=Add&gt;" sampleTime="-1.0" type="Sum">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="1444" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2244"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="1445" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2184"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="1446" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2080"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="1440" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="1441" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1442" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="1443" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1438" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="1439" value="++"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="315" positionY="91" sizeX="30" sizeY="33"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="15" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="39" id="1447" isVirtual="false" name="Multiply" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_z&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;CombinatorialBlock: name=Multiply&gt;" sampleTime="-1.0" type="Product">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="1456" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2136"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="1457" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2152"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="1458" portNumber="3" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2243"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="1459" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2069"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="1448" name="Multiplication">
+                        <value type="gaxml:object">
+                            <StringValue id="1449" value="Element-wise(.*)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1452" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="1453" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1454" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="1455" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1450" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="1451" value="***"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="240" positionY="83" sizeX="30" sizeY="34"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <CombinatorialBlock assignedPriority="34" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="38" id="1460" isVirtual="false" name="add_u_u_prev" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_z&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;CombinatorialBlock: name=add_u_u_prev&gt;" sampleTime="-1.0" type="Sum">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="1467" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2236"/>
+                        </dataType>
+                    </InDataPort>
+                    <InDataPort id="1468" portNumber="2" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2176"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="1469" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2067"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="1463" name="OutDataType">
+                        <value type="gaxml:object">
+                            <StringValue id="1464" value="fixdt(1,16,0)"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1465" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="1466" value="Inherit via internal rule"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1461" name="Inputs">
+                        <value type="gaxml:object">
+                            <StringValue id="1462" value="++"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="140" positionY="121" sizeX="30" sizeY="33"/>
+                </diagramInfo>
+            </CombinatorialBlock>
+            <SourceBlock assignedPriority="8" assignedPrioritySource="GrLoc" directFeedThrough="true" executionOrder="8" id="1470" isVirtual="false" name="half" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_z&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;SourceBlock: name=half&gt;" sampleTime="0.0" type="Constant">
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="1477" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2151"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="1471" name="Value">
+                        <value type="gaxml:object">
+                            <ExpressionValue id="1826">
+                                <value type="gaxml:object">
+                                    <RealExpression fractionalPart="5" id="1827" litValue="0.5">
+                                        <dataType type="gaxml:object">
+                                            <TRealDouble id="1828"/>
+                                        </dataType>
+                                    </RealExpression>
+                                </value>
+                            </ExpressionValue>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1473" name="OutDataTypeMode">
+                        <value type="gaxml:object">
+                            <StringValue id="1474" value="Inherit from 'Constant value'"/>
+                        </value>
+                    </BlockParameter>
+                    <BlockParameter id="1475" name="VectorParams1D">
+                        <value type="gaxml:object">
+                            <StringValue id="1476" value="on"/>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="140" positionY="65" sizeX="30" sizeY="30"/>
+                </diagramInfo>
+            </SourceBlock>
+            <SequentialBlock assignedPriority="38" assignedPrioritySource="GrLoc" directFeedThrough="false" executionOrder="14" id="1478" isVirtual="false" name="u_prev" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_z&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;SequentialBlock: name=u_prev&gt;" sampleTime="-1.0" type="UnitDelay">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="1481" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2235"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="1482" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2175"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="1479" name="InitialValue">
+                        <value type="gaxml:object">
+                            <ExpressionValue id="1829">
+                                <value type="gaxml:object">
+                                    <IntegerExpression id="1830" litValue="0">
+                                        <dataType type="gaxml:object">
+                                            <TRealInteger id="1831" nBits="8"/>
+                                        </dataType>
+                                    </IntegerExpression>
+                                </value>
+                            </ExpressionValue>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="75" positionY="148" sizeX="35" sizeY="34"/>
+                </diagramInfo>
+            </SequentialBlock>
+            <SequentialBlock assignedPriority="42" assignedPrioritySource="GrLoc" directFeedThrough="false" executionOrder="18" id="1483" isVirtual="false" name="y_prev" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_z&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;SequentialBlock: name=y_prev&gt;" sampleTime="-1.0" type="UnitDelay">
+                <inDataPorts type="gaxml:collection">
+                    <InDataPort id="1486" portNumber="1" relatedToInportBlock="true">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2252"/>
+                        </dataType>
+                    </InDataPort>
+                </inDataPorts>
+                <outDataPorts type="gaxml:collection">
+                    <OutDataPort id="1487" portNumber="1">
+                        <dataType type="gaxml:object">
+                            <TRealDouble id="2183"/>
+                        </dataType>
+                    </OutDataPort>
+                </outDataPorts>
+                <parameters type="gaxml:collection">
+                    <BlockParameter id="1484" name="InitialValue">
+                        <value type="gaxml:object">
+                            <ExpressionValue id="1832">
+                                <value type="gaxml:object">
+                                    <IntegerExpression id="1833" litValue="0">
+                                        <dataType type="gaxml:object">
+                                            <TRealInteger id="1834" nBits="8"/>
+                                        </dataType>
+                                    </IntegerExpression>
+                                </value>
+                            </ExpressionValue>
+                        </value>
+                    </BlockParameter>
+                </parameters>
+                <diagramInfo type="gaxml:object">
+                    <DiagramInfo positionX="310" positionY="148" sizeX="35" sizeY="34"/>
+                </diagramInfo>
+            </SequentialBlock>
+        </blocks>
+        <signals type="gaxml:collection">
+            <Signal id="1582" name="y_psi" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;Signal: name=y_psi&gt;">
+                <srcPort type="gaxml:pointer">850</srcPort>
+                <dstPort type="gaxml:pointer">208</dstPort>
+            </Signal>
+            <Signal id="1583" name="y_theta" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;Signal: name=y_theta&gt;">
+                <srcPort type="gaxml:pointer">1185</srcPort>
+                <dstPort type="gaxml:pointer">207</dstPort>
+            </Signal>
+            <Signal id="1589" name="y_phi" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;Signal: name=y_phi&gt;">
+                <srcPort type="gaxml:pointer">515</srcPort>
+                <dstPort type="gaxml:pointer">206</dstPort>
+            </Signal>
+            <Signal id="1595" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">11</srcPort>
+                <dstPort type="gaxml:pointer">1563</dstPort>
+            </Signal>
+            <Signal id="1596" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">11</srcPort>
+                <dstPort type="gaxml:pointer">1557</dstPort>
+            </Signal>
+            <Signal id="1597" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">1564</srcPort>
+                <dstPort type="gaxml:pointer">1558</dstPort>
+            </Signal>
+            <Signal id="1598" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">21</srcPort>
+                <dstPort type="gaxml:pointer">35</dstPort>
+            </Signal>
+            <Signal id="1599" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">31</srcPort>
+                <dstPort type="gaxml:pointer">43</dstPort>
+            </Signal>
+            <Signal id="1620" name="y_z" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;Signal: name=y_z&gt;">
+                <srcPort type="gaxml:pointer">1520</srcPort>
+                <dstPort type="gaxml:pointer">205</dstPort>
+            </Signal>
+            <Signal id="1623" name="y" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;Signal: name=y&gt;">
+                <srcPort type="gaxml:pointer">209</srcPort>
+                <dstPort type="gaxml:pointer">1576</dstPort>
+            </Signal>
+            <Signal id="1882">
+                <srcPort type="gaxml:pointer">47</srcPort>
+                <dstPort type="gaxml:pointer">354</dstPort>
+            </Signal>
+            <Signal id="1883">
+                <srcPort type="gaxml:pointer">37</srcPort>
+                <dstPort type="gaxml:pointer">353</dstPort>
+            </Signal>
+            <Signal id="1884">
+                <srcPort type="gaxml:pointer">48</srcPort>
+                <dstPort type="gaxml:pointer">366</dstPort>
+            </Signal>
+            <Signal id="1885">
+                <srcPort type="gaxml:pointer">49</srcPort>
+                <dstPort type="gaxml:pointer">378</dstPort>
+            </Signal>
+            <Signal id="533" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_phi&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">355</srcPort>
+                <dstPort type="gaxml:pointer">365</dstPort>
+            </Signal>
+            <Signal id="534" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_phi&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">355</srcPort>
+                <dstPort type="gaxml:pointer">377</dstPort>
+            </Signal>
+            <Signal id="535" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_phi&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">355</srcPort>
+                <dstPort type="gaxml:pointer">512</dstPort>
+            </Signal>
+            <Signal id="540" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_phi&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">441</srcPort>
+                <dstPort type="gaxml:pointer">513</dstPort>
+            </Signal>
+            <Signal id="541" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_phi&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">310</srcPort>
+                <dstPort type="gaxml:pointer">514</dstPort>
+            </Signal>
+            <Signal id="1888">
+                <srcPort type="gaxml:pointer">379</srcPort>
+                <dstPort type="gaxml:pointer">324</dstPort>
+            </Signal>
+            <Signal id="1889">
+                <srcPort type="gaxml:pointer">379</srcPort>
+                <dstPort type="gaxml:pointer">318</dstPort>
+            </Signal>
+            <Signal id="1890">
+                <srcPort type="gaxml:pointer">1559</srcPort>
+                <dstPort type="gaxml:pointer">309</dstPort>
+            </Signal>
+            <Signal id="340" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_phi&gt;/&lt;SystemBlock: name=Derivative&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">325</srcPort>
+                <dstPort type="gaxml:pointer">319</dstPort>
+            </Signal>
+            <Signal id="341" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_phi&gt;/&lt;SystemBlock: name=Derivative&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">320</srcPort>
+                <dstPort type="gaxml:pointer">308</dstPort>
+            </Signal>
+            <Signal id="1891">
+                <srcPort type="gaxml:pointer">367</srcPort>
+                <dstPort type="gaxml:pointer">476</dstPort>
+            </Signal>
+            <Signal id="1892">
+                <srcPort type="gaxml:pointer">367</srcPort>
+                <dstPort type="gaxml:pointer">462</dstPort>
+            </Signal>
+            <Signal id="1893">
+                <srcPort type="gaxml:pointer">1559</srcPort>
+                <dstPort type="gaxml:pointer">451</dstPort>
+            </Signal>
+            <Signal id="497" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_phi&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">454</srcPort>
+                <dstPort type="gaxml:pointer">439</dstPort>
+            </Signal>
+            <Signal id="499" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_phi&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">441</srcPort>
+                <dstPort type="gaxml:pointer">481</dstPort>
+            </Signal>
+            <Signal id="500" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_phi&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">482</srcPort>
+                <dstPort type="gaxml:pointer">440</dstPort>
+            </Signal>
+            <Signal id="501" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_phi&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">477</srcPort>
+                <dstPort type="gaxml:pointer">463</dstPort>
+            </Signal>
+            <Signal id="502" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_phi&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">464</srcPort>
+                <dstPort type="gaxml:pointer">453</dstPort>
+            </Signal>
+            <Signal id="503" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_phi&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">472</srcPort>
+                <dstPort type="gaxml:pointer">452</dstPort>
+            </Signal>
+            <Signal id="1894">
+                <srcPort type="gaxml:pointer">53</srcPort>
+                <dstPort type="gaxml:pointer">689</dstPort>
+            </Signal>
+            <Signal id="1895">
+                <srcPort type="gaxml:pointer">39</srcPort>
+                <dstPort type="gaxml:pointer">688</dstPort>
+            </Signal>
+            <Signal id="1896">
+                <srcPort type="gaxml:pointer">54</srcPort>
+                <dstPort type="gaxml:pointer">701</dstPort>
+            </Signal>
+            <Signal id="1897">
+                <srcPort type="gaxml:pointer">55</srcPort>
+                <dstPort type="gaxml:pointer">713</dstPort>
+            </Signal>
+            <Signal id="868" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_psi&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">690</srcPort>
+                <dstPort type="gaxml:pointer">700</dstPort>
+            </Signal>
+            <Signal id="869" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_psi&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">690</srcPort>
+                <dstPort type="gaxml:pointer">712</dstPort>
+            </Signal>
+            <Signal id="870" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_psi&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">690</srcPort>
+                <dstPort type="gaxml:pointer">847</dstPort>
+            </Signal>
+            <Signal id="875" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_psi&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">776</srcPort>
+                <dstPort type="gaxml:pointer">848</dstPort>
+            </Signal>
+            <Signal id="876" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_psi&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">645</srcPort>
+                <dstPort type="gaxml:pointer">849</dstPort>
+            </Signal>
+            <Signal id="1900">
+                <srcPort type="gaxml:pointer">714</srcPort>
+                <dstPort type="gaxml:pointer">659</dstPort>
+            </Signal>
+            <Signal id="1901">
+                <srcPort type="gaxml:pointer">714</srcPort>
+                <dstPort type="gaxml:pointer">653</dstPort>
+            </Signal>
+            <Signal id="1902">
+                <srcPort type="gaxml:pointer">1559</srcPort>
+                <dstPort type="gaxml:pointer">644</dstPort>
+            </Signal>
+            <Signal id="675" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_psi&gt;/&lt;SystemBlock: name=Derivative&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">660</srcPort>
+                <dstPort type="gaxml:pointer">654</dstPort>
+            </Signal>
+            <Signal id="676" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_psi&gt;/&lt;SystemBlock: name=Derivative&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">655</srcPort>
+                <dstPort type="gaxml:pointer">643</dstPort>
+            </Signal>
+            <Signal id="1903">
+                <srcPort type="gaxml:pointer">702</srcPort>
+                <dstPort type="gaxml:pointer">811</dstPort>
+            </Signal>
+            <Signal id="1904">
+                <srcPort type="gaxml:pointer">702</srcPort>
+                <dstPort type="gaxml:pointer">797</dstPort>
+            </Signal>
+            <Signal id="1905">
+                <srcPort type="gaxml:pointer">1559</srcPort>
+                <dstPort type="gaxml:pointer">786</dstPort>
+            </Signal>
+            <Signal id="832" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_psi&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">789</srcPort>
+                <dstPort type="gaxml:pointer">774</dstPort>
+            </Signal>
+            <Signal id="834" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_psi&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">776</srcPort>
+                <dstPort type="gaxml:pointer">816</dstPort>
+            </Signal>
+            <Signal id="835" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_psi&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">817</srcPort>
+                <dstPort type="gaxml:pointer">775</dstPort>
+            </Signal>
+            <Signal id="836" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_psi&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">812</srcPort>
+                <dstPort type="gaxml:pointer">798</dstPort>
+            </Signal>
+            <Signal id="837" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_psi&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">799</srcPort>
+                <dstPort type="gaxml:pointer">788</dstPort>
+            </Signal>
+            <Signal id="838" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_psi&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">807</srcPort>
+                <dstPort type="gaxml:pointer">787</dstPort>
+            </Signal>
+            <Signal id="1906">
+                <srcPort type="gaxml:pointer">50</srcPort>
+                <dstPort type="gaxml:pointer">1024</dstPort>
+            </Signal>
+            <Signal id="1907">
+                <srcPort type="gaxml:pointer">38</srcPort>
+                <dstPort type="gaxml:pointer">1023</dstPort>
+            </Signal>
+            <Signal id="1908">
+                <srcPort type="gaxml:pointer">51</srcPort>
+                <dstPort type="gaxml:pointer">1036</dstPort>
+            </Signal>
+            <Signal id="1909">
+                <srcPort type="gaxml:pointer">52</srcPort>
+                <dstPort type="gaxml:pointer">1048</dstPort>
+            </Signal>
+            <Signal id="1203" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_theta&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">1025</srcPort>
+                <dstPort type="gaxml:pointer">1035</dstPort>
+            </Signal>
+            <Signal id="1204" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_theta&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">1025</srcPort>
+                <dstPort type="gaxml:pointer">1047</dstPort>
+            </Signal>
+            <Signal id="1205" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_theta&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">1025</srcPort>
+                <dstPort type="gaxml:pointer">1182</dstPort>
+            </Signal>
+            <Signal id="1210" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_theta&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">1111</srcPort>
+                <dstPort type="gaxml:pointer">1183</dstPort>
+            </Signal>
+            <Signal id="1211" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_theta&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">980</srcPort>
+                <dstPort type="gaxml:pointer">1184</dstPort>
+            </Signal>
+            <Signal id="1912">
+                <srcPort type="gaxml:pointer">1049</srcPort>
+                <dstPort type="gaxml:pointer">994</dstPort>
+            </Signal>
+            <Signal id="1913">
+                <srcPort type="gaxml:pointer">1049</srcPort>
+                <dstPort type="gaxml:pointer">988</dstPort>
+            </Signal>
+            <Signal id="1914">
+                <srcPort type="gaxml:pointer">1559</srcPort>
+                <dstPort type="gaxml:pointer">979</dstPort>
+            </Signal>
+            <Signal id="1010" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_theta&gt;/&lt;SystemBlock: name=Derivative&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">995</srcPort>
+                <dstPort type="gaxml:pointer">989</dstPort>
+            </Signal>
+            <Signal id="1011" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_theta&gt;/&lt;SystemBlock: name=Derivative&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">990</srcPort>
+                <dstPort type="gaxml:pointer">978</dstPort>
+            </Signal>
+            <Signal id="1915">
+                <srcPort type="gaxml:pointer">1037</srcPort>
+                <dstPort type="gaxml:pointer">1146</dstPort>
+            </Signal>
+            <Signal id="1916">
+                <srcPort type="gaxml:pointer">1037</srcPort>
+                <dstPort type="gaxml:pointer">1132</dstPort>
+            </Signal>
+            <Signal id="1917">
+                <srcPort type="gaxml:pointer">1559</srcPort>
+                <dstPort type="gaxml:pointer">1121</dstPort>
+            </Signal>
+            <Signal id="1167" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_theta&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">1124</srcPort>
+                <dstPort type="gaxml:pointer">1109</dstPort>
+            </Signal>
+            <Signal id="1169" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_theta&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">1111</srcPort>
+                <dstPort type="gaxml:pointer">1151</dstPort>
+            </Signal>
+            <Signal id="1170" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_theta&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">1152</srcPort>
+                <dstPort type="gaxml:pointer">1110</dstPort>
+            </Signal>
+            <Signal id="1171" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_theta&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">1147</srcPort>
+                <dstPort type="gaxml:pointer">1133</dstPort>
+            </Signal>
+            <Signal id="1172" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_theta&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">1134</srcPort>
+                <dstPort type="gaxml:pointer">1123</dstPort>
+            </Signal>
+            <Signal id="1173" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_theta&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">1142</srcPort>
+                <dstPort type="gaxml:pointer">1122</dstPort>
+            </Signal>
+            <Signal id="1918">
+                <srcPort type="gaxml:pointer">44</srcPort>
+                <dstPort type="gaxml:pointer">1359</dstPort>
+            </Signal>
+            <Signal id="1919">
+                <srcPort type="gaxml:pointer">36</srcPort>
+                <dstPort type="gaxml:pointer">1358</dstPort>
+            </Signal>
+            <Signal id="1920">
+                <srcPort type="gaxml:pointer">45</srcPort>
+                <dstPort type="gaxml:pointer">1371</dstPort>
+            </Signal>
+            <Signal id="1921">
+                <srcPort type="gaxml:pointer">46</srcPort>
+                <dstPort type="gaxml:pointer">1383</dstPort>
+            </Signal>
+            <Signal id="1538" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_z&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">1360</srcPort>
+                <dstPort type="gaxml:pointer">1370</dstPort>
+            </Signal>
+            <Signal id="1539" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_z&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">1360</srcPort>
+                <dstPort type="gaxml:pointer">1382</dstPort>
+            </Signal>
+            <Signal id="1540" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_z&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">1360</srcPort>
+                <dstPort type="gaxml:pointer">1517</dstPort>
+            </Signal>
+            <Signal id="1545" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_z&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">1446</srcPort>
+                <dstPort type="gaxml:pointer">1518</dstPort>
+            </Signal>
+            <Signal id="1546" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_z&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">1315</srcPort>
+                <dstPort type="gaxml:pointer">1519</dstPort>
+            </Signal>
+            <Signal id="1924">
+                <srcPort type="gaxml:pointer">1384</srcPort>
+                <dstPort type="gaxml:pointer">1329</dstPort>
+            </Signal>
+            <Signal id="1925">
+                <srcPort type="gaxml:pointer">1384</srcPort>
+                <dstPort type="gaxml:pointer">1323</dstPort>
+            </Signal>
+            <Signal id="1926">
+                <srcPort type="gaxml:pointer">1559</srcPort>
+                <dstPort type="gaxml:pointer">1314</dstPort>
+            </Signal>
+            <Signal id="1345" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_z&gt;/&lt;SystemBlock: name=Derivative&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">1330</srcPort>
+                <dstPort type="gaxml:pointer">1324</dstPort>
+            </Signal>
+            <Signal id="1346" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_z&gt;/&lt;SystemBlock: name=Derivative&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">1325</srcPort>
+                <dstPort type="gaxml:pointer">1313</dstPort>
+            </Signal>
+            <Signal id="1927">
+                <srcPort type="gaxml:pointer">1372</srcPort>
+                <dstPort type="gaxml:pointer">1481</dstPort>
+            </Signal>
+            <Signal id="1928">
+                <srcPort type="gaxml:pointer">1372</srcPort>
+                <dstPort type="gaxml:pointer">1467</dstPort>
+            </Signal>
+            <Signal id="1929">
+                <srcPort type="gaxml:pointer">1559</srcPort>
+                <dstPort type="gaxml:pointer">1456</dstPort>
+            </Signal>
+            <Signal id="1502" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_z&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">1459</srcPort>
+                <dstPort type="gaxml:pointer">1444</dstPort>
+            </Signal>
+            <Signal id="1504" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_z&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">1446</srcPort>
+                <dstPort type="gaxml:pointer">1486</dstPort>
+            </Signal>
+            <Signal id="1505" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_z&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">1487</srcPort>
+                <dstPort type="gaxml:pointer">1445</dstPort>
+            </Signal>
+            <Signal id="1506" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_z&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">1482</srcPort>
+                <dstPort type="gaxml:pointer">1468</dstPort>
+            </Signal>
+            <Signal id="1507" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_z&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">1469</srcPort>
+                <dstPort type="gaxml:pointer">1458</dstPort>
+            </Signal>
+            <Signal id="1508" originalFullName="&lt;SystemBlock: name=PIDcontroller&gt;/&lt;SystemBlock: name=PID_z&gt;/&lt;SystemBlock: name=Intergrator&gt;/&lt;Signal: name=&gt;">
+                <srcPort type="gaxml:pointer">1477</srcPort>
+                <dstPort type="gaxml:pointer">1457</dstPort>
+            </Signal>
+        </signals>
+        <style type="gaxml:object">
+            <FunctionStyle name="FUNCTION" type="gaxml:enum"/>
+        </style>
+        <inDataPorts type="gaxml:collection">
+            <InDataPort id="1850" name="t" portNumber="1" relatedToInportBlock="true">
+                <dataType type="gaxml:object">
+                    <TRealDouble id="1851"/>
+                </dataType>
+                <sourceBlock type="gaxml:pointer">2</sourceBlock>
+            </InDataPort>
+            <InDataPort id="1852" name="e" portNumber="2" relatedToInportBlock="true">
+                <dataType type="gaxml:object">
+                    <TRealDouble id="1853"/>
+                </dataType>
+                <sourceBlock type="gaxml:pointer">12</sourceBlock>
+            </InDataPort>
+            <InDataPort id="1854" name="gains" portNumber="3" relatedToInportBlock="true">
+                <dataType type="gaxml:object">
+                    <TRealDouble id="1855"/>
+                </dataType>
+                <sourceBlock type="gaxml:pointer">22</sourceBlock>
+            </InDataPort>
+        </inDataPorts>
+        <outDataPorts type="gaxml:collection">
+            <OutDataPort id="1856" name="y" portNumber="1">
+                <dataType type="gaxml:object">
+                    <TArray id="2281">
+                        <baseType type="gaxml:object">
+                            <TRealDouble id="2282"/>
+                        </baseType>
+                        <dimensions type="gaxml:collection">
+                            <IntegerExpression id="2283" integerPart="4" litValue="4">
+                                <dataType type="gaxml:object">
+                                    <TRealInteger id="2284" nBits="8"/>
+                                </dataType>
+                            </IntegerExpression>
+                        </dimensions>
+                    </TArray>
+                </dataType>
+                <initialOutput type="gaxml:object">
+                    <ExpressionValue id="1857"/>
+                </initialOutput>
+                <sourceBlock type="gaxml:pointer">1565</sourceBlock>
+            </OutDataPort>
+        </outDataPorts>
+        <diagramInfo type="gaxml:object">
+            <DiagramInfo positionX="0" positionY="0"/>
+        </diagramInfo>
+    </SystemBlock>
+</GASystemModel>
