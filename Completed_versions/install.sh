@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This script assumes you are using Bash.
-
+start=$(pwd)
 # Copy libmaple to root
 cp -R libmaple ~
 sudo chmod +x ~/libmaple/arm/bin/*
@@ -43,10 +43,11 @@ sudo apt-get install libusb
 cd ~/Desktop/
 wget http://static.leaflabs.com/pub/leaflabs/maple-ide/maple-ide-0.0.12-linux32.tgz
 tar xzfv maple-ide-0.0.12-linux32.tgz
+rm maple-ide-0.0.12-linux32.tgz
 cd maple-ide-v0.0.12
 ./install-udev-rules.sh
 sudo adduser $USER plugdev
-
+cd $start
 # Perform autotest
 echo "Performing build and fly test."
 sleep 4
