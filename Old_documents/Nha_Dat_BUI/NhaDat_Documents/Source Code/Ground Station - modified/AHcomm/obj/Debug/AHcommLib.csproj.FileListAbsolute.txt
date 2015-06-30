@@ -1,0 +1,10 @@
+C:\Users\Augustine\Documents\Visual Studio 2013\Projects\AugustineProject\AHcomm\bin\Debug\AHcomm.dll
+C:\Users\Augustine\Documents\Visual Studio 2013\Projects\AugustineProject\AHcomm\bin\Debug\AHcomm.pdb
+C:\Users\Augustine\Documents\Visual Studio 2013\Projects\AugustineProject\AHcomm\obj\Debug\AHcommLib.csprojResolveAssemblyReference.cache
+C:\Users\Augustine\Documents\Visual Studio 2013\Projects\AugustineProject\AHcomm\obj\Debug\AHcomm.dll
+C:\Users\Augustine\Documents\Visual Studio 2013\Projects\AugustineProject\AHcomm\obj\Debug\AHcomm.pdb
+E:\User Data\Documents\Visual Studio 2013\Projects\AugustineProject\AHcomm\bin\Debug\AHcomm.dll
+E:\User Data\Documents\Visual Studio 2013\Projects\AugustineProject\AHcomm\bin\Debug\AHcomm.pdb
+E:\User Data\Documents\Visual Studio 2013\Projects\AugustineProject\AHcomm\obj\Debug\AHcommLib.csprojResolveAssemblyReference.cache
+E:\User Data\Documents\Visual Studio 2013\Projects\AugustineProject\AHcomm\obj\Debug\AHcomm.dll
+E:\User Data\Documents\Visual Studio 2013\Projects\AugustineProject\AHcomm\obj\Debug\AHcomm.pdb
