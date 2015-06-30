@@ -31,6 +31,22 @@ if [[ "$?" ]]
     sudo apt-get update
     sudo apt-get install libc6:i386 libncurses5:i386 libstdc++6:i386
 fi
+
+#Install Java
+
+sudo apt-get install openjdk-7-jre
+sudp apt-get install openjdk-7-jdk
+
+#Install MapleIDE
+#According to http://leaflabs.com/docs/ide.html
+sudo apt-get install libusb
+cd ~/Desktop/
+wget http://static.leaflabs.com/pub/leaflabs/maple-ide/maple-ide-0.0.12-linux32.tgz
+tar xzfv maple-ide-0.0.12-linux32.tgz
+cd maple-ide-v0.0.12
+./install-udev-rules.sh
+sudo adduser $USER plugdev
+
 # Perform autotest
 echo "Performing build and fly test."
 sleep 4
