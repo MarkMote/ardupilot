@@ -6,7 +6,7 @@
  # The communication port used to communicate with the Flymaple
  PORT = /dev/ttyACM0
  # You must provide the path to the libmaple library directory:
- LIBMAPLE_PATH = $(HOME)/Learning_ArduPilot/libmaple
+ LIBMAPLE_PATH = $(HOME)/libmaple
  # Also, the ARM compiler tools MUST be in your current PATH like:
  # export PATH=$PATH:~/Learning_ArduPilot/libmaple/arm/bin
  #config.mk END
