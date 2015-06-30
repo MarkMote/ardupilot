@@ -1,4 +1,4 @@
-// BUILDROOT=/home/gustavo/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/tmp/ArduCopter.build HAL_BOARD=HAL_BOARD_AVR_SITL HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_NONE TOOLCHAIN=NATIVE EXTRAFLAGS=-DGIT_VERSION="023ebf98"
+// BUILDROOT=/home/gustavo/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/tmp/ArduCopter.build HAL_BOARD=HAL_BOARD_AVR_SITL HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_NONE TOOLCHAIN=NATIVE EXTRAFLAGS=-DGIT_VERSION="af39e725"
 #line 1 "/home/gustavo/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/ArduCopter.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
