@@ -1,9 +1,0 @@
---- Gene-Auto input model metrics --- 
-
-
-* Input Model * 
-
-Input model : PIDcontroller.mdl
-Number of blocks : 182
-Number of signals : 179
-Number of hierarchical levels : 3
