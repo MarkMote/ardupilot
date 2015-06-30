@@ -1,0 +1,181 @@
+[INFO][GALauncherImpl] (GI0001) 15-02-25 16:31:42.821 Gene-Auto toolset ver 2.4.10 01/05/2013 started at 25/02/2015 16:31:42.820
+[INFO]		 command line: test\PIDcontroller.mdl 
+[INFO][FileUtil.cleanFolder] (GI0010) 15-02-25 16:31:42.822 Successfully cleaned folder "E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga\tmp".
+[INFO][FileUtil.cleanFolder] (GI0010) 15-02-25 16:31:42.824 Successfully cleaned folder "E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga\tmp".
+[INFO][FileUtil.cleanFolder] (GI0010) 15-02-25 16:31:42.827 Successfully cleaned folder "E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga".
+[INFO][TSimulinkImporter] (GI0002) 15-02-25 16:31:43.061 
+[INFO]	
+[INFO]	Elementary tool ver. 2.4.10 01/05/2013 started at 25/02/2015 16:31:43.061
+[INFO]		 (command line: E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller.mdl -o E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga\tmp\1-PIDcontroller_slim.gsm.xml )
+[INFO][TSimulinkImporter] (GI0005) 15-02-25 16:31:43.062 Entering state Initialising
+[INFO][TSimulinkImporter] (GI0007) 15-02-25 16:31:44.443 Time in state: 00:00:01.379(state Initialising)
+[INFO][TSimulinkImporter] (GI0005) 15-02-25 16:31:44.444 Entering state Parsing MDL
+[INFO][TSimulinkImporter] (GI0007) 15-02-25 16:31:44.526 Time in state: 00:00:00.082(state Parsing MDL)
+[INFO][TSimulinkImporter] (GI0005) 15-02-25 16:31:44.527 Entering state Compiling complexity report
+[INFO][TSimulinkImporter] () 15-02-25 16:31:44.581 Model complexity has been analysed
+[INFO][TSimulinkImporter] (GI0007) 15-02-25 16:31:44.582 Time in state: 00:00:00.054(state Compiling complexity report)
+[INFO][TSimulinkImporter] (GI0005) 15-02-25 16:31:44.583 Entering state BuildingSM
+[INFO][TSimulinkImporter] (GI0007) 15-02-25 16:31:44.761 Time in state: 00:00:00.177(state BuildingSM)
+[INFO][TSimulinkImporter] (GI0005) 15-02-25 16:31:44.763 Entering state Checking multi-rate configuration
+[INFO][TSimulinkImporter] (GI0007) 15-02-25 16:31:44.764 Time in state: 00:00:00.000(state Checking multi-rate configuration)
+[INFO][TSimulinkImporter] (GI0005) 15-02-25 16:31:44.765 Entering state ParsingEml
+[INFO][TSimulinkImporter] (GI0007) 15-02-25 16:31:44.929 Time in state: 00:00:00.162(state ParsingEml)
+[INFO][TSimulinkImporter] (GI0007) 15-02-25 16:31:44.957 Time in state: 00:00:00.191(state TSIResolvingNameReference)
+[INFO][TSimulinkImporter] (GI0005) 15-02-25 16:31:44.958 Entering state Saving Functional Model
+[INFO][TSimulinkImporter] (GI0007) 15-02-25 16:31:45.988 Time in state: 00:00:01.029(state Saving Functional Model)
+[INFO][TSimulinkImporter] (GI0003) 15-02-25 16:31:45.990 Completed at 25/02/2015 16:31:45.990 (execution time 00:00:02.928)
+[INFO]	-------------------------------------
+[INFO]	
+[INFO]	
+[INFO][TFMPreprocessor] (GI0002) 15-02-25 16:31:46.001 
+[INFO]	
+[INFO]	Elementary tool ver. 2.4.10 01/05/2013 started at 25/02/2015 16:31:46.001
+[INFO]		 (command line: E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga\tmp\1-PIDcontroller_slim.gsm.xml -o E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga\tmp\2-PIDcontroller_fmpr.gsm.xml )
+[INFO][TFMPreprocessor] (GI0005) 15-02-25 16:31:46.005 Entering state Initializing
+[INFO][TFMPreprocessor] (GI0007) 15-02-25 16:31:46.433 Time in state: 00:00:00.426(state Initializing)
+[INFO][TFMPreprocessor] (GI0005) 15-02-25 16:31:46.434 Entering state HandlePorts
+[INFO][TFMPreprocessor] (GI0007) 15-02-25 16:31:46.449 Time in state: 00:00:00.015(state HandlePorts)
+[INFO][TFMPreprocessor] (GI0005) 15-02-25 16:31:46.450 Entering state ReplacingGenericBlocks
+[INFO][TFMPreprocessor] (GI0007) 15-02-25 16:31:46.454 Time in state: 00:00:00.003(state ReplacingGenericBlocks)
+[INFO][TFMPreprocessor] (GI0005) 15-02-25 16:31:46.456 Entering state CheckingGenericBlocks
+[INFO][TFMPreprocessor] (GI0007) 15-02-25 16:31:46.460 Time in state: 00:00:00.003(state CheckingGenericBlocks)
+[INFO][TFMPreprocessor] (GI0005) 15-02-25 16:31:46.463 Entering state ExecuteBlockPreprocessors
+[INFO][TFMPreprocessor] (GI0007) 15-02-25 16:31:46.493 Time in state: 00:00:00.028(state ExecuteBlockPreprocessors)
+[INFO][TFMPreprocessor] (GI0005) 15-02-25 16:31:46.493 Entering state ResolvingNameReference
+[INFO][TFMPreprocessor] (GI0007) 15-02-25 16:31:46.497 Time in state: 00:00:00.003(state ResolvingNameReference)
+[INFO][TFMPreprocessor] (GI0005) 15-02-25 16:31:46.498 Entering state ExpandingVirtualSubSystems
+[INFO][TFMPreprocessor] (GI0007) 15-02-25 16:31:46.516 Time in state: 00:00:00.017(state ExpandingVirtualSubSystems)
+[INFO][TFMPreprocessor] (GI0005) 15-02-25 16:31:46.517 Entering state TestingAlgebraicLoops
+[INFO][TFMPreprocessor] (GI0007) 15-02-25 16:31:46.520 Time in state: 00:00:00.002(state TestingAlgebraicLoops)
+[INFO][TFMPreprocessor] (GI0005) 15-02-25 16:31:46.521 Entering state AssignPriorities
+[INFO][TFMPreprocessor] (GI0007) 15-02-25 16:31:46.523 Time in state: 00:00:00.001(state AssignPriorities)
+[INFO][TFMPreprocessor] (GI0005) 15-02-25 16:31:46.525 Entering state SavingModel
+[INFO][TFMPreprocessor] (GI0007) 15-02-25 16:31:46.886 Time in state: 00:00:00.359(state SavingModel)
+[INFO][TFMPreprocessor] (GI0003) 15-02-25 16:31:46.886 Completed at 25/02/2015 16:31:46.886 (execution time 00:00:00.881)
+[INFO]	-------------------------------------
+[INFO]	
+[INFO]	
+[INFO][TStateflowImporter] (GI0002) 15-02-25 16:31:46.953 
+[INFO]	
+[INFO]	Elementary tool ver. 2.4.10 01/05/2013 started at 25/02/2015 16:31:46.953
+[INFO]		 (command line: E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller.mdl --iSM E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga\tmp\2-PIDcontroller_fmpr.gsm.xml -o E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga\tmp\3-PIDcontroller_sfim.gsm.xml )
+[INFO][TStateflowImporter] (GI0005) 15-02-25 16:31:46.955 Entering state Initializing
+[INFO][TStateflowImporter] (GI0007) 15-02-25 16:31:47.249 Time in state: 00:00:00.294(state Initializing)
+[INFO][TStateflowImporter] (GI0003) 15-02-25 16:31:47.250 Completed at 25/02/2015 16:31:47.250 (execution time 00:00:00.296)
+[INFO]	-------------------------------------
+[INFO]	
+[INFO]	
+[INFO][TBlockSequencer_coq] (GI0002) 15-02-25 16:31:47.257 
+[INFO]	
+[INFO]	Elementary tool ver. 2.4.10 01/05/2013 started at 25/02/2015 16:31:47.257
+[INFO]		 (command line: E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga\tmp\2-PIDcontroller_fmpr.gsm.xml -o E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga\tmp\3-PIDcontroller_fmbs.gsm.xml )
+[INFO][TBlockSequencer_coq] (GI0005) 15-02-25 16:31:47.258 Entering state Initializing
+[INFO][TBlockSequencer_coq.TBlockSequencer] () 15-02-25 16:31:47.543 Found several external block sequencer, will use the first one found. The next one found is E:\Dai Hoc\PFE\geneauto2\/\bin\BlockSequencer-bytecode.exe
+[INFO][TBlockSequencer_coq] (GI0007) 15-02-25 16:31:47.547 Time in state: 00:00:00.287(state Initializing)
+[INFO][TBlockSequencer_coq] (GI0005) 15-02-25 16:31:47.547 Entering state Transforming
+[INFO][TBlockSequencer_coq] (GI0007) 15-02-25 16:31:47.775 Time in state: 00:00:00.227(state Transforming)
+[INFO][TBlockSequencer_coq] (GI0005) 15-02-25 16:31:47.777 Entering state SavingModel
+[INFO][TBlockSequencer_coq] (GI0007) 15-02-25 16:31:48.025 Time in state: 00:00:00.248(state SavingModel)
+[INFO][TBlockSequencer_coq] (GI0003) 15-02-25 16:31:48.026 Completed at 25/02/2015 16:31:48.026 (execution time 00:00:00.768)
+[INFO]	-------------------------------------
+[INFO]	
+[INFO]	
+[INFO][TTyper] (GI0002) 15-02-25 16:31:48.036 
+[INFO]	
+[INFO]	Elementary tool ver. 2.4.10 01/05/2013 started at 25/02/2015 16:31:48.036
+[INFO]		 (command line: E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga\tmp\3-PIDcontroller_fmbs.gsm.xml -o E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga\tmp\4-PIDcontroller_fmty.gsm.xml )
+[INFO][TTyper] (GI0005) 15-02-25 16:31:48.038 Entering state Initializing
+[INFO][TTyper] (GI0007) 15-02-25 16:31:48.272 Time in state: 00:00:00.234(state Initializing)
+[INFO][TTyper] (GI0005) 15-02-25 16:31:48.272 Entering state TypingModel
+[INFO][TTyper] (GI0007) 15-02-25 16:31:48.712 Time in state: 00:00:00.439(state TypingModel)
+[INFO][TTyper] (GI0005) 15-02-25 16:31:48.713 Entering state ValidatingModel
+[INFO][TTyper] (GI0007) 15-02-25 16:31:48.716 Time in state: 00:00:00.003(state ValidatingModel)
+[INFO][TTyper] (GI0005) 15-02-25 16:31:48.717 Entering state SavingModel
+[INFO][TTyper] (GI0007) 15-02-25 16:31:48.980 Time in state: 00:00:00.262(state SavingModel)
+[INFO][TTyper] (GI0003) 15-02-25 16:31:48.982 Completed at 25/02/2015 16:31:48.981 (execution time 00:00:00.943)
+[INFO]	-------------------------------------
+[INFO]	
+[INFO]	
+[INFO][TFMCodeModelGenerator] (GI0002) 15-02-25 16:31:48.997 
+[INFO]	
+[INFO]	Elementary tool ver. 2.4.10 01/05/2013 started at 25/02/2015 16:31:48.997
+[INFO]		 (command line: E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga\tmp\4-PIDcontroller_fmty.gsm.xml --oCM E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga\tmp\5-PIDcontroller_fmcg.gcm.xml --oSM E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga\tmp\5-PIDcontroller_fmcg.gsm.xml )
+[INFO][TFMCodeModelGenerator] (GI0005) 15-02-25 16:31:48.998 Entering state Initialising
+[INFO][TFMCodeModelGenerator] (GI0007) 15-02-25 16:31:49.270 Time in state: 00:00:00.272(state Initialising)
+[INFO][TFMCodeModelGenerator] (GI0005) 15-02-25 16:31:49.270 Entering state Pre-processing IO
+[INFO][TFMCodeModelGenerator] (GI0007) 15-02-25 16:31:49.272 Time in state: 00:00:00.001(state Pre-processing IO)
+[INFO][TFMCodeModelGenerator] (GI0005) 15-02-25 16:31:49.273 Entering state InitializeCodeModel
+[INFO][TFMCodeModelGenerator] (GI0007) 15-02-25 16:31:49.275 Time in state: 00:00:00.002(state InitializeCodeModel)
+[INFO][TFMCodeModelGenerator] (GI0005) 15-02-25 16:31:49.276 Entering state ConvertingModel
+[INFO][TFMCodeModelGenerator.CMGConvertingModelState] (GI0006) 15-02-25 16:31:49.892 Block types used in conversion from code model to system model :
+[INFO]	BlockType           BlockBackend / BlockTyper
+[INFO]	----------------------------------------------
+[INFO]	Mux                 geneauto.blocklibrary.backends.MuxBackend / geneauto.blocklibrary.typers.MuxTyper
+[INFO]	Inport              geneauto.blocklibrary.backends.InOutPortBackend / geneauto.blocklibrary.typers.InportTyper
+[INFO]	Demux               geneauto.blocklibrary.backends.DemuxBackend / geneauto.blocklibrary.typers.DemuxTyper
+[INFO]	SubSystem           geneauto.blocklibrary.backends.SubSystemImplBackend / geneauto.blocklibrary.typers.SystemTyper
+[INFO]	Outport             geneauto.blocklibrary.backends.InOutPortBackend / geneauto.blocklibrary.typers.SinkTyper
+[INFO]	Constant            geneauto.blocklibrary.backends.ConstantBackend / geneauto.blocklibrary.typers.ConstantTyper
+[INFO]	UnitDelay           geneauto.blocklibrary.backends.UnitDelayBackend / geneauto.blocklibrary.typers.UnitDelayTyper
+[INFO]	Product             geneauto.blocklibrary.backends.ProductBackend / geneauto.blocklibrary.typers.ProductTyper
+[INFO]	Sum                 geneauto.blocklibrary.backends.SumBackend / geneauto.blocklibrary.typers.SumTyper
+[INFO]	
+[INFO][TFMCodeModelGenerator] (GI0007) 15-02-25 16:31:49.893 Time in state: 00:00:00.617(state ConvertingModel)
+[INFO][TFMCodeModelGenerator] (GI0005) 15-02-25 16:31:49.894 Entering state Normalising CodeModel
+[INFO][TFMCodeModelGenerator] (GI0007) 15-02-25 16:31:50.012 Time in state: 00:00:00.118(state Normalising CodeModel)
+[INFO][TFMCodeModelGenerator] (GI0005) 15-02-25 16:31:50.013 Entering state Transforming IO
+[INFO][TFMCodeModelGenerator] (GI0007) 15-02-25 16:31:50.013 Time in state: 00:00:00.000(state Transforming IO)
+[INFO][TFMCodeModelGenerator] (GI0005) 15-02-25 16:31:50.014 Entering state ResolvingNameReference
+[INFO][TFMCodeModelGenerator] (GI0007) 15-02-25 16:31:50.021 Time in state: 00:00:00.006(state ResolvingNameReference)
+[INFO][TFMCodeModelGenerator] (GI0005) 15-02-25 16:31:50.022 Entering state Publishing Data Types
+[INFO][TFMCodeModelGenerator] (GI0007) 15-02-25 16:31:50.027 Time in state: 00:00:00.005(state Publishing Data Types)
+[INFO][TFMCodeModelGenerator] (GI0005) 15-02-25 16:31:50.029 Entering state SavingModel
+[INFO][TFMCodeModelGenerator] (GI0007) 15-02-25 16:31:50.848 Time in state: 00:00:00.818(state SavingModel)
+[INFO][TFMCodeModelGenerator] (GI0003) 15-02-25 16:31:50.849 Completed at 25/02/2015 16:31:50.849 (execution time 00:00:01.851)
+[INFO]	-------------------------------------
+[INFO]	
+[INFO]	
+[INFO][TCPrinter] (GI0002) 15-02-25 16:31:50.858 
+[INFO]	
+[INFO]	Elementary tool ver. 2.4.10 01/05/2013 started at 25/02/2015 16:31:50.858
+[INFO]		 (command line: E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga\tmp\5-PIDcontroller_fmcg.gcm.xml -O E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga )
+[INFO][TCPrinter] (GI0005) 15-02-25 16:31:50.859 Entering state Initialising
+[INFO][TCPrinter] (GI0007) 15-02-25 16:31:51.246 Time in state: 00:00:00.387(state Initialising)
+[INFO][TCPrinter] (GI0005) 15-02-25 16:31:51.246 Entering state Removing temporary elements
+[INFO][TCPrinter] (GI0007) 15-02-25 16:31:51.247 Time in state: 00:00:00.001(state Removing temporary elements)
+[INFO][TCPrinter] (GI0005) 15-02-25 16:31:51.247 Entering state Resolving observable variables
+[INFO][TCPrinter] (GI0007) 15-02-25 16:31:51.251 Time in state: 00:00:00.003(state Resolving observable variables)
+[INFO][TCPrinter] (GI0005) 15-02-25 16:31:51.252 Entering state Adapting CodeModel to C language
+[INFO][TCPrinter] (GI0007) 15-02-25 16:31:51.345 Time in state: 00:00:00.093(state Adapting CodeModel to C language)
+[INFO][TCPrinter] (GI0005) 15-02-25 16:31:51.346 Entering state NormalisingNames
+[INFO][TCPrinter] (GI0007) 15-02-25 16:31:51.363 Time in state: 00:00:00.017(state NormalisingNames)
+[INFO][TCPrinter] (GI0005) 15-02-25 16:31:51.364 Entering state Printing
+[INFO][TCPrinter] (CP0089) 15-02-25 16:31:51.594 Writing file: E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga\PIDcontroller.h
+[INFO][TCPrinter] (CP0089) 15-02-25 16:31:51.597 Writing file: E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga\PID_phi.h
+[INFO][TCPrinter] (CP0089) 15-02-25 16:31:51.599 Writing file: E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga\PID_psi.h
+[INFO][TCPrinter] (CP0089) 15-02-25 16:31:51.602 Writing file: E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga\PIDcontroller_types.h
+[INFO][TCPrinter] (CP0089) 15-02-25 16:31:51.604 Writing file: E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga\PID_theta.h
+[INFO][TCPrinter] (CP0089) 15-02-25 16:31:51.605 Writing file: E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga\PID_z.c
+[INFO][TCPrinter] (CP0089) 15-02-25 16:31:51.607 Writing file: E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga\PID_phi.c
+[INFO][TCPrinter] (CP0089) 15-02-25 16:31:51.609 Writing file: E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga\PID_theta.c
+[INFO][TCPrinter] (CP0089) 15-02-25 16:31:51.610 Writing file: E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga\PID_psi.c
+[INFO][TCPrinter] (CP0089) 15-02-25 16:31:51.612 Writing file: E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga\PIDcontroller.c
+[INFO][TCPrinter] (CP0089) 15-02-25 16:31:51.614 Writing file: E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga\PID_z.h
+[INFO][TCPrinter] (CP0089) 15-02-25 16:31:51.616 Writing file: E:\Dai Hoc\PFE\geneauto2\test\PIDcontroller_ga\GATypes.h
+[INFO][TCPrinter] () 15-02-25 16:31:51.622 Copying file: GACommon.h
+[INFO][TCPrinter] (GI0007) 15-02-25 16:31:51.622 Time in state: 00:00:00.258(state Printing)
+[INFO][TCPrinter] (GI0005) 15-02-25 16:31:51.623 Entering state WritingCodeModel
+[INFO][TCPrinter] (GI0007) 15-02-25 16:31:51.623 Time in state: 00:00:00.000(state WritingCodeModel)
+[INFO][TCPrinter] (GI0003) 15-02-25 16:31:51.624 Completed at 25/02/2015 16:31:51.624 (execution time 00:00:00.765)
+[INFO]	-------------------------------------
+[INFO]	
+[INFO]	
+[INFO][GALauncher] () 15-02-25 16:31:51.625 Gene-Auto Toolset Finished processing. at 25/02/2015 16:31:51.625, execution time 00:00:08.803
+[INFO][GALauncher] (GI000?) 15-02-25 16:31:51.626 TSimulinkImporter:          00:00:02.928
+[INFO][GALauncher] (GI000?) 15-02-25 16:31:51.626 TFMPreprocessor:            00:00:00.881
+[INFO][GALauncher] (GI000?) 15-02-25 16:31:51.627 TStateflowImporter:         00:00:00.296
+[INFO][GALauncher] (GI000?) 15-02-25 16:31:51.627 TBlockSequencer_coq:        00:00:00.768
+[INFO][GALauncher] (GI000?) 15-02-25 16:31:51.627 TTyper:                     00:00:00.943
+[INFO][GALauncher] (GI000?) 15-02-25 16:31:51.628 TFMCodeModelGenerator:      00:00:01.851
+[INFO][GALauncher] (GI000?) 15-02-25 16:31:51.628 TCPrinter:                  00:00:00.765
+[INFO][GALauncher] (GI000?) 15-02-25 16:31:51.629 Full toolset:               00:00:08.803

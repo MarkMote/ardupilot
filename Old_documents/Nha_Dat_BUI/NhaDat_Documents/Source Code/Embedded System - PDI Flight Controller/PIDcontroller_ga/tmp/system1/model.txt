@@ -1,0 +1,165 @@
+blocks 61
+block 1 combinatorial 0 1 0 2
+block 2 combinatorial 0 1 0 4
+block 3 combinatorial 0 1 0 16
+block 4 combinatorial 1 4 0 17
+block 5 combinatorial 1 12 0 59
+block 6 combinatorial 4 1 0 60
+block 7 combinatorial 2 1 0 1
+block 8 sequential 1 1 0 3
+block 9 combinatorial 1 0 0 61
+block 10 combinatorial 2 1 0 9
+block 11 combinatorial 2 1 0 23
+block 12 combinatorial 2 1 0 51
+block 13 combinatorial 3 1 0 26
+block 14 combinatorial 2 1 0 43
+block 15 combinatorial 2 1 0 47
+block 16 sequential 1 1 0 55
+block 17 combinatorial 2 1 0 18
+block 18 combinatorial 3 1 0 12
+block 19 combinatorial 2 1 0 31
+block 20 combinatorial 0 1 0 5
+block 21 sequential 1 1 0 35
+block 22 sequential 1 1 0 39
+block 23 combinatorial 2 1 0 10
+block 24 combinatorial 2 1 0 24
+block 25 combinatorial 2 1 0 52
+block 26 combinatorial 3 1 0 27
+block 27 combinatorial 2 1 0 44
+block 28 combinatorial 2 1 0 48
+block 29 sequential 1 1 0 56
+block 30 combinatorial 2 1 0 19
+block 31 combinatorial 3 1 0 13
+block 32 combinatorial 2 1 0 32
+block 33 combinatorial 0 1 0 6
+block 34 sequential 1 1 0 36
+block 35 sequential 1 1 0 40
+block 36 combinatorial 2 1 0 11
+block 37 combinatorial 2 1 0 25
+block 38 combinatorial 2 1 0 53
+block 39 combinatorial 3 1 0 28
+block 40 combinatorial 2 1 0 45
+block 41 combinatorial 2 1 0 49
+block 42 sequential 1 1 0 57
+block 43 combinatorial 2 1 0 20
+block 44 combinatorial 3 1 0 14
+block 45 combinatorial 2 1 0 33
+block 46 combinatorial 0 1 0 7
+block 47 sequential 1 1 0 37
+block 48 sequential 1 1 0 41
+block 49 combinatorial 2 1 0 22
+block 50 combinatorial 2 1 0 29
+block 51 combinatorial 2 1 0 54
+block 52 combinatorial 3 1 0 30
+block 53 combinatorial 2 1 0 46
+block 54 combinatorial 2 1 0 50
+block 55 sequential 1 1 0 58
+block 56 combinatorial 2 1 0 21
+block 57 combinatorial 3 1 0 15
+block 58 combinatorial 2 1 0 34
+block 59 combinatorial 0 1 0 8
+block 60 sequential 1 1 0 38
+block 61 sequential 1 1 0 42
+signals 102
+signal 1 data 26 6
+signal 2 data 39 6
+signal 3 data 13 6
+signal 4 data 1 8
+signal 5 data 1 7
+signal 6 data 8 7
+signal 7 data 2 4
+signal 8 data 3 5
+signal 9 data 52 6
+signal 10 data 6 9
+signal 11 data 5 10
+signal 12 data 4 10
+signal 13 data 5 11
+signal 14 data 5 12
+signal 15 data 10 11
+signal 16 data 10 12
+signal 17 data 10 13
+signal 18 data 17 13
+signal 19 data 14 13
+signal 20 data 12 16
+signal 21 data 12 15
+signal 22 data 7 14
+signal 23 data 16 15
+signal 24 data 15 14
+signal 25 data 11 21
+signal 26 data 11 19
+signal 27 data 7 18
+signal 28 data 18 17
+signal 29 data 17 22
+signal 30 data 22 17
+signal 31 data 21 19
+signal 32 data 19 18
+signal 33 data 20 18
+signal 34 data 5 23
+signal 35 data 4 23
+signal 36 data 5 24
+signal 37 data 5 25
+signal 38 data 23 24
+signal 39 data 23 25
+signal 40 data 23 26
+signal 41 data 30 26
+signal 42 data 27 26
+signal 43 data 25 29
+signal 44 data 25 28
+signal 45 data 7 27
+signal 46 data 29 28
+signal 47 data 28 27
+signal 48 data 24 34
+signal 49 data 24 32
+signal 50 data 7 31
+signal 51 data 31 30
+signal 52 data 30 35
+signal 53 data 35 30
+signal 54 data 34 32
+signal 55 data 32 31
+signal 56 data 33 31
+signal 57 data 5 36
+signal 58 data 4 36
+signal 59 data 5 37
+signal 60 data 5 38
+signal 61 data 36 37
+signal 62 data 36 38
+signal 63 data 36 39
+signal 64 data 43 39
+signal 65 data 40 39
+signal 66 data 38 42
+signal 67 data 38 41
+signal 68 data 7 40
+signal 69 data 42 41
+signal 70 data 41 40
+signal 71 data 37 47
+signal 72 data 37 45
+signal 73 data 7 44
+signal 74 data 44 43
+signal 75 data 43 48
+signal 76 data 48 43
+signal 77 data 47 45
+signal 78 data 45 44
+signal 79 data 46 44
+signal 80 data 5 49
+signal 81 data 4 49
+signal 82 data 5 50
+signal 83 data 5 51
+signal 84 data 49 50
+signal 85 data 49 51
+signal 86 data 49 52
+signal 87 data 56 52
+signal 88 data 53 52
+signal 89 data 51 55
+signal 90 data 51 54
+signal 91 data 7 53
+signal 92 data 55 54
+signal 93 data 54 53
+signal 94 data 50 60
+signal 95 data 50 58
+signal 96 data 7 57
+signal 97 data 57 56
+signal 98 data 56 61
+signal 99 data 61 56
+signal 100 data 60 58
+signal 101 data 58 57
+signal 102 data 59 57

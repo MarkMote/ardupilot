@@ -1,0 +1,77 @@
+blocks 29
+block 1 combinatorial 0 1 0 2
+block 2 combinatorial 0 1 0 5
+block 3 combinatorial 0 1 0 7
+block 4 combinatorial 1 4 0 8
+block 5 combinatorial 1 12 0 14
+block 6 combinatorial 1 0 0 9
+block 7 combinatorial 1 0 0 20
+block 8 combinatorial 1 0 0 22
+block 9 combinatorial 1 0 0 24
+block 10 combinatorial 1 0 0 25
+block 11 combinatorial 1 0 0 23
+block 12 combinatorial 1 0 0 27
+block 13 combinatorial 1 0 0 29
+block 14 combinatorial 1 0 0 26
+block 15 combinatorial 1 0 0 10
+block 16 combinatorial 1 0 0 3
+block 17 combinatorial 1 0 0 12
+block 18 combinatorial 1 0 0 11
+block 19 combinatorial 1 0 0 15
+block 20 combinatorial 1 0 0 16
+block 21 combinatorial 1 0 0 18
+block 22 combinatorial 4 1 0 17
+block 23 combinatorial 5 1 0 13
+block 24 combinatorial 5 1 0 28
+block 25 combinatorial 5 1 0 21
+block 26 combinatorial 5 1 0 6
+block 27 combinatorial 2 1 0 1
+block 28 sequential 1 1 0 4
+block 29 combinatorial 1 0 0 19
+signals 46
+signal 1 data 5 24
+signal 2 data 5 24
+signal 3 data 5 24
+signal 4 data 5 24
+signal 5 data 5 24
+signal 6 data 24 22
+signal 7 data 25 22
+signal 8 data 5 25
+signal 9 data 5 25
+signal 10 data 5 25
+signal 11 data 5 25
+signal 12 data 5 25
+signal 13 data 23 22
+signal 14 data 5 23
+signal 15 data 5 23
+signal 16 data 5 26
+signal 17 data 27 16
+signal 18 data 5 23
+signal 19 data 1 28
+signal 20 data 1 27
+signal 21 data 28 27
+signal 22 data 2 4
+signal 23 data 3 5
+signal 24 data 4 6
+signal 25 data 4 15
+signal 26 data 4 18
+signal 27 data 4 17
+signal 28 data 5 19
+signal 29 data 5 20
+signal 30 data 5 21
+signal 31 data 5 7
+signal 32 data 5 8
+signal 33 data 5 11
+signal 34 data 5 9
+signal 35 data 5 10
+signal 36 data 5 14
+signal 37 data 5 12
+signal 38 data 5 13
+signal 39 data 5 26
+signal 40 data 5 26
+signal 41 data 5 26
+signal 42 data 5 26
+signal 43 data 26 22
+signal 44 data 5 23
+signal 45 data 5 23
+signal 46 data 22 29

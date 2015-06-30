@@ -1,0 +1,4 @@
+C:\Users\Augustine\Documents\Visual Studio 2013\Projects\AugustineProject\AHcomm\bin\Debug\AHcomm.dll
+C:\Users\Augustine\Documents\Visual Studio 2013\Projects\AugustineProject\AHcomm\bin\Debug\AHcomm.pdb
+C:\Users\Augustine\Documents\Visual Studio 2013\Projects\AugustineProject\AHcomm\obj\Debug\AHcomm.dll
+C:\Users\Augustine\Documents\Visual Studio 2013\Projects\AugustineProject\AHcomm\obj\Debug\AHcomm.pdb
