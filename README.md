@@ -1,3 +1,10 @@
+# Installation
+
+Move to the Complete Versions folder and execute install.sh
+More instructions within.
+
+## Other
+
 This zip file and its documents related to the PFE project called
 "Implementing a Flight Controller for a Quadcopter"
 
@@ -7,6 +14,7 @@ There are some important notes about these documents:
 3. There are two group of folders related to ArduPilot in this zip file:
  - The original one, in case you can not use a newer version
  - The modifield one includes the instruction of the modifications and completed code which has been tested in simulation and ready for real tests
+
 
 Poitiers, June 29th 2015
 
