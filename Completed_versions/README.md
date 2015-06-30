@@ -22,4 +22,7 @@ The programming proceed uses the same procedure, however, wait for the correct t
     - REMEMBER TO COPY THE Libmaple WITH THE ArduPilot 
     - CHANGE THE PATH IN THE congfig.mk FILE BEFORE TRYING TO BUILD THE CODE   
     - The compile command will be "make clean; make flymaple-quad; make upload" respectively
-    
+
+## Libmaple installation
+    - The script install.sh will attempt to download all required dependencies for building the project. 
+
