@@ -1,0 +1,9 @@
+This is an automated test suite for APM
+Make sure py files are executable along with sh and pyc
+Also change the permissions in the pysim directory
+We seem to be using just this command
+
+./autotest.py build.ArduCopter fly.ArduCopter --map
+
+Sometimes we use a --viewerip=x.x.x.x flag but I think
+that requires mission planner or APM running somewhere else
