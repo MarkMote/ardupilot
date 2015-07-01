@@ -75,7 +75,7 @@ uint8 isButtonPressed(uint8 pin, uint32 pressedLevel) {
 }
 
 uint8 waitForButtonPress(uint32 timeout) {
-    uint32 start = millis2();
+    uint32 start = millis();
     uint32 time;
     if (timeout == 0) {
         while (!isButtonPressed())
@@ -83,7 +83,7 @@ uint8 waitForButtonPress(uint32 timeout) {
         return true;
     }
     do {
-        time = millis2();
+        time = millis();
         /* properly handle wrap-around */
         if ((start > time && time + (0xffffffffU - start) > timeout) ||
             time - start > timeout) {
