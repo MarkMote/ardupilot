@@ -66,7 +66,7 @@ void togglePin(uint8 pin) {
 
 uint8 isButtonPressed(uint8 pin, uint32 pressedLevel) {
     if (digitalRead(pin) == pressedLevel) {
-        delay(BUTTON_DEBOUNCE_DELAY);
+        delay2(BUTTON_DEBOUNCE_DELAY);
         while (digitalRead(pin) == pressedLevel)
             ;
         return true;
@@ -75,7 +75,7 @@ uint8 isButtonPressed(uint8 pin, uint32 pressedLevel) {
 }
 
 uint8 waitForButtonPress(uint32 timeout) {
-    uint32 start = millis();
+    uint32 start = millis2();
     uint32 time;
     if (timeout == 0) {
         while (!isButtonPressed())
@@ -83,7 +83,7 @@ uint8 waitForButtonPress(uint32 timeout) {
         return true;
     }
     do {
-        time = millis();
+        time = millis2();
         /* properly handle wrap-around */
         if ((start > time && time + (0xffffffffU - start) > timeout) ||
             time - start > timeout) {

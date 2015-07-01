@@ -1,10 +1,14 @@
 #!/bin/bash
 
 # This script assumes you are using Bash.
-
+start=$(pwd)
 # Copy libmaple to root
 cp -R libmaple ~
 sudo chmod +x ~/libmaple/arm/bin/*
+cd ~/libmaple
+make
+make install
+cd $start
 # Install packages required by SITL (Software in the loop simulation)
 sudo apt-get install python-matplotlib python-serial python-wxgtk2.8 python-lxml
 sudo apt-get install python-scipy python-opencv ccache gawk git python-pip python-pexpect
@@ -43,13 +47,17 @@ sudo apt-get install libusb
 cd ~/Desktop/
 wget http://static.leaflabs.com/pub/leaflabs/maple-ide/maple-ide-0.0.12-linux32.tgz
 tar xzfv maple-ide-0.0.12-linux32.tgz
+rm maple-ide-0.0.12-linux32.tgz
 cd maple-ide-v0.0.12
 ./install-udev-rules.sh
 sudo adduser $USER plugdev
+sudo apt-get install dfu-util
+cd $start
 
 # Perform autotest
-echo "Performing build and fly test."
+echo "Performing build test."
 sleep 4
 cd ardupilot_multi_controller/Tools/autotest/
-./autotest.py build.ArduCopter fly.ArduCopter 
+./autotest.py build.ArduCopter 
+
 
