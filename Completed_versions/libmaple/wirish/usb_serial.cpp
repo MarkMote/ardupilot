@@ -90,15 +90,15 @@ void USBSerial::write(const void *buf, uint32 len) {
 
     uint32 txed = 0;
     uint32 old_txed = 0;
-    uint32 start = millis();
+    uint32 start = millis2();
 
     uint32 sent = 0;
 
-    while (txed < len && (millis() - start < USB_TIMEOUT)) {
+    while (txed < len && (millis2() - start < USB_TIMEOUT)) {
         sent = usb_cdcacm_tx((const uint8*)buf + txed, len - txed);
         txed += sent;
         if (old_txed != txed) {
-            start = millis();
+            start = millis2();
         }
         old_txed = txed;
     }
