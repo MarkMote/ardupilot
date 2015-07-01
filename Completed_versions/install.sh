@@ -5,6 +5,10 @@ start=$(pwd)
 # Copy libmaple to root
 cp -R libmaple ~
 sudo chmod +x ~/libmaple/arm/bin/*
+cd ~/libmaple
+make
+make install
+cd $start
 # Install packages required by SITL (Software in the loop simulation)
 sudo apt-get install python-matplotlib python-serial python-wxgtk2.8 python-lxml
 sudo apt-get install python-scipy python-opencv ccache gawk git python-pip python-pexpect
@@ -49,10 +53,11 @@ cd maple-ide-v0.0.12
 sudo adduser $USER plugdev
 sudo apt-get install dfu-util
 cd $start
+
 # Perform autotest
-echo "Performing build and fly test."
+echo "Performing build test."
 sleep 4
 cd ardupilot_multi_controller/Tools/autotest/
-./autotest.py build.ArduCopter fly.ArduCopter 
+./autotest.py build.ArduCopter 
 
 
