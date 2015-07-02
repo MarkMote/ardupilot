@@ -1,6 +1,8 @@
-// BUILDROOT=/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/tmp/ArduCopter.build HAL_BOARD=HAL_BOARD_AVR_SITL HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_NONE TOOLCHAIN=NATIVE EXTRAFLAGS=-DGIT_VERSION="999710d0"
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/ArduCopter.pde"
+// BUILDROOT=/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/tmp/ArduCopter.build HAL_BOARD=HAL_BOARD_AVR_SITL HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_NONE TOOLCHAIN=NATIVE EXTRAFLAGS=-DGIT_VERSION="f33e7ac0"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/ArduCopter.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
+/// This version is used for calibrating and programming ESCs
+/// Modified by Anh Quang NGUYEN, June 29th 2015
 
 #define THISFIRMWARE "ArduCopter V3.3-dev"
 /*
@@ -84,6 +86,11 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include <stdlib.h>
+#include <string.h>
+#include "wirish/wirish.h" 
+
+
 
 // Common dependencies
 #include <AP_Common.h>
@@ -445,6 +452,7 @@
  static void esc_calibration_startup_check() ;
  static void esc_calibration_passthrough() ;
  static void esc_calibration_auto() ;
+  static void new_esc_calibration_auto() ;
  static void failsafe_radio_on_event() ;
  static void failsafe_radio_off_event() ;
   static void failsafe_battery_event(void) ;
@@ -568,7 +576,7 @@
  static bool should_log(uint32_t mask) ;
   static void print_hit_enter() ;
  static void tuning() ;
-#line 177 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/ArduCopter.pde"
+#line 184 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/ArduCopter.pde"
 static AP_Vehicle::MultiCopter aparm;
 
 // Local modules
@@ -1280,6 +1288,12 @@ static const AP_Scheduler::Task scheduler_tasks[] PROGMEM = {
 #endif
 
 Controllers using_controller;
+uint16_t PWM_signal;
+uint32_t old_time;
+uint32_t new_time;
+uint16_t count;
+uint8_t flag;
+Vector3f accel_value;
 
 void setup() 
 {
@@ -1291,6 +1305,9 @@ void setup()
 
     // setup storage layout for copter
     StorageManager::set_layout_copter();
+    
+    delay(5000);
+    
 
     init_ardupilot();
 
@@ -1302,9 +1319,14 @@ void setup()
     fast_loopTimer = hal.scheduler->micros();
     
     ///Name of the available controller can be found in Multi_Controller.h
-    using_controller = Original_PID_Controller;
+    using_controller = New_PID_Controller;
     if (using_controller != Original_PID_Controller)
         init_controller();
+     PWM_signal = 1000;
+     //set_auto_armed(true);
+     count = 0;
+     flag = 0;
+     accel_value = Vector3f(0,0,0);
 }
 
 /*
@@ -1371,13 +1393,15 @@ void loop()
     // call until scheduler.tick() is called again
     uint32_t time_available = (timer + MAIN_LOOP_MICROS) - micros();
     scheduler.run(time_available);
+    
+   
 }
 
+char c;
 
 // Main loop - 100hz
 static void fast_loop()
 {
-
     // IMU DCM Algorithm
     // --------------------
     read_AHRS();
@@ -1389,27 +1413,93 @@ static void fast_loop()
     update_heli_control_dynamics();
 #endif //HELI_FRAME
 
-    // send outputs to the motors library
-    //if (!motors.armed()) {
-        //
-    //}
-    
-    if (using_controller == Original_PID_Controller)
+///Calibration and programming part    
+    /*if(SerialUSB.available())
     {
-        motors_output();
-        if(!ap.auto_armed)
-        {
-            ap.auto_armed = true;
-        }    
+       PWM_signal = 1000;
     }
-    
+    else  PWM_signal = 2000;
+    motors.output_calibration(PWM_signal);*/
 
+///Control via SerialUSB part (Testing without controller) 
+    /*if(SerialUSB.available())
+    {
+      c = SerialUSB.read();
+      
+    }
+    if (c == 'a')
+    {
+      PWM_signal = 1000;
+    }
+    else if (c == 'b')
+    {
+      PWM_signal = 1000;    
+    }
+    else if (c == 'c')
+    {
+      PWM_signal = (1000+11);
+    }
+    else if (c == 'd')
+    {
+      PWM_signal = (1000+100);
+    }
+    else if (c == 'e')
+    {
+      PWM_signal = (1000+200);
+    }
+    else if (c == 'f')
+    {
+      PWM_signal = (1000+500);
+    }
+    else if (c == 'g')
+    {
+      PWM_signal = (1000+700);
+    }
+    else if (c == 'h')
+    {
+      PWM_signal = 2000;
+    }
+    else if (c == 'k')
+    {
+      PWM_signal = 2500;
+    
+    }
+    else  PWM_signal = 1000;*/
+    
+///Battery Test mode (Testing without propellers)
+    
+    /*if (control_mode == AUTO)
+    {
+        count ++;
+        if (count >500)
+        {
+           count = 0;
+           PWM_signal = PWM_signal + 100;
+        }
+        if (PWM_signal > 1800)
+        {
+           PWM_signal = 1100;
+           flag = flag + 1;
+        }    
+        if (flag == 2)
+        {
+            init_disarm_motors();
+        }
+        
+         motors.output_calibration(PWM_signal);
+    }
+    else 
+    {
+        motors.output_calibration(1000);
+        init_disarm_motors();
+    }*/    
+        
     // Inertial Nav
     // --------------------
     read_inertia();
 
     // run the attitude controllers
-    update_flight_mode();
+    //update_flight_mode();
 
 }
 
@@ -1538,6 +1628,7 @@ static void three_hz_loop()
     tuning();
 }
 
+uint8_t sample_count = 0;
 // one_hz_loop - runs at 1Hz
 static void one_hz_loop()
 {
@@ -1591,6 +1682,19 @@ static void one_hz_loop()
     }
 #endif
 
+    /*if (sample_count < 32)
+    {
+        accel_value += ins.get_accel(0);
+        sample_count ++;
+        SerialUSB.println("Getting sample");
+    }
+    else
+    {
+        SerialUSB.println("Finished getting sample");
+        SerialUSB.println(accel_value.x/sample_count);
+        SerialUSB.println(accel_value.y/sample_count);
+        SerialUSB.println(accel_value.z/sample_count);
+    }*/
 }
 
 
@@ -1752,27 +1856,13 @@ static void update_altitude()
 uint8_t rc_check_count = 0;
 static void new_rc_loop()
 {
-    if (!ap.pre_arm_rc_check)
-        {
-            if (millis()/1000.0 > 20.0)
-                rc_check_count ++;
-            if (rc_check_count > 100)
-            {
-                ap.pre_arm_rc_check = true;
-                gcs_send_text_fmt(PSTR("Ignoring pre_arm_rc_check \n"));
-            }
-        }
-    if (!ap.auto_armed && ap.pre_arm_rc_check && control_mode == AUTO)
-    {
-        ap.auto_armed = true;
-    }
     rc_loop();
 }
 
 
 AP_HAL_MAIN();
 
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/AP_State.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/AP_State.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // set_home_state - update home state
@@ -1924,7 +2014,7 @@ void set_pre_arm_rc_check(bool b)
     }
 }
 
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/Attitude.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/Attitude.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // get_smoothing_gain - returns smoothing gain to be passed into attitude_control.angle_ef_roll_pitch_rate_ef_yaw_smooth
@@ -2201,7 +2291,7 @@ static void set_accel_throttle_I_from_pilot_throttle(int16_t pilot_throttle)
     // shift difference between pilot's throttle and hover throttle into accelerometer I
     g.pid_throttle_accel.set_integrator(pilot_throttle-g.throttle_cruise);
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/GCS_Mavlink.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/GCS_Mavlink.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // default sensors are present and healthy: gyro, accelerometer, barometer, rate_control, attitude_stabilization, yaw_position, altitude control, x/y position control, motor_control
@@ -3883,7 +3973,7 @@ static void gcs_send_text_fmt(const prog_char_t *fmt, ...)
         }
     }
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/Log.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/Log.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 #if LOGGING_ENABLED == ENABLED
@@ -4524,7 +4614,7 @@ static int8_t process_logs(uint8_t argc, const Menu::arg *argv) {
 }
 
 #endif // LOGGING_DISABLED
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/Parameters.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/Parameters.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 /*
    This program is free software: you can redistribute it and/or modify
@@ -5642,7 +5732,7 @@ static void load_parameters(void)
         cliSerial->printf_P(PSTR("load_all took %luus\n"), micros() - before);
     }
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/UserCode.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/UserCode.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 #ifdef USERHOOK_INIT
@@ -5687,7 +5777,7 @@ void userhook_SuperSlowLoop()
     // put your 1Hz code here
 }
 #endif
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/commands.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/commands.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -5843,7 +5933,7 @@ static void check_gps_base_pos()
         ap.gps_base_pos_set = true;
     }
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/commands_logic.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/commands_logic.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // forward declarations to make compiler happy
@@ -6776,7 +6866,7 @@ static void do_take_picture()
     }
 #endif
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/compassmot.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/compassmot.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -7046,7 +7136,7 @@ static uint8_t mavlink_compassmot(mavlink_channel_t chan)
     return 0;
 }
 
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/compat.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/compat.pde"
 
 
 static void delay(uint32_t ms)
@@ -7063,7 +7153,7 @@ static uint32_t micros()
 {
     return hal.scheduler->micros();
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/control_acro.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/control_acro.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -7216,7 +7306,7 @@ static void get_pilot_desired_angle_rates(int16_t roll_in, int16_t pitch_in, int
     pitch_out = rate_bf_request.y;
     yaw_out = rate_bf_request.z;
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/control_althold.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/control_althold.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -7297,7 +7387,7 @@ static void althold_run()
         pos_control.update_z_controller();
     }
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/control_auto.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/control_auto.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 /*
  * control_auto.pde - init and run calls for auto flight mode
@@ -7950,7 +8040,7 @@ float get_auto_heading(void)
         break;
     }
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/control_autotune.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/control_autotune.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 #if AUTOTUNE_ENABLED == ENABLED
@@ -8812,7 +8902,7 @@ void autotune_update_gcs(uint8_t message_id)
     }
 }
 #endif  // AUTOTUNE_ENABLED == ENABLED
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/control_circle.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/control_circle.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -8896,7 +8986,7 @@ static void circle_run()
     pos_control.set_alt_target_from_climb_rate(target_climb_rate, G_Dt);
     pos_control.update_z_controller();
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/control_drift.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/control_drift.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -9021,7 +9111,7 @@ int16_t get_throttle_assist(float velz, int16_t pilot_throttle_scaled)
     
     return pilot_throttle_scaled + thr_assist;
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/control_flip.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/control_flip.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -9244,7 +9334,7 @@ static void flip_run()
     // output pilot's throttle without angle boost
     attitude_control.set_throttle_out(throttle_out, false);
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/control_guided.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/control_guided.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -9637,7 +9727,7 @@ static bool guided_limit_check()
     // if we got this far we must be within limits
     return false;
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/control_land.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/control_land.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 static bool land_with_gps;
@@ -9864,7 +9954,7 @@ static bool landing_with_GPS() {
     return (control_mode == LAND && land_with_gps);
 }
 
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/control_loiter.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/control_loiter.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -9968,7 +10058,7 @@ static void loiter_run()
         pos_control.update_z_controller();
     }
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/control_multi_controller.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/control_multi_controller.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 /*
  * control_multi_controller.pde
@@ -10919,7 +11009,7 @@ static void new_circle_run()
     inputs_to_outputs(z_outputs, angle_outputs, xy_current, xy_desired, ahrs.roll, ahrs.pitch);
     
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/control_poshold.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/control_poshold.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 #if POSHOLD_ENABLED == ENABLED
@@ -11983,7 +12073,7 @@ static void new_poshold_run()
 }
 
 #endif  // POSHOLD_ENABLED == ENABLED
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/control_rtl.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/control_rtl.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -12394,7 +12484,7 @@ static float get_RTL_alt()
     return rtl_alt;
 }
 
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/control_sport.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/control_sport.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -12495,7 +12585,7 @@ static void sport_run()
         pos_control.update_z_controller();
     }
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/control_stabilize.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/control_stabilize.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -12550,7 +12640,7 @@ static void stabilize_run()
     // output pilot's throttle
     attitude_control.set_throttle_out(pilot_throttle_scaled, true);
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/crash_check.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/crash_check.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // Code to detect a crash main ArduCopter code
@@ -12743,7 +12833,7 @@ static void parachute_manual_release()
 }
 
 #endif // PARACHUTE == ENABLED
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/ekf_check.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/ekf_check.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /**
@@ -12921,7 +13011,7 @@ static void failsafe_ekf_off_event(void)
     failsafe.ekf = false;
     Log_Write_Error(ERROR_SUBSYSTEM_FAILSAFE_EKFINAV, ERROR_CODE_FAILSAFE_RESOLVED);
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/esc_calibration.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/esc_calibration.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*****************************************************************************
@@ -12950,7 +13040,8 @@ static void esc_calibration_startup_check()
         }
         return;
     }
-
+    //g.esc_calibrate = 3;
+    //SerialUSB.println("In ESC_calibration mode");
     // check ESC parameter
     switch (g.esc_calibrate) {
         case ESCCAL_NONE:
@@ -13061,7 +13152,44 @@ static void esc_calibration_auto()
     // block until we restart
     while(1) { delay(5); }
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/events.pde"
+
+static void new_esc_calibration_auto()
+{
+    bool printed_msg = false;
+    SerialUSB.println("Reach here");
+
+    // reduce update rate to motors to 50Hz
+    motors.set_update_rate(50);
+
+    // send message to GCS
+    SerialUSB.println("ESC Calibration: auto calibration");
+
+    // arm and enable motors
+    motors.armed(true);
+    motors.enable();
+
+    // flash LEDS
+    AP_Notify::flags.esc_calibration = true;
+
+    // raise throttle to maximum
+    delay(10);
+    motors.throttle_pass_through(2000);
+
+    // delay for 5 seconds
+    delay(5000);
+
+    // reduce throttle to minimum
+    motors.throttle_pass_through(1000);
+
+    // clear esc parameter
+    g.esc_calibrate.set_and_save(ESCCAL_NONE);
+    
+    SerialUSB.println("Done");
+
+    // block until we restart
+    while(1) { delay(5); }
+}
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/events.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -13396,7 +13524,7 @@ static void update_events()
     ServoRelayEvents.update_events();
 }
 
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/failsafe.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/failsafe.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 //
 //  failsafe support
@@ -13467,7 +13595,7 @@ void failsafe_check()
         }
     }
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/fence.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/fence.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // Code to integrate AC_Fence library with main ArduCopter code
@@ -13549,7 +13677,7 @@ static void fence_send_mavlink_status(mavlink_channel_t chan)
 }
 
 #endif
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/flight_mode.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/flight_mode.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -13903,7 +14031,7 @@ print_flight_mode(AP_HAL::BetterStream *port, uint8_t mode)
     }
 }
 
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/heli.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/heli.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // Traditional helicopter variables and functions
@@ -14065,7 +14193,7 @@ static void heli_update_rotor_speed_targets()
 }
 
 #endif  // FRAME_CONFIG == HELI_FRAME
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/heli_control_acro.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/heli_control_acro.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 #if FRAME_CONFIG == HELI_FRAME
 /*
@@ -14132,7 +14260,7 @@ static void get_pilot_desired_yaw_rate(int16_t yaw_in, float &yaw_out)
 }
 
 #endif  //HELI_FRAME
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/heli_control_stabilize.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/heli_control_stabilize.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 #if FRAME_CONFIG == HELI_FRAME
 /*
@@ -14193,7 +14321,7 @@ static void heli_stabilize_run()
 }
 
 #endif  //HELI_FRAME
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/inertia.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/inertia.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // read_inertia - read inertia in from accelerometers
@@ -14211,7 +14339,7 @@ static void read_inertial_altitude()
     current_loc.flags.relative_alt = true;
     climb_rate = inertial_nav.get_velocity_z();
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/land_detector.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/land_detector.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // counter to verify landings
@@ -14255,7 +14383,7 @@ static void update_land_detector()
     // set land maybe flag
     set_land_complete_maybe(land_detector >= LAND_DETECTOR_MAYBE_TRIGGER);
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/landing_gear.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/landing_gear.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // Run landing gear controller at 10Hz
@@ -14287,7 +14415,7 @@ static void landinggear_update(){
         last_deploy_status = landinggear.deployed();        
     }
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/leds.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/leds.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // updates the status of notify
@@ -14297,7 +14425,7 @@ static void update_notify()
     notify.update();
 }
 
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/motor_test.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/motor_test.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -14325,7 +14453,7 @@ static void motor_test_output()
     }
 
     // check for test timeout
-    if ((hal.scheduler->millis() - motor_test_start_ms) >= motor_test_timeout_ms) {
+    if ((hal.scheduler->millis2() - motor_test_start_ms) >= motor_test_timeout_ms) {
         // stop motor test
         motor_test_stop();
     } else {
@@ -14424,7 +14552,7 @@ static uint8_t mavlink_motor_test_start(mavlink_channel_t chan, uint8_t motor_se
     }
 
     // set timeout
-    motor_test_start_ms = hal.scheduler->millis();
+    motor_test_start_ms = hal.scheduler->millis2();
     motor_test_timeout_ms = min(timeout_sec * 1000, MOTOR_TEST_TIMEOUT_MS_MAX);
 
     // store required output
@@ -14463,7 +14591,7 @@ static void motor_test_stop()
     // turn off notify leds
     AP_Notify::flags.esc_calibration = false;
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/motors.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/motors.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 #define ARM_DELAY               20  // called at 10hz so 2 seconds
@@ -15205,7 +15333,7 @@ static void motors_output()
         motors.output();
     }
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/motors_new.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/motors_new.pde"
 ///This is the main file implementing the new controllers
 ///The Switch command is the main function, which will switch around controller depending on the chosen controller
 /* New functions for a new method to calculate output pwm
@@ -15403,7 +15531,7 @@ void motors_output(GAREAL *output_value, float roll, float pitch)
 
 
    
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/navigation.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/navigation.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // run_nav_updates - top level call for the autopilot
@@ -15488,7 +15616,7 @@ static void run_autopilot()
         mission.update();
     }
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/perf_info.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/perf_info.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 //
 //  high level performance monitoring
@@ -15568,7 +15696,7 @@ static uint16_t perf_info_get_num_long_running()
 {
     return perf_info_long_running;
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/position_vector.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/position_vector.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // position_vector.pde related utility functions
@@ -15636,7 +15764,7 @@ float pv_get_horizontal_distance_cm(const Vector3f &origin, const Vector3f &dest
 {
     return pythagorous2(destination.x-origin.x,destination.y-origin.y);
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/radio.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/radio.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // Function that will read the radio data, limit servos and trigger a failsafe
@@ -15699,12 +15827,15 @@ static void init_rc_out()
     g.rc_3.set_range_out(0,1000);
 
     // check if we should enter esc calibration mode
+    //delay(5000);
+    //SerialUSB.println("Starting ESC calibration");
     esc_calibration_startup_check();
 
     // enable output to motors
     pre_arm_rc_checks();
     if (ap.pre_arm_rc_check) {
         output_min();
+        //SerialUSB.println("You cannot see this");
     }
 
     // setup correct scaling for ESCs like the UAVCAN PX4ESC which
@@ -15826,7 +15957,7 @@ static void set_throttle_zero_flag(int16_t throttle_control)
     }
 }
 
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/sensors.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/sensors.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 static void init_barometer(bool full_calibration)
@@ -16012,7 +16143,7 @@ void epm_update()
     epm.update();
 }
 #endif
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/setup.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/setup.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 #if CLI_ENABLED == ENABLED
@@ -16547,7 +16678,7 @@ static void report_version()
     print_divider();
     print_blanks(2);
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/switches.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/switches.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 #define CONTROL_SWITCH_DEBOUNCE_TIME_MS  200
@@ -17060,7 +17191,7 @@ static void auto_trim()
     }
 }
 
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/system.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/system.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 /*****************************************************************************
 *   The init_ardupilot function processes everything we need for an in - air restart
@@ -17501,7 +17632,7 @@ static bool should_log(uint32_t mask)
     return false;
 #endif
 }
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/test.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/test.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 #if CLI_ENABLED == ENABLED
@@ -17801,7 +17932,7 @@ static void print_hit_enter()
 }
 
 #endif // CLI_ENABLED
-#line 1 "/mnt/hgfs/Learning_ArduPilot/ardupilot_multi_controller/ArduCopter/tuning.pde"
+#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_ESC_controller/ArduCopter/tuning.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
