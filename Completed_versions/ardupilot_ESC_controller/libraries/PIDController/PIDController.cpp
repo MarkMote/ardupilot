@@ -11,7 +11,7 @@
 
 /* Includes */
 
-#include "PIDcontroller.h"
+#include "PIDController.h"
 
 /* Variable definitions */
 

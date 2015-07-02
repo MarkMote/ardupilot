@@ -4,6 +4,7 @@
     + Unplug the board
     + Connect the wire of one ESC with the Pin of the board.
     .. + YELLOW AND BROWN ONLY. DO NOT CONNECT THE RED WIRE
+    + Connect the battery
     + Power the board via the USB port    
     + Open the console window of MapleIDE
     + Wait for the confirm tones of the ESC (It will be repeated 4 time, just wait for two time before proceeding to the next step)
