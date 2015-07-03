@@ -907,7 +907,7 @@ void setup()
     fast_loopTimer = hal.scheduler->micros();
     
     ///Name of the available controller can be found in Multi_Controller.h
-    using_controller = New_PID_Controller;
+    using_controller = Original_PID_Controller;
     if (using_controller != Original_PID_Controller)
         init_controller();
 }
