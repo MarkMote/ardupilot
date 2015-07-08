@@ -229,6 +229,7 @@ void AP_Motors::output_signal(double *input)
     
     if (_flags.armed ) {    
         //send_output(controlSignals);
+        //this was modified by ENSMA
         output_armed_new(input);
     }else{
         output_disarmed();

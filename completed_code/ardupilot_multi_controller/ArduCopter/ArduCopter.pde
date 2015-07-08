@@ -99,6 +99,7 @@
 #include <AP_HAL_Empty.h>
 
 // Controller
+// Add by ensma
 #include <MotorSpeed.h>
 #include <PIDController.h>
 #include <IB_Controller.h>
@@ -884,6 +885,7 @@ static const AP_Scheduler::Task scheduler_tasks[] PROGMEM = {
 };
 #endif
 
+//Controllers is an enum from Multi_Controller.h
 Controllers using_controller;
 
 void setup() 
@@ -994,8 +996,9 @@ static void fast_loop()
     update_heli_control_dynamics();
 #endif //HELI_FRAME
     
-    if ((using_controller == Original_PID_Controller)||(control_mode == STABILIZE))
+    if ((using_controller == Original_PID_Controller) || (control_mode == STABILIZE)) {
         motors_output();
+    }
  
     // Inertial Nav
     // --------------------

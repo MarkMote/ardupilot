@@ -423,28 +423,28 @@ void AP_MotorsMatrix::remove_all_motors()
     }
 }
 
-
+//Added by ENSMA
 void AP_MotorsMatrix::output_armed_new(double *input)
 {
     //Calculate output
     float max_rotate_speed = 216.0;
     float balance_rotate_speed = 152.64;
     int16_t level = 1400; 
-    int16_t out_min_pwm = 1050; //_rc_throttle.radio_min + _min_throttle;;      // minimum pwm value we can send to the motors
-    int16_t out_max_pwm = 1700; //_rc_throttle.radio_max;                      // maximum pwm value we can send to the motors
-    int16_t out_mid_pwm = (out_min_pwm+out_max_pwm)/2.0;                  // mid pwm value we can send to the motors
+    int16_t out_min_pwm = 1050; //_rc_throttle.radio_min + _min_throttle; // minimum pwm value we can send to the motors
+    int16_t out_max_pwm = 1700; //_rc_throttle.radio_max;                 // maximum pwm value we can send to the motors
+    int16_t out_mid_pwm = (out_min_pwm + out_max_pwm)/2.0;                  // mid pwm value we can send to the motors
     flag_max_speed = false;
     int16_t output_signal[4];
     //Linearising the output value base on a simulation radio control signal
     for (int i = 0; i<4; i++)
     {
-        if  (input[i]>balance_rotate_speed)
+        if  (input[i] > balance_rotate_speed)
         {
             output_signal[i] = (int16_t) (level + (out_max_pwm - level)*(input[i]-balance_rotate_speed)/(max_rotate_speed - 152.64));
         }
         else if (input[i] != 0)
         {
-            output_signal[i] = (int16_t) (out_min_pwm + (level - out_min_pwm)/(balance_rotate_speed - 0)*(input[i]-0));
+            output_signal[i] = (int16_t) (out_min_pwm + (level - out_min_pwm)/(balance_rotate_speed - 0) * (input[i]-0));
         }
                 
         if (output_signal[i] >= out_max_pwm)
@@ -455,7 +455,6 @@ void AP_MotorsMatrix::output_armed_new(double *input)
         else if (output_signal[i] == 0)
             output_signal[i] = (int16_t) out_min_pwm +10;
     }
-  
     // send output to each motor
     for(uint8_t i=0; i<AP_MOTORS_MAX_NUM_MOTORS; i++ ) 
     {
