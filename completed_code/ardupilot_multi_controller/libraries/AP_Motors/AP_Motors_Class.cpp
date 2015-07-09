@@ -134,6 +134,7 @@ void AP_Motors::throttle_pass_through(int16_t pwm)
 }
 
 // output - sends commands to the motors
+// Called by motors.pde
 void AP_Motors::output()
 {
     // update max throttle

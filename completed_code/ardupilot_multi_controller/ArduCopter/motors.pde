@@ -730,12 +730,14 @@ static void init_disarm_motors()
 }
 
 // motors_output - send output to motors library which will adjust and send to ESCs and servos
+// Called from ArduCopter.pde
 static void motors_output()
 {
     // check if we are performing the motor test
     if (ap.motor_test) {
         motor_test_output();
     } else {
+        // motors is an AP_Motors_Class instance
         motors.output();
     }
 }

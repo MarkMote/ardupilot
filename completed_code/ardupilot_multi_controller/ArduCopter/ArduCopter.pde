@@ -996,7 +996,9 @@ static void fast_loop()
     update_heli_control_dynamics();
 #endif //HELI_FRAME
     
+    //What happens when its not the original PID controller?
     if ((using_controller == Original_PID_Controller) || (control_mode == STABILIZE)) {
+        //call into motors.pde
         motors_output();
     }
  

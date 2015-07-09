@@ -121,6 +121,7 @@ uint16_t AP_MotorsMatrix::get_motor_mask()
 
 // output_armed - sends commands to the motors
 // includes new scaling stability patch
+// Called by AP_Motors_Class
 void AP_MotorsMatrix::output_armed()
 {
     int8_t i;
@@ -424,6 +425,7 @@ void AP_MotorsMatrix::remove_all_motors()
 }
 
 //Added by ENSMA
+
 void AP_MotorsMatrix::output_armed_new(double *input)
 {
     //Calculate output
@@ -440,11 +442,11 @@ void AP_MotorsMatrix::output_armed_new(double *input)
     {
         if  (input[i] > balance_rotate_speed)
         {
-            output_signal[i] = (int16_t) (level + (out_max_pwm - level)*(input[i]-balance_rotate_speed)/(max_rotate_speed - 152.64));
+            output_signal[i] = (int16_t) (level + (out_max_pwm - level) * (input[i] - balance_rotate_speed) / (max_rotate_speed - 152.64));
         }
         else if (input[i] != 0)
         {
-            output_signal[i] = (int16_t) (out_min_pwm + (level - out_min_pwm)/(balance_rotate_speed - 0) * (input[i]-0));
+            output_signal[i] = (int16_t) (out_min_pwm + (level - out_min_pwm) / (balance_rotate_speed - 0) * (input[i]));
         }
                 
         if (output_signal[i] >= out_max_pwm)
