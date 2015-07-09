@@ -297,7 +297,7 @@ void AP_MotorsMatrix::output_armed()
             // we haven't even been able to apply full roll, pitch and minimal yaw without scaling
             limit.roll_pitch = true;
             limit.yaw = true;
-        }else if((rpy_high+out_best_thr_pwm)+thr_adj > out_max_pwm){
+        }else if((rpy_high + out_best_thr_pwm) + thr_adj > out_max_pwm){
             rpy_scale = (float)(out_max_pwm-thr_adj-out_best_thr_pwm)/rpy_high;
             // we haven't even been able to apply full roll, pitch and minimal yaw without scaling
             limit.roll_pitch = true;
@@ -455,7 +455,7 @@ void AP_MotorsMatrix::output_armed_new(double *input)
             flag_max_speed = true;
         }
         else if (output_signal[i] == 0)
-            output_signal[i] = (int16_t) out_min_pwm +10;
+            output_signal[i] = (int16_t) out_min_pwm + 10;
     }
     // send output to each motor
     for(uint8_t i=0; i<AP_MOTORS_MAX_NUM_MOTORS; i++ ) 

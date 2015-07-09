@@ -142,6 +142,7 @@ void AP_Motors::output()
 
     // output to motors
     if (_flags.armed ) {
+        //call into AP_MotorsMatrix
         output_armed();
     }else{
         output_disarmed();
