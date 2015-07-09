@@ -1,5 +1,13 @@
 #!/bin/bash
 
+
+sudo add-apt-repository ppa:terry.guo/gcc-arm-embedded
+sudo apt-get update
+sudo apt-get install gcc-arm-none-eabi
+sudo apt-get install libstdc++6-4.4-dev
+sudo apt-get install libnewlib-arm-none-eabi
+sudp apt-get install libnewlib-dev
+
 # This script assumes you are using Bash.
 start=$(pwd)
 # Copy libmaple to root
@@ -23,7 +31,7 @@ fi
 contains_maplearm=$(echo $PATH | grep libmaple/arm/bin)
 if [[ ! $contains_maplearm ]]
     then
-    echo 'export PATH=$PATH:/libmaple/arm/bin' >> ~/.bashrc
+    echo 'export PATH=$PATH:~/libmaple/arm/bin' >> ~/.bashrc
 fi
 
 # Check for 64-Bit ubuntu. It will not work otherwise.

@@ -23,7 +23,6 @@ void setup() {
 
 void loop() {
     toggleLED();
-    delay(100);
 }
 
 // Force init to be called *first*, i.e. before static object allocation.
