@@ -84,8 +84,10 @@ GAREAL* PID_calculate(float z_error, Vector3f output, float pitch, float roll)
                        Kp_psi, Ki_psi, Kd_psi};
     
     io.t = time;
-    for (int i=0; i<12; i++)
-      io.gains[i] = gains[i];
+    for (int i=0; i<12; i++) {
+        //copy the gains 
+        io.gains[i] = gains[i];
+    }
     
     //why?
     io.e[0] = z_error/100.0;
@@ -123,7 +125,7 @@ double time_old = 0;
 GAREAL* IB_calculate(float curr_alt, float alt_des, Vector3f angle_cur, Vector3f angular_speed, 
                     Vector3f angles_tar)
 {
-    double time =(double) millis()/1000.0;
+    double time =(double) millis() / 1000.0;
     //???
     if (fabs(time - time_old) > 1.0)
     {
@@ -208,8 +210,8 @@ GAREAL* IB_calculate(float curr_alt, float alt_des, Vector3f angle_cur, Vector3f
 //  xy_desired.y: target position       in centimeter from home
 //  xy_desired.z: target position       do not used this
 //  roll :        current roll          radian
-//  pitch:        current pitch         radian  
-
+//  pitch:        current pitch         radian
+// Called from control_multi_controller.pde
 void inputs_to_outputs(float* z, float* angles,
                        Vector3f xy_current, Vector3f xy_desired,
                        float roll, float pitch)
@@ -241,7 +243,6 @@ void inputs_to_outputs(float* z, float* angles,
         {
             case Original_PID_Controller:
                 break;
-            
             case New_PID_Controller:
             {
                 //Inputs: z_error; roll_error; pitch_error; yaw_error
@@ -272,12 +273,13 @@ void inputs_to_outputs(float* z, float* angles,
     
 }
 
-
 /// motors_output - send output to motors library which will adjust and send to ESCs and servos
 /// ENSMA
+//  when is this called? Right above...
 void motors_output(GAREAL *output_value)
 {
     // Limits for our quadrotor
+    // are these rotor parameters?
     float b = 0.00012; //Ns2
     float d = 0.000003; //Nms2
     float l = 0.225; //m 
@@ -299,22 +301,21 @@ void motors_output(GAREAL *output_value)
         rotational_speed[2] = io_motors.omgs2[2];
         rotational_speed[1] = io_motors.omgs2[3]; 
      }
-     if ((using_controller == Simple_IB_Controller))
-     {
-        rotational_speed[0] =(double) sqrt(abs(output_value[0] / (4.0 * b)
-            - output_value[1] / (2.0 * b * l)
-            + output_value[3] / (4.0 * d)));
-        rotational_speed[1] =(double) sqrt(abs(output_value[0] / (4.0 * b)
-            + output_value[1] / (2.0 * b * l)
-            + output_value[3] / (4.0 * d)));
-        rotational_speed[2] =(double) sqrt(abs(output_value[0] / (4.0 * b)
-            + output_value[2] / (2.0 * b * l)
-            - output_value[3] / (4.0 * d)));
-        rotational_speed[3] =(double) sqrt(abs(output_value[0] / (4.0 * b)
-            - output_value[2] / (2.0 * b * l)
-            - output_value[3] / (4.0 * d)));
-      }  
-    
+    if ((using_controller == Simple_IB_Controller))
+    {
+       rotational_speed[0] =(double) sqrt(abs(output_value[0] / (4.0 * b)
+           - output_value[1] / (2.0 * b * l)
+           + output_value[3] / (4.0 * d)));
+       rotational_speed[1] =(double) sqrt(abs(output_value[0] / (4.0 * b)
+           + output_value[1] / (2.0 * b * l)
+           + output_value[3] / (4.0 * d)));
+       rotational_speed[2] =(double) sqrt(abs(output_value[0] / (4.0 * b)
+           + output_value[2] / (2.0 * b * l)
+           - output_value[3] / (4.0 * d)));
+       rotational_speed[3] =(double) sqrt(abs(output_value[0] / (4.0 * b)
+           - output_value[2] / (2.0 * b * l)
+           - output_value[3] / (4.0 * d)));
+     }  
     //limits
     for (uint8_t i = 0; i<4; i++)
     {
@@ -325,7 +326,6 @@ void motors_output(GAREAL *output_value)
             rotational_speed[i] = 216.0;        
         }
     }
-  
   //gcs_send_text_fmt(PSTR("r1: %f r2: %f r3: %f r4: %f  \n"),output_value[0], output_value[1], output_value[2], output_value[3] );
     
   motors.output_signal(rotational_speed);
