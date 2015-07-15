@@ -84,18 +84,28 @@ static void new_auto_run()
     }
 }
 
+static void reset_relax() {
+     // initialise wpnav targets
+    wp_nav.shift_wp_origin_to_current_pos();
+    // reset attitude control targets
+    attitude_control.relax_bf_rate_controller();
+    attitude_control.set_yaw_target_to_current_heading();
+    attitude_control.set_throttle_out(0, false);
+    // tell motors to do a slow start
+    motors.slow_start(true);
+}
+
+//This code was present in some functions that wanted the pilot yaw rate.
+//Re-introduce it if you want to.
+/*if(!failsafe.radio) {
+        target_yaw_rate = get_pilot_desired_yaw_rate(g.rc_4.control_in);
+}*/
+
 static void new_auto_takeoff()
 {
     // if not auto armed set throttle to zero and exit immediately
     if(!ap.auto_armed) {
-        // initialise wpnav targets
-        wp_nav.shift_wp_origin_to_current_pos();
-        // reset attitude control targets
-        attitude_control.relax_bf_rate_controller();
-        attitude_control.set_yaw_target_to_current_heading();
-        attitude_control.set_throttle_out(0, false);
-        // tell motors to do a slow start
-        motors.slow_start(true);
+        reset_relax();
         return;
     }
 
@@ -105,24 +115,19 @@ static void new_auto_takeoff()
         // get pilot's desired yaw rate
         target_yaw_rate = get_pilot_desired_yaw_rate(g.rc_4.control_in);
     }*/
-
     // run waypoint controller
     wp_nav.update_wpnav();
     
     // Get the desired x,y position in earth-frame
     pos_control.get_stopping_point_xy(xy_desired);
-    
      // This function will get the current position in x,y respectively
     xy_current = pos_control.xy_current();
-
     //Get altitude values (current, desire, error)
     pos_control.update_z_controller_new();
     z_outputs = pos_control.z_values;
-    
     //Get angle values (error in Roll, Pitch, Yaw, target Roll, Pitch, Yaw)
     attitude_control.new_angle_ef_roll_pitch_rate_ef_yaw(wp_nav.get_roll(), wp_nav.get_pitch(), target_yaw_rate);
     angle_outputs = attitude_control.angle_values;
-
     ///Send values to the general handling code
     inputs_to_outputs(z_outputs, angle_outputs, xy_current, xy_desired, ahrs.roll, ahrs.pitch);
 }
@@ -133,27 +138,9 @@ static void new_auto_wp()
 {
     // if not auto armed set throttle to zero and exit immediately
     if(!ap.auto_armed) {
-        // To-Do: reset waypoint origin to current location because copter is probably on the ground so we don't want it lurching left or right on take-off
-        //    (of course it would be better if people just used take-off)
-        attitude_control.relax_bf_rate_controller();
-        attitude_control.set_yaw_target_to_current_heading();
-        attitude_control.set_throttle_out(0, false);
-        // tell motors to do a slow start
-        motors.slow_start(true);
+        reset_relax();
         return;
     }
-
-    /*// process pilot's yaw input
-    float target_yaw_rate = 0;
-    if (!failsafe.radio) {
-        // get pilot's desired yaw rate
-        target_yaw_rate = get_pilot_desired_yaw_rate(g.rc_4.control_in);
-        if (target_yaw_rate != 0) {
-            set_auto_yaw_mode(AUTO_YAW_HOLD);
-        }
-    }*/
-    
-    
     // run waypoint controller
     wp_nav.update_wpnav();
     
@@ -181,51 +168,37 @@ static void new_auto_land()
 {
     // if not auto armed set throttle to zero and exit immediately
     if(!ap.auto_armed || ap.land_complete) {
-        attitude_control.relax_bf_rate_controller();
-        attitude_control.set_yaw_target_to_current_heading();
-        attitude_control.set_throttle_out(0, false);
-        // set target to current position
-        wp_nav.init_loiter_target();
+        reset_relax();
         return;
     }    
     
     int16_t roll_control = 0, pitch_control = 0;
     float target_yaw_rate = 0;
-
     // if not auto armed set throttle to zero and exit immediately
    // relax loiter targets if we might be landed
     if (land_complete_maybe()) {
         wp_nav.loiter_soften_for_landing();
     }
-
     // process roll, pitch inputs
     wp_nav.set_pilot_desired_acceleration(roll_control, pitch_control);
-
     // run loiter controller
     wp_nav.update_loiter(ekfGndSpdLimit, ekfNavVelGainScaler);
-
     // call z-axis position controller
     float cmb_rate = get_land_descent_speed();
     pos_control.set_alt_target_from_climb_rate(cmb_rate, G_Dt, true);
-      
     // record desired climb rate for logging
     desired_climb_rate = cmb_rate;
-    
      // Get the desired x,y position in earth-frame. 
     // Therefore xy_desired.x = x_desired; xy_desired.y = y_desired; Do not use xy_desired.z, use z_values[1] instead
     pos_control.get_stopping_point_xy(xy_desired);
-    
     // This function will get the current position in x,y respectively
     xy_current = pos_control.xy_current();
-
     //Get altitude values (current, desire, error)
     pos_control.update_z_controller_new();
     z_outputs = pos_control.z_values;
-    
     //Get angle values (error in Roll, Pitch, Yaw, target Roll, Pitch, Yaw)
     attitude_control.new_angle_ef_roll_pitch_rate_ef_yaw(wp_nav.get_roll(), wp_nav.get_pitch(), target_yaw_rate);
     angle_outputs = attitude_control.angle_values;
-    
     ///Send values to the general handling code
     inputs_to_outputs(z_outputs, angle_outputs, xy_current, xy_desired, ahrs.roll, ahrs.pitch);
 
@@ -237,45 +210,23 @@ static void new_auto_spline()
 {
     // if not auto armed set throttle to zero and exit immediately
     if(!ap.auto_armed) {
-        // To-Do: reset waypoint origin to current location because copter is probably on the ground so we don't want it lurching left or right on take-off
-        //    (of course it would be better if people just used take-off)
-        attitude_control.relax_bf_rate_controller();
-        attitude_control.set_yaw_target_to_current_heading();
-        attitude_control.set_throttle_out(0, false);
-        // tell motors to do a slow start
-        motors.slow_start(true);
+        reset_relax();
         return;
     }
-
-    // process pilot's yaw input
-    float target_yaw_rate = 0;
-    /*if (!failsafe.radio) {
-        // get pilot's desired yaw rate
-        target_yaw_rate = get_pilot_desired_yaw_rate(g.rc_4.control_in);
-        if (target_yaw_rate != 0) {
-            set_auto_yaw_mode(AUTO_YAW_HOLD);
-        }
-    }*/
-
     // run waypoint controller
     wp_nav.update_spline();
-
     // Get the desired x,y position in earth-frame. 
     // Therefore xy_desired.x = x_desired; xy_desired.y = y_desired; Do not use xy_desired.z, use z_values[1] instead
     pos_control.get_stopping_point_xy(xy_desired);
-    
     // call z-axis position controller (wpnav should have already updated it's alt target)
     //z_values includes current_z, desired_z, pos_error_z respectively
-       
     pos_control.update_z_controller_new();
     z_outputs = pos_control.z_values;    
     // This function will get the current position in x,y respectively
     xy_current = pos_control.xy_current();
-    
     // This function will get the error of roll, pitch, yaw in bf respectively
     attitude_control.new_angle_ef_roll_pitch_yaw(wp_nav.get_roll(), wp_nav.get_pitch(), get_auto_heading(),true);
     angle_outputs = attitude_control.angle_values;
-    
     ///Send values to the general handling code
     inputs_to_outputs(z_outputs, angle_outputs, xy_current, xy_desired, ahrs.roll, ahrs.pitch);
 }
@@ -284,20 +235,14 @@ void new_auto_circle_run()
 {
     // call circle controller
     circle_nav.update();
-
     // call z-axis position controller
     pos_control.update_z_controller_new();
     z_outputs = pos_control.z_values; 
-
-    
     pos_control.get_stopping_point_xy(xy_desired);  
-
     xy_current = pos_control.xy_current();
-
     // roll & pitch from waypoint controller, yaw rate from pilot
     attitude_control.new_angle_ef_roll_pitch_yaw(circle_nav.get_roll(), circle_nav.get_pitch(), circle_nav.get_yaw(),true);
     angle_outputs = attitude_control.angle_values;
-    
     ///Send values to the general handling code
     inputs_to_outputs(z_outputs, angle_outputs, xy_current, xy_desired, ahrs.roll, ahrs.pitch);
 }
@@ -306,34 +251,21 @@ void new_auto_loiter()
 {
     // if not auto armed set throttle to zero and exit immediately
     if(!ap.auto_armed || ap.land_complete) {
-        attitude_control.relax_bf_rate_controller();
-        attitude_control.set_yaw_target_to_current_heading();
-        attitude_control.set_throttle_out(0, false);
+        reset_relax();
         return;
     }
-
-    // accept pilot input of yaw
-    float target_yaw_rate = 0;
-    /*if(!failsafe.radio) {
-        target_yaw_rate = get_pilot_desired_yaw_rate(g.rc_4.control_in);
-    }*/
-
     // run waypoint and z-axis postion controller
     wp_nav.update_wpnav();
     // Get the desired x,y position in earth-frame
     pos_control.get_stopping_point_xy(xy_desired);
-    
      // This function will get the current position in x,y respectively
     xy_current = pos_control.xy_current();
-
     //Get altitude values (current, desire, error)
     pos_control.update_z_controller_new();
     z_outputs = pos_control.z_values;
-    
     //Get angle values (error in Roll, Pitch, Yaw, target Roll, Pitch, Yaw)
-    attitude_control.new_angle_ef_roll_pitch_rate_ef_yaw(wp_nav.get_roll(), wp_nav.get_pitch(), target_yaw_rate);
+    attitude_control.new_angle_ef_roll_pitch_rate_ef_yaw(wp_nav.get_roll(), wp_nav.get_pitch(), 0.0);
     angle_outputs = attitude_control.angle_values;
-
     ///Send values to the general handling code
     inputs_to_outputs(z_outputs, angle_outputs, xy_current, xy_desired, ahrs.roll, ahrs.pitch);
     
@@ -345,53 +277,40 @@ static void new_land_run()
 {
     if (land_with_gps) {
         new_land_gps_run();
-    }else{
+    } else {
         new_land_nogps();
     }
-
 }
 
 static void new_land_gps_run()
 {
     int16_t roll_control = 0, pitch_control = 0;
-    float target_yaw_rate = 0;
-    
     // relax loiter target if we might be landed
     if (land_complete_maybe()) {
         wp_nav.loiter_soften_for_landing();
     }
-
     // process roll, pitch inputs
     wp_nav.set_pilot_desired_acceleration(roll_control, pitch_control);
-
     // run loiter controller
     wp_nav.update_loiter(ekfGndSpdLimit, ekfNavVelGainScaler);
-
     //Get angle values (error in Roll, Pitch, Yaw, target Roll, Pitch, Yaw)
-    attitude_control.new_angle_ef_roll_pitch_rate_ef_yaw(wp_nav.get_roll(), wp_nav.get_pitch(), target_yaw_rate);
+    attitude_control.new_angle_ef_roll_pitch_rate_ef_yaw(wp_nav.get_roll(), wp_nav.get_pitch(), 0.0);
     angle_outputs = attitude_control.angle_values;
-
     // pause 4 seconds before beginning land descent
     float cmb_rate;
-    if(land_pause && millis()-land_start_time < 4000) {
+    if(land_pause && millis() - land_start_time < 4000) {
         cmb_rate = 0;
     } else {
         land_pause = false;
         cmb_rate = get_land_descent_speed();
     }
-
     // record desired climb rate for logging
     desired_climb_rate = cmb_rate;
-
     // update altitude target and call position controller
     pos_control.set_alt_target_from_climb_rate(cmb_rate, G_Dt, true);
-    
-    
     pos_control.get_stopping_point_xy(xy_desired);
-    
     // This function will get the current position in x,y respectively
     xy_current = pos_control.xy_current();
-
     //Get altitude values (current, desire, error)
     pos_control.update_z_controller_new();
     z_outputs = pos_control.z_values;
@@ -502,6 +421,8 @@ static void new_rtl_climb_return_run()
         attitude_control.set_yaw_target_to_current_heading();
         attitude_control.set_throttle_out(0, false);
         // To-Do: re-initialise wpnav targets
+        // tell motors to do a slow start
+        motors.slow_start(true);
         return;
     }
 
@@ -553,6 +474,8 @@ static void new_rtl_loiterathome_run()
         attitude_control.set_yaw_target_to_current_heading();
         attitude_control.set_throttle_out(0, false);
         // To-Do: re-initialise wpnav targets
+        // tell motors to do a slow start
+        motors.slow_start(true);
         return;
     }
 
@@ -613,6 +536,8 @@ static void new_rtl_descent_run()
         attitude_control.relax_bf_rate_controller();
         attitude_control.set_yaw_target_to_current_heading();
         attitude_control.set_throttle_out(0, false);
+        // tell motors to do a slow start
+        motors.slow_start(true);
         // set target to current position
         wp_nav.init_loiter_target();
         return;
@@ -763,6 +688,8 @@ static void new_althold_run()
         attitude_control.set_yaw_target_to_current_heading();
         attitude_control.set_throttle_out(0, false);
         pos_control.set_alt_target_to_current_alt();
+        // tell motors to do a slow start
+        motors.slow_start(true);
         return;
     }
 
@@ -830,7 +757,7 @@ static void new_althold_run()
     }
 }
 
-//////////////////////////////////////////////////LOITER MODE///////////////////////////////////////////////////////
+//////////////////////////////////////////////////LOITER MODE///////////////////
 static void new_loiter_run()
 {
     float target_yaw_rate = 0;
@@ -843,6 +770,8 @@ static void new_loiter_run()
         attitude_control.set_yaw_target_to_current_heading();
         attitude_control.set_throttle_out(0, false);
         pos_control.set_alt_target_to_current_alt();
+        // tell motors to do a slow start
+        motors.slow_start(true);
         return;
     }
 
@@ -899,21 +828,31 @@ static void new_loiter_run()
             // if sonar is ok, use surface tracking
             target_climb_rate = get_throttle_surface_tracking(target_climb_rate, pos_control.get_alt_target(), G_Dt);
         }
-
         // update altitude target and call position controller
         pos_control.set_alt_target_from_climb_rate(target_climb_rate, G_Dt);
         pos_control.update_z_controller_new();
         z_outputs = pos_control.z_values;
-        
          // Get the desired x,y position in earth-frame
-        
         pos_control.get_stopping_point_xy(xy_desired);
-    
         // This function will get the current position in x,y respectively
-        xy_current = pos_control.xy_current();
-        
+        // ACTUALLY IN XYZ: xy_current() RETURNS XYZ VALUE OMG 
+        Vector3f& position =  pos_control.xy_current();
+        Vector3f& velocity = Vector3f(0.0, 0.0, 0.0); //not used but needed
+        Vector3f& acceleration = ahrs.get_accel_ef();
+        Vector3f& orientation = Vector3f(ahrs.roll, ahrs.pitch, ahrs.yaw);
+        Vector3f& rotational_velocity = ahrs.get_gyro();
+        Vector3f& target_position = pos_control.get_pos_target();
+        Vector3f& target_orientation = Vector3f(attitude_control.angle_values[3],attitude_control.angle_values[4],attitude_control.angle_values[5]);
+
         ///Send values to the general handling code
-        inputs_to_outputs(z_outputs, angle_outputs, xy_current, xy_desired, ahrs.roll, ahrs.pitch);
+//     Vector3f position,
+//     Vector3f velocity,
+//     Vector3f acceleration,
+//     Vector3f orientation, 
+//     Vector3f rotational_velocity
+//     Vector3f target_position,
+//     Vector3f target_orientation)
+        inputs_to_outputs_loiter_test(position, velocity, acceleration, orientation, rotational_velocity, target_position, target_orientation);
         // body-frame rate controller is run directly from 100hz loop
     }
 }
@@ -930,14 +869,9 @@ static void new_circle_run()
 
     // if not auto armed set throttle to zero and exit immediately
     if(!ap.auto_armed || ap.land_complete) {
-        // To-Do: add some initialisation of position controllers
-        attitude_control.relax_bf_rate_controller();
-        attitude_control.set_yaw_target_to_current_heading();
-        attitude_control.set_throttle_out(0, false);
-        pos_control.set_alt_target_to_current_alt();
+        reset_relax();
         return;
     }
-
     // process pilot inputs
     if (!failsafe.radio) {
         // get pilot's desired yaw rate
@@ -957,10 +891,8 @@ static void new_circle_run()
             set_throttle_takeoff();
         }
     }
-
     // run circle controller
     circle_nav.update();
-
     // call attitude controller
     if (circle_pilot_yaw_override) {
         attitude_control.new_angle_ef_roll_pitch_rate_ef_yaw(circle_nav.get_roll(), circle_nav.get_pitch(), target_yaw_rate);
@@ -968,7 +900,6 @@ static void new_circle_run()
         attitude_control.new_angle_ef_roll_pitch_yaw(circle_nav.get_roll(), circle_nav.get_pitch(), circle_nav.get_yaw(),true);
     }
     angle_outputs = attitude_control.angle_values;
-
     // run altitude controller
     if (sonar_alt_health >= SONAR_ALT_HEALTH_MAX) {
         // if sonar is ok, use surface tracking
@@ -978,15 +909,10 @@ static void new_circle_run()
     pos_control.set_alt_target_from_climb_rate(target_climb_rate, G_Dt);
     pos_control.update_z_controller_new();
     z_outputs = pos_control.z_values;
-    
    // Get the desired x,y position in earth-frame
-    
     pos_control.get_stopping_point_xy(xy_desired);
-   
    // This function will get the current position in x,y respectively
     xy_current = pos_control.xy_current();
-        
    ///Send values to the general handling code
     inputs_to_outputs(z_outputs, angle_outputs, xy_current, xy_desired, ahrs.roll, ahrs.pitch);
-    
 }

@@ -121,17 +121,18 @@ GAREAL* PID_calculate(float z_error, Vector3f output, float pitch, float roll)
     return io.y;
 }
 #endif
-
+//radians vs degrees???????????
 #if using_controller == Simple_IB_Controller
 ///Integral Backsteping main code
 GAREAL IB_results[4];
 double time_old = 0;
-//Inputs: current altitude, desired altitute, current orientation, current
-//angular velocity, 
-GAREAL* IB_calculate(float curr_alt, float alt_des, Vector3f angle_cur,
-    Vector3f angular_speed, Vector3f angles_target)
+//Inputs: current altitude,
+//desired altitute, current orientation, current
+//angular velocity, //ALL RADIANS
+GAREAL* IB_calculate(float curr_alt, float target_alt, Vector3f curr_angle,
+    Vector3f angular_speed, Vector3f target_angle)
 {
-    double time =(double) millis() / 1000.0;
+    double time = (double) millis() / 1000.0;
     //if sample time is over a second, something is horribly wrong
     if (fabs(time - time_old) > 1.0)
     {
@@ -142,14 +143,14 @@ GAREAL* IB_calculate(float curr_alt, float alt_des, Vector3f angle_cur,
         IB_results[3] = 0;
         return IB_results;
     }
-        
+
     //Get the values
     io_alt.z = curr_alt/100.0;
-    io_alt.zd = alt_des/100.0;
+    io_alt.zd = target_alt/100.0;
     
     io_alt.dt = time - time_old;
-    io_alt.phi = angle_cur.x;
-    io_alt.theta = angle_cur.y;
+    io_alt.phi = curr_angle.x;
+    io_alt.theta = curr_angle.y;
     
     Altitude_compute(&io_alt, &state_alt);
     //minimum thrust
@@ -158,18 +159,17 @@ GAREAL* IB_calculate(float curr_alt, float alt_des, Vector3f angle_cur,
     } else {
         IB_results[0] = io_alt.U1;
     }
-
-    
-    io_attitude.angles[0] = angle_cur.x;
-    io_attitude.angles[1] = angle_cur.y;
-    io_attitude.angles[2] = angle_cur.z;
-    io_attitude.angles[3] = angular_speed.x/100.0 * PI/180.0;
-    io_attitude.angles[4] = angular_speed.y/100.0 * PI/180.0;
-    io_attitude.angles[5] = angular_speed.z/100.0 * PI/180.0;
+    io_attitude.angles[0] = curr_angle.x;
+    io_attitude.angles[1] = curr_angle.y;
+    io_attitude.angles[2] = curr_angle.z;
+    io_attitude.angles[3] = angular_speed.x;
+    io_attitude.angles[4] = angular_speed.y;
+    io_attitude.angles[5] = angular_speed.z;
     io_attitude.dt = time - time_old;
-    io_attitude.phid = angles_target.x/100.0*PI/180.0 + angle_cur.x;
-    io_attitude.thetad = angles_target.y/100.0*PI/180.0 + angle_cur.y;
-    io_attitude.psid = angles_target.z/100.0*PI/180.0;
+    //subtraction???
+    io_attitude.phid = target_angle.x + curr_angle.x;
+    io_attitude.thetad = target_angle.y + curr_angle.y;
+    io_attitude.psid = target_angle.z;
 
     //this order though
     io_attitude.omgs[0] = motor_omega[3];
@@ -225,7 +225,6 @@ void inputs_to_outputs(float* z, float* angles,
                        Vector3f xy_current, Vector3f xy_desired,
                        float roll, float pitch)
 {
-    Vector3f destination = wp_nav.get_wp_destination();
     Vector3f angle_error;
              angle_error.x = angles[0];
              angle_error.y = angles[1];
@@ -241,50 +240,89 @@ void inputs_to_outputs(float* z, float* angles,
      Vector3f desired_angles;
              desired_angles.x = angles[0];
              desired_angles.y = angles[1];
-             desired_angles.z = angles[5]; 
-   
-    if (using_controller != Original_PID_Controller)
+             desired_angles.z = angles[5];
+    //controller_output is the 4-vector of U values
+    GAREAL *controller_output;
+    //Integrate the calculation for new controllers here
+    switch (using_controller)
     {
-        //rad_per_second is an array angular velocites
-        GAREAL *rad_per_second;
-        //Integrate the calculation for new controllers here
-        switch (using_controller)
+        case Original_PID_Controller:
+            break;
+        case New_PID_Controller:
         {
-            case Original_PID_Controller:
-                break;
-            case New_PID_Controller:
-            {
-                //Inputs: z_error; roll_error; pitch_error; yaw_error
-                //Outputs: angular speed of each motors
-                //gcs_send_text_fmt(PSTR("r: %f p: %f y: %f \n"),input1,input2,input3);
-                //gcs_send_text_fmt(PSTR("p1:%f p2:%f p3:%f\n"),angles[1], angles[4], angles[10]);
-                //gcs_send_text_fmt(PSTR("z: %f\n"),z_error);
-                rad_per_second = PID_calculate(z[2], angle_error, ahrs.roll, ahrs.pitch);
-                
-                break;
-             }   
-             
-            case Simple_IB_Controller:
-            {
-                //Inputs:current_z, desired_z, current_angles, angular_speed, desired_angles
-                //Outputs: angular speed of each motors
-                //gcs_send_text_fmt(PSTR("y: %f yd: %f  \n"),angle_current.z, desired_angles.z);
-                rad_per_second = IB_calculate(z[0], z[1], current_angles, change_rate, desired_angles);
-                //gcs_send_text_fmt(PSTR("r1: %f r2: %f r3: %f r4: %f  \n"),rad_per_second[0], rad_per_second[1], rad_per_second[2], rad_per_second[3] );
-                break;
-            }
-                                       
+            //Inputs: z_error; roll_error; pitch_error; yaw_error
+            //Outputs: angular speed of each motors
+            //gcs_send_text_fmt(PSTR("r: %f p: %f y: %f \n"),input1,input2,input3);
+            //gcs_send_text_fmt(PSTR("p1:%f p2:%f p3:%f\n"),angles[1], angles[4], angles[10]);
+            //gcs_send_text_fmt(PSTR("z: %f\n"),z_error);
+            controller_output = PID_calculate(z[2], angle_error, ahrs.roll, ahrs.pitch);
+            break;
+        }   
+        case Simple_IB_Controller:
+        {
+            //Inputs:current_z, desired_z, current_angles, angular_speed, desired_angles
+            //Outputs: angular speed of each motors
+            //gcs_send_text_fmt(PSTR("y: %f yd: %f  \n"),angle_current.z, desired_angles.z);
+            controller_output = IB_calculate(z[0], z[1], current_angles, change_rate, desired_angles);
+            //gcs_send_text_fmt(PSTR("r1: %f r2: %f r3: %f r4: %f  \n"),controller_output[0], controller_output[1], controller_output[2], controller_output[3] );
+            break;
         }
-        motors_output(rad_per_second);
+                                   
     }
-    else return; 
-    
-    
+    motors_output(controller_output);
+}
+
+//We want to test a more unified parameter passing scheme, but we will experiment
+//with loiter mode only first. Compared to the original inputs to outputs above,
+//this function should receive :
+//
+// r       : current position (AP_InertialNav)
+// v       : current velocity (working on finding this, maybe AP_InertialNav)
+// a       : current acceleration (from AP_AHRS)
+// theta   : a vector of roll, pitch, yaw in the earth frame (AP_AHRS)
+// omega   : a vector of angular velocities (AP_AHRS)
+// r_d     : desired position
+// theta_d : desired orientation
+//
+// Only works for the IB controller right now
+void inputs_to_outputs_loiter_test(
+    Vector3f& position,
+    Vector3f& velocity,
+    Vector3f& acceleration,
+    Vector3f& orientation, 
+    Vector3f& rotational_velocity
+    Vector3f& target_position,
+    Vector3f& target_orientation)
+{
+    float current_z = position.z;
+    float desired_z = target_position.z;
+    //controller_output is the 4-vector of U values
+    GAREAL *controller_output;
+    //Integrate the calculation for new controllers here
+    switch (using_controller)
+    {
+        case Original_PID_Controller:
+            break;
+        case New_PID_Controller:
+            break;
+        case Simple_IB_Controller:
+        {
+            //Inputs:current_z, desired_z, current_angles, angular_speed, desired_angles
+            //Outputs: angular speed of each motors
+            //gcs_send_text_fmt(PSTR("y: %f yd: %f  \n"),angle_current.z, desired_angles.z);
+            controller_output = IB_calculate(current_z, desired_z, orientation, rotational_velocity, target_orientation);
+            //gcs_send_text_fmt(PSTR("r1: %f r2: %f r3: %f r4: %f  \n"),controller_output[0], controller_output[1], controller_output[2], controller_output[3] );
+            break;
+        }
+        default:
+
+
+    }
+    motors_output(controller_output);
 }
 
 /// motors_output - send output to motors library which will adjust and send to ESCs and servos
 /// ENSMA
-//  when is this called? Right above...
 void motors_output(GAREAL *output_value)
 {
     // Limits for our quadrotor
@@ -299,32 +337,37 @@ void motors_output(GAREAL *output_value)
     io_motors.U4 = output_value[3]; //MOMENT
         
     gcs_send_text_fmt(PSTR("U1:%f U2:%f U3:%f U4:%f \n"),io_motors.U1, io_motors.U2, io_motors.U3, io_motors.U4 );
-        
-    /// Developing + frame
-    if (using_controller == New_PID_Controller)
+    
+    switch (using_controller)
     {
-        //Call to the GA U -> omega transformation
-        MotorSpeed_compute(&io_motors);        
-        motor_omega[3] = io_motors.omgs2[0];
-        motor_omega[0] = io_motors.omgs2[1];
-        motor_omega[2] = io_motors.omgs2[2];
-        motor_omega[1] = io_motors.omgs2[3]; 
-     }
-    if ((using_controller == Simple_IB_Controller))
-    {
-       motor_omega[0] =(double) sqrt(abs(output_value[0] / (4.0 * b)
-           - output_value[1] / (2.0 * b * l)
-           + output_value[3] / (4.0 * d)));
-       motor_omega[1] =(double) sqrt(abs(output_value[0] / (4.0 * b)
-           + output_value[1] / (2.0 * b * l)
-           + output_value[3] / (4.0 * d)));
-       motor_omega[2] =(double) sqrt(abs(output_value[0] / (4.0 * b)
-           + output_value[2] / (2.0 * b * l)
-           - output_value[3] / (4.0 * d)));
-       motor_omega[3] =(double) sqrt(abs(output_value[0] / (4.0 * b)
-           - output_value[2] / (2.0 * b * l)
-           - output_value[3] / (4.0 * d)));
-     }  
+        case New_PID_Controller:
+        {
+            //Call to the GA U -> omega transformation
+            MotorSpeed_compute(&io_motors);        
+            motor_omega[3] = io_motors.omgs2[0];
+            motor_omega[0] = io_motors.omgs2[1];
+            motor_omega[2] = io_motors.omgs2[2];
+            motor_omega[1] = io_motors.omgs2[3]; 
+            break;
+        }
+        case Simple_IB_Controller:
+        {
+            motor_omega[0] =(double) sqrt(abs(output_value[0] / (4.0 * b)
+               - output_value[1] / (2.0 * b * l)
+               + output_value[3] / (4.0 * d)));
+            motor_omega[1] =(double) sqrt(abs(output_value[0] / (4.0 * b)
+               + output_value[1] / (2.0 * b * l)
+               + output_value[3] / (4.0 * d)));
+             motor_omega[2] =(double) sqrt(abs(output_value[0] / (4.0 * b)
+               + output_value[2] / (2.0 * b * l)
+               - output_value[3] / (4.0 * d)));
+            motor_omega[3] =(double) sqrt(abs(output_value[0] / (4.0 * b)
+               - output_value[2] / (2.0 * b * l)
+               - output_value[3] / (4.0 * d)));
+        }
+        default :
+            break; //should not occur!
+    }
     //limits
     for (uint8_t i = 0; i<4; i++)
     {
@@ -336,7 +379,6 @@ void motors_output(GAREAL *output_value)
         }
     }
   //gcs_send_text_fmt(PSTR("r1: %f r2: %f r3: %f r4: %f  \n"),output_value[0], output_value[1], output_value[2], output_value[3] );
-    
   motors.output_signal(motor_omega);
    
 }   
