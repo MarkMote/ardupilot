@@ -836,13 +836,13 @@ static void new_loiter_run()
         pos_control.get_stopping_point_xy(xy_desired);
         // This function will get the current position in x,y respectively
         // ACTUALLY IN XYZ: xy_current() RETURNS XYZ VALUE OMG 
-        Vector3f& position =  pos_control.xy_current();
-        Vector3f& velocity = Vector3f(0.0, 0.0, 0.0); //not used but needed
-        Vector3f& acceleration = ahrs.get_accel_ef();
-        Vector3f& orientation = Vector3f(ahrs.roll, ahrs.pitch, ahrs.yaw);
-        Vector3f& rotational_velocity = ahrs.get_gyro();
-        Vector3f& target_position = pos_control.get_pos_target();
-        Vector3f& target_orientation = Vector3f(attitude_control.angle_values[3],attitude_control.angle_values[4],attitude_control.angle_values[5]);
+        const Vector3f& position =  pos_control.xy_current();
+        const Vector3f& velocity = Vector3f(0.0, 0.0, 0.0); //not used but needed
+        const Vector3f& acceleration = ahrs.get_accel_ef();
+        const Vector3f& orientation = Vector3f(ahrs.roll, ahrs.pitch, ahrs.yaw);
+        const Vector3f& rotational_velocity = ahrs.get_gyro();
+        const Vector3f& target_position = pos_control.get_pos_target();
+        const Vector3f& target_orientation = Vector3f(attitude_control.angle_values[3],attitude_control.angle_values[4],attitude_control.angle_values[5]);
 
         ///Send values to the general handling code
 //     Vector3f position,

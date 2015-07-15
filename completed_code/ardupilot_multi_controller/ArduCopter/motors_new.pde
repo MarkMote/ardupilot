@@ -286,13 +286,13 @@ void inputs_to_outputs(float* z, float* angles,
 //
 // Only works for the IB controller right now
 void inputs_to_outputs_loiter_test(
-    Vector3f& position,
-    Vector3f& velocity,
-    Vector3f& acceleration,
-    Vector3f& orientation, 
-    Vector3f& rotational_velocity
-    Vector3f& target_position,
-    Vector3f& target_orientation)
+    const Vector3f& position,
+    const Vector3f& velocity,
+    const Vector3f& acceleration,
+    const Vector3f& orientation, 
+    const Vector3f& rotational_velocity,
+    const Vector3f& target_position,
+    const Vector3f& target_orientation)
 {
     float current_z = position.z;
     float desired_z = target_position.z;
@@ -315,7 +315,7 @@ void inputs_to_outputs_loiter_test(
             break;
         }
         default:
-
+	    break;
 
     }
     motors_output(controller_output);
