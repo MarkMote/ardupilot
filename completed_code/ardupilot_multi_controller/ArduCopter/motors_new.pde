@@ -29,12 +29,12 @@ t_MotorSpeed_io io_motors;
 #endif
 
 //what is?
-double rotational_speed[4] = {0,0,0,0}; 
+double motor_omega[4] = {0,0,0,0}; 
 
 
 ///Initial command for each controller
 //DANGEROUS
-//this function depends on 
+//this function depends on being inlined
 static inline void init_controller()
 {
     switch (using_controller)
@@ -61,6 +61,10 @@ GAREAL* PID_calculate(float z_error, Vector3f output, float pitch, float roll)
      * Although these can be modified mid-flight with MAVlink packets,
      * Note that there are strange domain restrictions, particulary in the
      * roll, pitch and yaw derivatives.
+     * 
+     * The explanation for the domain restrictions is that
+     * these are the parameters for the original PID controller
+     * and they have been stolen for use on the new PID controller.
      */
     float Kp_z = THROTTLE_ACCEL_P * 3.0;
     float Ki_z = THROTTLE_ACCEL_I / 10.0;
@@ -101,14 +105,14 @@ GAREAL* PID_calculate(float z_error, Vector3f output, float pitch, float roll)
     //gcs_send_text_fmt(PSTR("io.y[0]: %f \n"),io.y[0]);
     float m = 1.14; //kg
     
-    if ((cos(roll)*cos(pitch)) != 0.0)
+    if ((cos(roll) * cos(pitch)) != 0.0)
     {   
         io.y[0] = (io.y[0] + 9.81) * m / (cos(roll) * cos(pitch));
     }
-    else io.y[0] = (io.y[0] + 9.81) * m / (cos(roll) * cos(pitch) + 0.001);
-    
+    else {
+	io.y[0] = (io.y[0] + 9.81) * m / (cos(roll) * cos(pitch) + 0.001);
+    }    
     //Constrain for io.y
-    //
     io.y[0] = constrain_float(io.y[0], 0, 22.34);
     io.y[1] = constrain_float(io.y[1], -1.257, 1.257); 
     io.y[2] = constrain_float(io.y[2], -1.257, 1.257);
@@ -122,11 +126,13 @@ GAREAL* PID_calculate(float z_error, Vector3f output, float pitch, float roll)
 ///Integral Backsteping main code
 GAREAL IB_results[4];
 double time_old = 0;
-GAREAL* IB_calculate(float curr_alt, float alt_des, Vector3f angle_cur, Vector3f angular_speed, 
-                    Vector3f angles_tar)
+//Inputs: current altitude, desired altitute, current orientation, current
+//angular velocity, 
+GAREAL* IB_calculate(float curr_alt, float alt_des, Vector3f angle_cur,
+    Vector3f angular_speed, Vector3f angles_target)
 {
     double time =(double) millis() / 1000.0;
-    //???
+    //if sample time is over a second, something is horribly wrong
     if (fabs(time - time_old) > 1.0)
     {
         time_old = time;
@@ -138,39 +144,40 @@ GAREAL* IB_calculate(float curr_alt, float alt_des, Vector3f angle_cur, Vector3f
     }
         
     //Get the values
-
     io_alt.z = curr_alt/100.0;
     io_alt.zd = alt_des/100.0;
-     
     
     io_alt.dt = time - time_old;
     io_alt.phi = angle_cur.x;
     io_alt.theta = angle_cur.y;
     
-    Altitude_compute(&io_alt,&state_alt);
-    if (io_alt.U1 > 6)
+    Altitude_compute(&io_alt, &state_alt);
+    //minimum thrust
+    if (io_alt.U1 < 6) {
+        IB_results[0] = 6;
+    } else {
         IB_results[0] = io_alt.U1;
-    else IB_results[0] = 6;    
+    }
 
     
     io_attitude.angles[0] = angle_cur.x;
     io_attitude.angles[1] = angle_cur.y;
     io_attitude.angles[2] = angle_cur.z;
-    io_attitude.angles[3] = angular_speed.x/100.0*PI/180.0;
-    io_attitude.angles[4] = angular_speed.y/100.0*PI/180.0;
-    io_attitude.angles[5] = angular_speed.z/100.0*PI/180.0;
+    io_attitude.angles[3] = angular_speed.x/100.0 * PI/180.0;
+    io_attitude.angles[4] = angular_speed.y/100.0 * PI/180.0;
+    io_attitude.angles[5] = angular_speed.z/100.0 * PI/180.0;
     io_attitude.dt = time - time_old;
-    io_attitude.phid = angles_tar.x/100.0*PI/180.0 + angle_cur.x;
-    io_attitude.thetad = angles_tar.y/100.0*PI/180.0 + angle_cur.y;
-    io_attitude.psid = angles_tar.z/100.0*PI/180.0;
-           
-    io_attitude.omgs[0] = rotational_speed[3];
-    io_attitude.omgs[1] = rotational_speed[0];
-    io_attitude.omgs[2] = rotational_speed[2];
-    io_attitude.omgs[3] = rotational_speed[1];
+    io_attitude.phid = angles_target.x/100.0*PI/180.0 + angle_cur.x;
+    io_attitude.thetad = angles_target.y/100.0*PI/180.0 + angle_cur.y;
+    io_attitude.psid = angles_target.z/100.0*PI/180.0;
+
+    //this order though
+    io_attitude.omgs[0] = motor_omega[3];
+    io_attitude.omgs[1] = motor_omega[0];
+    io_attitude.omgs[2] = motor_omega[2];
+    io_attitude.omgs[3] = motor_omega[1];
     
-    //gcs_send_text_fmt(PSTR("U1:%f U2:%f U3:%f U4:%f \n"),rotational_speed[2], rotational_speed[0], rotational_speed[3], rotational_speed[1] );
-        
+    //gcs_send_text_fmt(PSTR("U1:%f U2:%f U3:%f U4:%f \n"),motor_omega[2], motor_omega[0], motor_omega[3], motor_omega[1] );
     IB_Controller_ga_attitude_final_compute(&io_attitude,&state_attitude);    
   
     time_old = time;
@@ -183,7 +190,9 @@ GAREAL* IB_calculate(float curr_alt, float alt_des, Vector3f angle_cur, Vector3f
 }
 #endif
 
-///get inputs from the auto mode and then pass it into controllers
+///Receive the sensor values from auto mode and then pass them into controllers
+///Each controller needs to accept the inputs it expect, therefore not all
+///inputs will be used.
 ///Meaning of the inputs
 //  z[0]: current_z      in cm 
 //  z[1]: desired_z      in cm
@@ -205,13 +214,13 @@ GAREAL* IB_calculate(float curr_alt, float alt_des, Vector3f angle_cur, Vector3f
 
 //  xy_current.x: current position      in centimeter from home
 //  xy_current.y: current position      in centimeter from home
-//  xy_current.z: current position      do not used this
+//  xy_current.z: current position      DO NOT USE
 //  xy_desired.x: target position       in centimeter from home
 //  xy_desired.y: target position       in centimeter from home
-//  xy_desired.z: target position       do not used this
+//  xy_desired.z: target position       DO NOT USE
 //  roll :        current roll          radian
 //  pitch:        current pitch         radian
-// Called from control_multi_controller.pde
+//  Called from control_multi_controller.pde
 void inputs_to_outputs(float* z, float* angles,
                        Vector3f xy_current, Vector3f xy_desired,
                        float roll, float pitch)
@@ -289,45 +298,45 @@ void motors_output(GAREAL *output_value)
     io_motors.U3 = output_value[2]; //MOMENT
     io_motors.U4 = output_value[3]; //MOMENT
         
-    //gcs_send_text_fmt(PSTR("U1:%f U2:%f U3:%f U4:%f \n"),io_motors.U1, io_motors.U2, io_motors.U3, io_motors.U4 );
+    gcs_send_text_fmt(PSTR("U1:%f U2:%f U3:%f U4:%f \n"),io_motors.U1, io_motors.U2, io_motors.U3, io_motors.U4 );
         
     /// Developing + frame
     if (using_controller == New_PID_Controller)
     {
         //Call to the GA U -> omega transformation
         MotorSpeed_compute(&io_motors);        
-        rotational_speed[3] = io_motors.omgs2[0];
-        rotational_speed[0] = io_motors.omgs2[1];
-        rotational_speed[2] = io_motors.omgs2[2];
-        rotational_speed[1] = io_motors.omgs2[3]; 
+        motor_omega[3] = io_motors.omgs2[0];
+        motor_omega[0] = io_motors.omgs2[1];
+        motor_omega[2] = io_motors.omgs2[2];
+        motor_omega[1] = io_motors.omgs2[3]; 
      }
     if ((using_controller == Simple_IB_Controller))
     {
-       rotational_speed[0] =(double) sqrt(abs(output_value[0] / (4.0 * b)
+       motor_omega[0] =(double) sqrt(abs(output_value[0] / (4.0 * b)
            - output_value[1] / (2.0 * b * l)
            + output_value[3] / (4.0 * d)));
-       rotational_speed[1] =(double) sqrt(abs(output_value[0] / (4.0 * b)
+       motor_omega[1] =(double) sqrt(abs(output_value[0] / (4.0 * b)
            + output_value[1] / (2.0 * b * l)
            + output_value[3] / (4.0 * d)));
-       rotational_speed[2] =(double) sqrt(abs(output_value[0] / (4.0 * b)
+       motor_omega[2] =(double) sqrt(abs(output_value[0] / (4.0 * b)
            + output_value[2] / (2.0 * b * l)
            - output_value[3] / (4.0 * d)));
-       rotational_speed[3] =(double) sqrt(abs(output_value[0] / (4.0 * b)
+       motor_omega[3] =(double) sqrt(abs(output_value[0] / (4.0 * b)
            - output_value[2] / (2.0 * b * l)
            - output_value[3] / (4.0 * d)));
      }  
     //limits
     for (uint8_t i = 0; i<4; i++)
     {
-        if (rotational_speed[i] <= 0.0) {
-            rotational_speed[i] = 0 ;
+        if (motor_omega[i] <= 0.0) {
+            motor_omega[i] = 0 ;
         }
-        if (rotational_speed[i] > 216.0) {
-            rotational_speed[i] = 216.0;        
+        if (motor_omega[i] > 216.0) {
+            motor_omega[i] = 216.0;        
         }
     }
   //gcs_send_text_fmt(PSTR("r1: %f r2: %f r3: %f r4: %f  \n"),output_value[0], output_value[1], output_value[2], output_value[3] );
     
-  motors.output_signal(rotational_speed);
+  motors.output_signal(motor_omega);
    
 }   

@@ -98,8 +98,8 @@
 #include <AP_HAL_Linux.h>
 #include <AP_HAL_Empty.h>
 
-// Controller
-// Add by ensma
+// Controller includes
+// Add by ENSMA
 #include <MotorSpeed.h>
 #include <PIDController.h>
 #include <IB_Controller.h>
@@ -996,7 +996,7 @@ static void fast_loop()
     update_heli_control_dynamics();
 #endif //HELI_FRAME
     
-    //What happens when its not the original PID controller?
+    //NOTICE: New controllers only used for modes other than STABILIZE
     if ((using_controller == Original_PID_Controller) || (control_mode == STABILIZE)) {
         //call into motors.pde
         motors_output();
