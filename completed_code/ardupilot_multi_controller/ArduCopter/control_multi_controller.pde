@@ -83,7 +83,7 @@ static void new_auto_run()
         break;
     }
 }
-
+//added to remove redundancy
 static void reset_relax() {
      // initialise wpnav targets
     wp_nav.shift_wp_origin_to_current_pos();
@@ -779,16 +779,12 @@ static void new_loiter_run()
     if (!failsafe.radio) {
         // apply SIMPLE mode transform to pilot inputs
         update_simple_mode();
-
         // process pilot's roll and pitch input
         wp_nav.set_pilot_desired_acceleration(g.rc_1.control_in, g.rc_2.control_in);
-
         // get pilot's desired yaw rate
         target_yaw_rate = get_pilot_desired_yaw_rate(g.rc_4.control_in);
-
         // get pilot desired climb rate
         target_climb_rate = get_pilot_desired_climb_rate(g.rc_3.control_in);
-
         // check for pilot requested take-off
         if (ap.land_complete && target_climb_rate > 0) {
             // indicate we are taking off
@@ -800,12 +796,10 @@ static void new_loiter_run()
         // clear out pilot desired acceleration in case radio failsafe event occurs and we do not switch to RTL for some reason
         wp_nav.clear_pilot_desired_acceleration();
     }
-
     // relax loiter target if we might be landed
     if (land_complete_maybe()) {
         wp_nav.loiter_soften_for_landing();
     }
-
     // when landed reset targets and output zero throttle
     if (ap.land_complete) {
         wp_nav.init_loiter_target();
@@ -817,12 +811,9 @@ static void new_loiter_run()
     }else{
         // run loiter controller
         wp_nav.update_loiter(ekfGndSpdLimit, ekfNavVelGainScaler);
-
         // call attitude controller
         attitude_control.new_angle_ef_roll_pitch_rate_ef_yaw(wp_nav.get_roll(), wp_nav.get_pitch(), target_yaw_rate);
         angle_outputs = attitude_control.angle_values;
-        
-
         // run altitude controller
         if (sonar_alt_health >= SONAR_ALT_HEALTH_MAX) {
             // if sonar is ok, use surface tracking
@@ -842,16 +833,10 @@ static void new_loiter_run()
         const Vector3f& orientation = Vector3f(ahrs.roll, ahrs.pitch, ahrs.yaw);
         const Vector3f& rotational_velocity = ahrs.get_gyro();
         const Vector3f& target_position = pos_control.get_pos_target();
-        const Vector3f& target_orientation = Vector3f(attitude_control.angle_values[3],attitude_control.angle_values[4],attitude_control.angle_values[5]);
-
-        ///Send values to the general handling code
-//     Vector3f position,
-//     Vector3f velocity,
-//     Vector3f acceleration,
-//     Vector3f orientation, 
-//     Vector3f rotational_velocity
-//     Vector3f target_position,
-//     Vector3f target_orientation)
+        const Vector3f& target_orientation = Vector3f(
+	    attitude_control.angle_values[3],
+	    attitude_control.angle_values[4],
+	    attitude_control.angle_values[5]);
         inputs_to_outputs_loiter_test(position, velocity, acceleration, orientation, rotational_velocity, target_position, target_orientation);
         // body-frame rate controller is run directly from 100hz loop
     }

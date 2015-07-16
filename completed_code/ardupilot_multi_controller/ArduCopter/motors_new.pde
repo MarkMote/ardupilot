@@ -9,13 +9,20 @@
 /*
 /**/
 
+#DEFINE X 0
+#DEFINE Y 1
+#DEFINE Z 2
+
+#DEFINE ROLL 0
+#DEFINE PITCH 1
+#DEFINE YAW 2
 t_MotorSpeed_io io_motors;
 
 ///Define variables for each controller
 #if using_controller == New_PID_Controller
     //IO structure 
     t_PIDcontroller_io io;
-    // State structure
+    //State structure
     t_PIDcontroller_state state;
 #endif
 
@@ -23,9 +30,16 @@ t_MotorSpeed_io io_motors;
     //IO structure 
     t_IB_Controller_ga_attitude_final_io io_attitude;
     t_Altitude_io io_alt;
-    // State structure
+    //State structure
     t_IB_Controller_ga_attitude_final_state state_attitude;
     t_Altitude_state state_alt;
+#endif
+
+#if using_controller == IB_Controller_Interface
+    //IO structure
+    t_IB_ga_final_io io;
+    //State structure
+    t_IB_ga_final_state state;
 #endif
 
 //what is?
@@ -47,6 +61,9 @@ static inline void init_controller()
         case Simple_IB_Controller:
             IB_Controller_ga_attitude_final_init(&state_attitude);
             Altitude_init(&state_alt);
+            break;
+        case IB_Controller_Interface:
+            IB_ga_final_init(&state);
             break;
     }  
 }
@@ -190,6 +207,78 @@ GAREAL* IB_calculate(float curr_alt, float target_alt, Vector3f curr_angle,
 }
 #endif
 
+#if using_controller == IB_Controller_Interface
+GAREAL IB_results[4];
+double time_old = 0;
+GAREAL* IB_interface_calculate(
+    const Vector3f& position,
+    const Vector3f& velocity,
+    const Vector3f& acceleration,
+    const Vector3f& orientation, 
+    const Vector3f& rotational_velocity,
+    const Vector3f& target_position,
+    const Vector3f& target_orientation) {
+
+    double time = (double) millis() / 1000.0;
+    //if sample time is over a second, something is horribly wrong
+    if (fabs(time - time_old) > 1.0)
+    {
+        time_old = time;
+        IB_results[0] = 0.0;
+        IB_results[1] = 0.0;
+        IB_results[2] = 0.0;
+        IB_results[3] = 0.0;
+        return IB_results;
+    }
+    //put values into GA io struct
+    io.angles[ROLL]         = orientation.x;
+    io.angles[PITCH]        = orientation.y;
+    io.angles[YAW]          = orientation.z;
+    io.anglesdot[ROLL]      = rotational_velocity.x;
+    io.anglesdot[PITCH]     = rotational_velocity.y;
+    io.anglesdot[YAW]       = rotational_velocity.z;
+    io.position[X]          = position.x;
+    io.position[Y]          = position.y;
+    io.position[Z]          = position.z;
+    io.positiondot[X]       = velocity.x;
+    io.positiondot[Y]       = velocity.y;
+    io.positiondot[Z]       = velocity.z;
+    io.positiondotdot[X]    = acceleration.x;
+    io.positiondotdot[Y]    = acceleration.y;
+    io.positiondotdot[Z]    = acceleration.z;
+    io.angles_desired[ROLL] = target_orientation.x;
+    io.angles_desired[PITCH]= target_orientation.y;
+    io.angles_desired[YAW]  = target_orientation.z;
+    io.position_desired[X]  = target_position.x;
+    io.position_desired[Y]  = target_position.y;
+    io.position_desired[Z]  = target_position.z;
+    io.t                    = time;
+
+    //get controller specifict params in here next....
+
+    //this order is strange
+    io.omgs[0] = motor_omega[3];
+    io.omgs[1] = motor_omega[0];
+    io.omgs[2] = motor_omega[2];
+    io.omgs[3] = motor_omega[1];
+    
+    IB_Controller_ga_final_compute(&io, &state);    
+    //gcs_send_text_fmt(PSTR("U1:%f U2:%f U3:%f U4:%f \n"),motor_omega[2], motor_omega[0], motor_omega[3], motor_omega[1] );
+  
+    //minimum thrust
+    if (io.U1 < 6) {
+        IB_results[0] = 6;
+    } else {
+        IB_results[0] = io.U1;
+    }
+    time_old = time;
+    IB_results[1] = io.U2;
+    IB_results[2] = io.U3;
+    IB_results[3] = io.U4;
+    return IB_results;
+}
+#endif
+
 ///Receive the sensor values from auto mode and then pass them into controllers
 ///Each controller needs to accept the inputs it expect, therefore not all
 ///inputs will be used.
@@ -284,7 +373,7 @@ void inputs_to_outputs(float* z, float* angles,
 // r_d     : desired position
 // theta_d : desired orientation
 //
-// Only works for the IB controller right now
+// Only works for the new IB controller right now
 void inputs_to_outputs_loiter_test(
     const Vector3f& position,
     const Vector3f& velocity,
@@ -294,8 +383,6 @@ void inputs_to_outputs_loiter_test(
     const Vector3f& target_position,
     const Vector3f& target_orientation)
 {
-    float current_z = position.z;
-    float desired_z = target_position.z;
     //controller_output is the 4-vector of U values
     GAREAL *controller_output;
     //Integrate the calculation for new controllers here
@@ -310,10 +397,13 @@ void inputs_to_outputs_loiter_test(
             //Inputs:current_z, desired_z, current_angles, angular_speed, desired_angles
             //Outputs: angular speed of each motors
             //gcs_send_text_fmt(PSTR("y: %f yd: %f  \n"),angle_current.z, desired_angles.z);
-            controller_output = IB_calculate(current_z, desired_z, orientation, rotational_velocity, target_orientation);
+            // controller_output = IB_calculate(current_z, desired_z, orientation, rotational_velocity, target_orientation);
             //gcs_send_text_fmt(PSTR("r1: %f r2: %f r3: %f r4: %f  \n"),controller_output[0], controller_output[1], controller_output[2], controller_output[3] );
             break;
         }
+        case IB_Controller_Interface:
+            controller_output = IB_interface_calculate(position, velocity, acceleration, orientation, rotational_velocity, target_position, target_orientation);
+            break;
         default:
 	    break;
 
@@ -350,7 +440,7 @@ void motors_output(GAREAL *output_value)
             motor_omega[1] = io_motors.omgs2[3]; 
             break;
         }
-        case Simple_IB_Controller:
+        default:
         {
             motor_omega[0] =(double) sqrt(abs(output_value[0] / (4.0 * b)
                - output_value[1] / (2.0 * b * l)
@@ -365,8 +455,6 @@ void motors_output(GAREAL *output_value)
                - output_value[2] / (2.0 * b * l)
                - output_value[3] / (4.0 * d)));
         }
-        default :
-            break; //should not occur!
     }
     //limits
     for (uint8_t i = 0; i<4; i++)

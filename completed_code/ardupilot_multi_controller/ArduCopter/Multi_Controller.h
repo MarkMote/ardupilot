@@ -10,5 +10,6 @@ enum Controllers
 {
     Original_PID_Controller = 0,
     New_PID_Controller = 1,
-    Simple_IB_Controller = 2
+    Simple_IB_Controller = 2,
+    IB_Controller_Interface = 3
 };
