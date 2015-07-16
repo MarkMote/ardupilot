@@ -26,14 +26,14 @@ t_MotorSpeed_io io_motors;
     t_PIDcontroller_state state;
 #endif
 
-#if using_controller == Simple_IB_Controller
-    //IO structure 
-    t_IB_Controller_ga_attitude_final_io io_attitude;
-    t_Altitude_io io_alt;
-    //State structure
-    t_IB_Controller_ga_attitude_final_state state_attitude;
-    t_Altitude_state state_alt;
-#endif
+//#if using_controller == Simple_IB_Controller
+//    //IO structure 
+//    t_IB_Controller_ga_attitude_final_io io_attitude;
+//    t_Altitude_io io_alt;
+//    //State structure
+//    t_IB_Controller_ga_attitude_final_state state_attitude;
+//    t_Altitude_state state_alt;
+//#endif
 
 #if using_controller == IB_Controller_Interface
     //IO structure
@@ -59,8 +59,8 @@ static inline void init_controller()
             PIDcontroller_init(&state);            
             break;
         case Simple_IB_Controller:
-            IB_Controller_ga_attitude_final_init(&state_attitude);
-            Altitude_init(&state_alt);
+ //           IB_Controller_ga_attitude_final_init(&state_attitude);
+ //           Altitude_init(&state_alt);
             break;
         case IB_Controller_Interface:
             IB_ga_final_init(&state_ib);
@@ -173,71 +173,71 @@ GAREAL* PID_calculate(float z_error, Vector3f output, float pitch, float roll)
 GAREAL IB_results[4];
 double time_old = 0;
 //radians vs degrees???????????
-#if using_controller == Simple_IB_Controller
-///Integral Backsteping main code
-//Inputs: current altitude,
-//desired altitute, current orientation, current
-//angular velocity, //ALL RADIANS
-GAREAL* IB_calculate(float curr_alt, float target_alt, Vector3f curr_angle,
-    Vector3f angular_speed, Vector3f target_angle)
-{
-    double time = (double) millis() / 1000.0;
-    //if sample time is over a second, something is horribly wrong
-    if (fabs(time - time_old) > 1.0)
-    {
-        time_old = time;
-        IB_results[0] = 0;
-        IB_results[1] = 0;
-        IB_results[2] = 0;
-        IB_results[3] = 0;
-        return IB_results;
-    }
-
-    //Get the values
-    io_alt.z = curr_alt/100.0;
-    io_alt.zd = target_alt/100.0;
-    
-    io_alt.dt = time - time_old;
-    io_alt.phi = curr_angle.x;
-    io_alt.theta = curr_angle.y;
-    
-    Altitude_compute(&io_alt, &state_alt);
-    //minimum thrust
-    if (io_alt.U1 < 6) {
-        IB_results[0] = 6;
-    } else {
-        IB_results[0] = io_alt.U1;
-    }
-    io_attitude.angles[0] = curr_angle.x;
-    io_attitude.angles[1] = curr_angle.y;
-    io_attitude.angles[2] = curr_angle.z;
-    io_attitude.angles[3] = angular_speed.x;
-    io_attitude.angles[4] = angular_speed.y;
-    io_attitude.angles[5] = angular_speed.z;
-    io_attitude.dt = time - time_old;
-    //subtraction???
-    io_attitude.phid = target_angle.x + curr_angle.x;
-    io_attitude.thetad = target_angle.y + curr_angle.y;
-    io_attitude.psid = target_angle.z;
-
-    //this order though
-    io_attitude.omgs[0] = motor_omega[3];
-    io_attitude.omgs[1] = motor_omega[0];
-    io_attitude.omgs[2] = motor_omega[2];
-    io_attitude.omgs[3] = motor_omega[1];
-    
-    //gcs_send_text_fmt(PSTR("U1:%f U2:%f U3:%f U4:%f \n"),motor_omega[2], motor_omega[0], motor_omega[3], motor_omega[1] );
-    IB_Controller_ga_attitude_final_compute(&io_attitude,&state_attitude);    
-  
-    time_old = time;
- 
-    IB_results[1] = io_attitude.U2;
-    IB_results[2] = io_attitude.U3;
-    IB_results[3] = io_attitude.U4;
-
-    return IB_results;
-}
-#endif
+//#if using_controller == Simple_IB_Controller
+/////Integral Backsteping main code
+////Inputs: current altitude,
+////desired altitute, current orientation, current
+////angular velocity, //ALL RADIANS
+//GAREAL* IB_calculate(float curr_alt, float target_alt, Vector3f curr_angle,
+//    Vector3f angular_speed, Vector3f target_angle)
+//{
+//    double time = (double) millis() / 1000.0;
+//    //if sample time is over a second, something is horribly wrong
+//    if (fabs(time - time_old) > 1.0)
+//    {
+//        time_old = time;
+//        IB_results[0] = 0;
+//        IB_results[1] = 0;
+//        IB_results[2] = 0;
+//        IB_results[3] = 0;
+//        return IB_results;
+//    }
+//
+//    //Get the values
+//    io_alt.z = curr_alt/100.0;
+//    io_alt.zd = target_alt/100.0;
+//    
+//    io_alt.dt = time - time_old;
+//    io_alt.phi = curr_angle.x;
+//    io_alt.theta = curr_angle.y;
+//    
+//    Altitude_compute(&io_alt, &state_alt);
+//    //minimum thrust
+//    if (io_alt.U1 < 6) {
+//        IB_results[0] = 6;
+//    } else {
+//        IB_results[0] = io_alt.U1;
+//    }
+//    io_attitude.angles[0] = curr_angle.x;
+//    io_attitude.angles[1] = curr_angle.y;
+//    io_attitude.angles[2] = curr_angle.z;
+//    io_attitude.angles[3] = angular_speed.x;
+//    io_attitude.angles[4] = angular_speed.y;
+//    io_attitude.angles[5] = angular_speed.z;
+//    io_attitude.dt = time - time_old;
+//    //subtraction???
+//    io_attitude.phid = target_angle.x + curr_angle.x;
+//    io_attitude.thetad = target_angle.y + curr_angle.y;
+//    io_attitude.psid = target_angle.z;
+//
+//    //this order though
+//    io_attitude.omgs[0] = motor_omega[3];
+//    io_attitude.omgs[1] = motor_omega[0];
+//    io_attitude.omgs[2] = motor_omega[2];
+//    io_attitude.omgs[3] = motor_omega[1];
+//    
+//    //gcs_send_text_fmt(PSTR("U1:%f U2:%f U3:%f U4:%f \n"),motor_omega[2], motor_omega[0], motor_omega[3], motor_omega[1] );
+//    IB_Controller_ga_attitude_final_compute(&io_attitude,&state_attitude);    
+//  
+//    time_old = time;
+// 
+//    IB_results[1] = io_attitude.U2;
+//    IB_results[2] = io_attitude.U3;
+//    IB_results[3] = io_attitude.U4;
+//
+//    return IB_results;
+//}
+//#endif
 
 #if using_controller == IB_Controller_Interface
 GAREAL* IB_interface_calculate(
@@ -385,15 +385,15 @@ void inputs_to_outputs(float* z, float* angles,
             controller_output = PID_calculate(z[2], angle_error, ahrs.roll, ahrs.pitch);
             break;
         }   
-        case Simple_IB_Controller:
-        {
-            //Inputs:current_z, desired_z, current_angles, angular_speed, desired_angles
-            //Outputs: angular speed of each motors
-            //gcs_send_text_fmt(PSTR("y: %f yd: %f  \n"),angle_current.z, desired_angles.z);
-            controller_output = IB_calculate(z[0], z[1], current_angles, change_rate, desired_angles);
-            //gcs_send_text_fmt(PSTR("r1: %f r2: %f r3: %f r4: %f  \n"),controller_output[0], controller_output[1], controller_output[2], controller_output[3] );
-            break;
-        }
+        //case Simple_IB_Controller:
+        //{
+        //    //Inputs:current_z, desired_z, current_angles, angular_speed, desired_angles
+        //    //Outputs: angular speed of each motors
+        //    //gcs_send_text_fmt(PSTR("y: %f yd: %f  \n"),angle_current.z, desired_angles.z);
+        //    controller_output = IB_calculate(z[0], z[1], current_angles, change_rate, desired_angles);
+        //    //gcs_send_text_fmt(PSTR("r1: %f r2: %f r3: %f r4: %f  \n"),controller_output[0], controller_output[1], controller_output[2], controller_output[3] );
+        //    break;
+        //}
                                    
     }
     motors_output(controller_output);
