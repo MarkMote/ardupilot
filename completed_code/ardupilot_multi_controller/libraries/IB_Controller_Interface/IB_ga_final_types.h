@@ -6,7 +6,43 @@
 
 #include "GATypes.h"
 
-
+//NOT GENERATED:
+//The params element of the io struct represent
+//arbitrary parameters for the controller. This is
+//intended to be where the gains are passed in.
+//Their names
+#define IB_PARAM_C1 0
+#define IB_PARAM_C2 1
+#define IB_PARAM_LD1 2
+#define IB_PARAM_C3 3
+#define IB_PARAM_C4 4
+#define IB_PARAM_LD2 5
+#define IB_PARAM_C5 6
+#define IB_PARAM_C6 7
+#define IB_PARAM_LD3 8
+#define IB_PARAM_C7 9
+#define IB_PARAM_C8 10
+#define IB_PARAM_LD4 11
+#define IB_PARAM_C9 12
+#define IB_PARAM_C10 13
+#define IB_PARAM_LD5 14
+#define IB_PARAM_C11 15
+#define IB_PARAM_C12 16
+#define IB_PARAM_LD6 17
+#define IB_PARAM_B0_BP 18
+#define IB_PARAM_B1_BP 19
+#define IB_PARAM_B2_BP 20
+#define IB_PARAM_A0_BP 21
+#define IB_PARAM_A1_BP 22
+#define IB_PARAM_A2_BP 23
+#define IB_PARAM_B0_LP 24
+#define IB_PARAM_B1_LP 25
+#define IB_PARAM_B2_LP 26
+#define IB_PARAM_A0_LP 27
+#define IB_PARAM_A1_LP 28
+#define IB_PARAM_A2_LP 29
+#define IB_PARAM_ZOH 30
+#define IB_PARAM_ENABLE_PSID 31
 /* Type declarations */
 
 typedef struct {

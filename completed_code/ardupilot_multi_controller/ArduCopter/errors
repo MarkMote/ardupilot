@@ -81,10 +81,10 @@ In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_m
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/AP_Math/matrix3.h:74:5: warning: declaration of 'm' shadows a global declaration [-Wshadow]
      {
      ^
-In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/Altitude.h:9:0,
-                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/IB_Controller.h:6,
-                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/ArduCopter.pde:105:
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/IB_Controller_ga_final_param.h:12:30: note: shadowed declaration is here
+In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/X_POSITION_CONTROL_nIB.h:9:0,
+                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_Controller_Interface.h:9,
+                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/ArduCopter.pde:106:
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_ga_final_param.h:12:30: note: shadowed declaration is here
  extern const volatile GAREAL m;
                               ^
 In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/AP_Math/AP_Math.h:18:0,
@@ -95,10 +95,10 @@ In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_m
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/AP_Math/matrix3.h:80:5: warning: declaration of 'm' shadows a global declaration [-Wshadow]
      {
      ^
-In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/Altitude.h:9:0,
-                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/IB_Controller.h:6,
-                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/ArduCopter.pde:105:
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/IB_Controller_ga_final_param.h:12:30: note: shadowed declaration is here
+In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/X_POSITION_CONTROL_nIB.h:9:0,
+                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_Controller_Interface.h:9,
+                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/ArduCopter.pde:106:
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_ga_final_param.h:12:30: note: shadowed declaration is here
  extern const volatile GAREAL m;
                               ^
 In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/AP_Math/AP_Math.h:18:0,
@@ -109,10 +109,10 @@ In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_m
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/AP_Math/matrix3.h:92:5: warning: declaration of 'm' shadows a global declaration [-Wshadow]
      {
      ^
-In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/Altitude.h:9:0,
-                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/IB_Controller.h:6,
-                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/ArduCopter.pde:105:
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/IB_Controller_ga_final_param.h:12:30: note: shadowed declaration is here
+In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/X_POSITION_CONTROL_nIB.h:9:0,
+                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_Controller_Interface.h:9,
+                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/ArduCopter.pde:106:
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_ga_final_param.h:12:30: note: shadowed declaration is here
  extern const volatile GAREAL m;
                               ^
 In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/AP_Math/AP_Math.h:18:0,
@@ -123,10 +123,10 @@ In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_m
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/AP_Math/matrix3.h:96:5: warning: declaration of 'm' shadows a global declaration [-Wshadow]
      {
      ^
-In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/Altitude.h:9:0,
-                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/IB_Controller.h:6,
-                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/ArduCopter.pde:105:
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/IB_Controller_ga_final_param.h:12:30: note: shadowed declaration is here
+In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/X_POSITION_CONTROL_nIB.h:9:0,
+                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_Controller_Interface.h:9,
+                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/ArduCopter.pde:106:
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_ga_final_param.h:12:30: note: shadowed declaration is here
  extern const volatile GAREAL m;
                               ^
 In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/AP_Math/AP_Math.h:18:0,
@@ -137,10 +137,10 @@ In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_m
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/AP_Math/matrix3.h:102:5: warning: declaration of 'm' shadows a global declaration [-Wshadow]
      {
      ^
-In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/Altitude.h:9:0,
-                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/IB_Controller.h:6,
-                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/ArduCopter.pde:105:
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/IB_Controller_ga_final_param.h:12:30: note: shadowed declaration is here
+In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/X_POSITION_CONTROL_nIB.h:9:0,
+                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_Controller_Interface.h:9,
+                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/ArduCopter.pde:106:
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_ga_final_param.h:12:30: note: shadowed declaration is here
  extern const volatile GAREAL m;
                               ^
 In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/AP_Math/AP_Math.h:18:0,
@@ -151,10 +151,10 @@ In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_m
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/AP_Math/matrix3.h:106:5: warning: declaration of 'm' shadows a global declaration [-Wshadow]
      {
      ^
-In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/Altitude.h:9:0,
-                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/IB_Controller.h:6,
-                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/ArduCopter.pde:105:
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/IB_Controller_ga_final_param.h:12:30: note: shadowed declaration is here
+In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/X_POSITION_CONTROL_nIB.h:9:0,
+                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_Controller_Interface.h:9,
+                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/ArduCopter.pde:106:
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_ga_final_param.h:12:30: note: shadowed declaration is here
  extern const volatile GAREAL m;
                               ^
 In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/AP_Math/AP_Math.h:18:0,
@@ -165,10 +165,10 @@ In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_m
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/AP_Math/matrix3.h:176:5: warning: declaration of 'm' shadows a global declaration [-Wshadow]
      {
      ^
-In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/Altitude.h:9:0,
-                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/IB_Controller.h:6,
-                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/ArduCopter.pde:105:
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/IB_Controller_ga_final_param.h:12:30: note: shadowed declaration is here
+In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/X_POSITION_CONTROL_nIB.h:9:0,
+                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_Controller_Interface.h:9,
+                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/ArduCopter.pde:106:
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_ga_final_param.h:12:30: note: shadowed declaration is here
  extern const volatile GAREAL m;
                               ^
 In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/GCS_MAVLink/include/mavlink/v1.0/ardupilotmega/ardupilotmega.h:30:0,
@@ -615,43 +615,40 @@ In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_m
  static bool stabilize_init(bool ignore_checks)
                                  ^
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde: In function 'GAREAL* PID_calculate(float, Vector3f, float, float)':
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:106:11: warning: declaration of 'm' shadows a global declaration [-Wshadow]
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:155:11: warning: declaration of 'm' shadows a global declaration [-Wshadow]
      float m = 1.14; //kg
            ^
-In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/Altitude.h:9:0,
-                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/IB_Controller.h:6,
-                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/ArduCopter.pde:105:
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/IB_Controller_ga_final_param.h:12:30: note: shadowed declaration is here
+In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/X_POSITION_CONTROL_nIB.h:9:0,
+                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_Controller_Interface.h:9,
+                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/ArduCopter.pde:106:
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_ga_final_param.h:12:30: note: shadowed declaration is here
  extern const volatile GAREAL m;
                               ^
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde: In function 'void inputs_to_outputs(float*, float*, Vector3f, Vector3f, float, float)':
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:226:47: warning: declaration of 'xy_desired' shadows a global declaration [-Wshadow]
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:353:47: warning: declaration of 'xy_desired' shadows a global declaration [-Wshadow]
                         float roll, float pitch)
                                                ^
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/control_multi_controller.pde:36:10: note: shadowed declaration is here
  Vector3f xy_desired;
           ^
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:226:47: warning: declaration of 'xy_current' shadows a global declaration [-Wshadow]
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:353:47: warning: declaration of 'xy_current' shadows a global declaration [-Wshadow]
                         float roll, float pitch)
                                                ^
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/control_multi_controller.pde:37:10: note: shadowed declaration is here
  Vector3f xy_current;
           ^
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:374:12: warning: enumeration value 'IB_Controller_Interface' not handled in switch [-Wswitch]
+     switch (using_controller)
+            ^
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde: At global scope:
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:225:33: warning: unused parameter 'xy_current' [-Wunused-parameter]
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:352:33: warning: unused parameter 'xy_current' [-Wunused-parameter]
                         Vector3f xy_current, Vector3f xy_desired,
                                  ^
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:225:54: warning: unused parameter 'xy_desired' [-Wunused-parameter]
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:352:54: warning: unused parameter 'xy_desired' [-Wunused-parameter]
                         Vector3f xy_current, Vector3f xy_desired,
                                                       ^
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:290:21: warning: unused parameter 'velocity' [-Wunused-parameter]
-     const Vector3f& velocity,
-                     ^
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:291:21: warning: unused parameter 'acceleration' [-Wunused-parameter]
-     const Vector3f& acceleration,
-                     ^
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde: In function 'void motors_output(GAREAL*)':
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:330:11: warning: declaration of 'b' shadows a global declaration [-Wshadow]
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:458:11: warning: declaration of 'b' shadows a global declaration [-Wshadow]
      float b = 0.00012; //Ns2
            ^
 In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/MotorSpeed/MotorSpeed.h:9:0,
@@ -659,7 +656,7 @@ In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_m
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/MotorSpeed/MotorSpeed_param.h:12:30: note: shadowed declaration is here
  extern const volatile GAREAL b;
                               ^
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:331:11: warning: declaration of 'd' shadows a global declaration [-Wshadow]
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:459:11: warning: declaration of 'd' shadows a global declaration [-Wshadow]
      float d = 0.000003; //Nms2
            ^
 In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/MotorSpeed/MotorSpeed.h:9:0,
@@ -667,7 +664,7 @@ In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_m
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/MotorSpeed/MotorSpeed_param.h:14:30: note: shadowed declaration is here
  extern const volatile GAREAL d;
                               ^
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:332:11: warning: declaration of 'l' shadows a global declaration [-Wshadow]
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:460:11: warning: declaration of 'l' shadows a global declaration [-Wshadow]
      float l = 0.225; //m 
            ^
 In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/MotorSpeed/MotorSpeed.h:9:0,
@@ -700,10 +697,10 @@ In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_m
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/setup.pde:417:42: warning: declaration of 'm' shadows a global declaration [-Wshadow]
  print_switch(uint8_t p, uint8_t m, bool b)
                                           ^
-In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/Altitude.h:9:0,
-                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/IB_Controller.h:6,
-                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/ArduCopter.pde:105:
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/IB_Controller_ga_final_param.h:12:30: note: shadowed declaration is here
+In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/X_POSITION_CONTROL_nIB.h:9:0,
+                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_Controller_Interface.h:9,
+                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/ArduCopter.pde:106:
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_ga_final_param.h:12:30: note: shadowed declaration is here
  extern const volatile GAREAL m;
                               ^
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/setup.pde: In function 'void print_enabled(bool)':
@@ -751,10 +748,10 @@ In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_m
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/test.pde:127:37: warning: declaration of 'm' shadows a global declaration [-Wshadow]
                      const Matrix3f &m = ahrs.get_dcm_matrix();
                                      ^
-In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/Altitude.h:9:0,
-                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/IB_Controller.h:6,
-                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/ArduCopter.pde:105:
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/IB_Controller_ga_final_param.h:12:30: note: shadowed declaration is here
+In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/X_POSITION_CONTROL_nIB.h:9:0,
+                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_Controller_Interface.h:9,
+                 from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/ArduCopter.pde:106:
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_ga_final_param.h:12:30: note: shadowed declaration is here
  extern const volatile GAREAL m;
                               ^
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/test.pde: At global scope:
@@ -789,11 +786,11 @@ In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_m
  test_sonar(uint8_t argc, const Menu::arg *argv)
                                            ^
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde: In function 'void inputs_to_outputs_loiter_test(const Vector3f&, const Vector3f&, const Vector3f&, const Vector3f&, const Vector3f&, const Vector3f&, const Vector3f&)':
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:321:37: warning: 'controller_output' may be used uninitialized in this function [-Wmaybe-uninitialized]
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:449:37: warning: 'controller_output' may be used uninitialized in this function [-Wmaybe-uninitialized]
      motors_output(controller_output);
                                      ^
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde: In function 'void inputs_to_outputs(float*, float*, Vector3f, Vector3f, float, float)':
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:272:37: warning: 'controller_output' may be used uninitialized in this function [-Wmaybe-uninitialized]
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:399:37: warning: 'controller_output' may be used uninitialized in this function [-Wmaybe-uninitialized]
      motors_output(controller_output);
                                      ^
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/GCS_Mavlink.pde: At global scope:
@@ -6646,6 +6643,31 @@ In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_m
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/IB_Controller_ga_attitude_final.cpp:556:12: warning: variable 'Demux_43' set but not used [-Wunused-but-set-variable]
      GAREAL Demux_43;
             ^
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_Controller_Interface.cpp: In function 'void IB_ga_final_compute(t_IB_ga_final_io*, t_IB_ga_final_state*)':
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_Controller_Interface.cpp:1134:42: warning: iteration 3u invokes undefined behavior [-Waggressive-loop-optimizations]
+         Mux9[i1_2 + 2] = positiondot[i1_2];
+                                          ^
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_Controller_Interface.cpp:1133:5: note: containing loop
+     for (i1_2 = 0; i1_2 < 8; i1_2++) {
+     ^
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_Controller_Interface.cpp:1137:45: warning: iteration 3u invokes undefined behavior [-Waggressive-loop-optimizations]
+         Mux9[i1_2 + 5] = positiondotdot[i1_2];
+                                             ^
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_Controller_Interface.cpp:1136:5: note: containing loop
+     for (i1_2 = 0; i1_2 < 8; i1_2++) {
+     ^
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_Controller_Interface.cpp:1943:33: warning: iteration 4u invokes undefined behavior [-Waggressive-loop-optimizations]
+         Mux11[i1_2] = Mux10[i1_2];
+                                 ^
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_Controller_Interface.cpp:1942:5: note: containing loop
+     for (i1_2 = 0; i1_2 < 12; i1_2++) {
+     ^
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_Controller_Interface.cpp:1946:36: warning: iteration 8u invokes undefined behavior [-Waggressive-loop-optimizations]
+         Mux11[i1_2 + 4] = Mux9[i1_2];
+                                    ^
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/IB_Controller_Interface.cpp:1945:5: note: containing loop
+     for (i1_2 = 0; i1_2 < 12; i1_2++) {
+     ^
 In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/AP_HAL/AP_HAL.h:13:0,
                  from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/SITL/SITL.cpp:23:
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/AP_HAL/UARTDriver.h:45:53: warning: unused parameter 'flow_control_setting' [-Wunused-parameter]
@@ -6825,3 +6847,126 @@ In file included from /usr/arm-none-eabi/include/string.h:12:0,
 /usr/arm-none-eabi/include/sys/cdefs.h:248:0: note: this is the location of the previous definition
  #define __unused __attribute__((__unused__))
  ^
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.fIn_e+0x0): multiple definition of `fIn_e'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.fIn_e+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.fIn_d+0x0): multiple definition of `fIn_d'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.fIn_d+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.fIn_c+0x0): multiple definition of `fIn_c'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.fIn_c+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.fIn_b+0x0): multiple definition of `fIn_b'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.fIn_b+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.fIn_a+0x0): multiple definition of `fIn_a'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.fIn_a+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.f_c+0x0): multiple definition of `f_c'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.f_c+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.f_b+0x0): multiple definition of `f_b'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.f_b+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.f_a+0x0): multiple definition of `f_a'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.f_a+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.phi_saturation+0x0): multiple definition of `phi_saturation'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.phi_saturation+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.theta_saturation+0x0): multiple definition of `theta_saturation'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.theta_saturation+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.fr2_b+0x0): multiple definition of `fr2_b'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.fr2_b+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.fr2_a+0x0): multiple definition of `fr2_a'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.fr2_a+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.fr_b+0x0): multiple definition of `fr_b'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.fr_b+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.fr_a+0x0): multiple definition of `fr_a'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.fr_a+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.ld6+0x0): multiple definition of `ld6'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.ld6+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.ld5+0x0): multiple definition of `ld5'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.ld5+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.ld4+0x0): multiple definition of `ld4'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.ld4+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.ld3+0x0): multiple definition of `ld3'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.ld3+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.ld2+0x0): multiple definition of `ld2'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.ld2+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.ld1+0x0): multiple definition of `ld1'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.ld1+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.c12+0x0): multiple definition of `c12'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.c12+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.c11+0x0): multiple definition of `c11'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.c11+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.c10+0x0): multiple definition of `c10'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.c10+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.c9+0x0): multiple definition of `c9'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.c9+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.c8+0x0): multiple definition of `c8'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.c8+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.c7+0x0): multiple definition of `c7'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.c7+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.c6+0x0): multiple definition of `c6'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.c6+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.c5+0x0): multiple definition of `c5'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.c5+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.c4+0x0): multiple definition of `c4'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.c4+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.c3+0x0): multiple definition of `c3'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.c3+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.c2+0x0): multiple definition of `c2'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.c2+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.c1+0x0): multiple definition of `c1'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.c1+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.Tcyw3+0x0): multiple definition of `Tcyw3'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.Tcyw3+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.Tcyw2+0x0): multiple definition of `Tcyw2'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.Tcyw2+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.Tcyw1+0x0): multiple definition of `Tcyw1'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.Tcyw1+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.Tcp3+0x0): multiple definition of `Tcp3'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.Tcp3+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.Tcp2+0x0): multiple definition of `Tcp2'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.Tcp2+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.Tcp1+0x0): multiple definition of `Tcp1'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.Tcp1+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.Tcr3+0x0): multiple definition of `Tcr3'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.Tcr3+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.Tcr2+0x0): multiple definition of `Tcr2'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.Tcr2+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.Tcr1+0x0): multiple definition of `Tcr1'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.Tcr1+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.Tcy3+0x0): multiple definition of `Tcy3'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.Tcy3+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.Tcy2+0x0): multiple definition of `Tcy2'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.Tcy2+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.Tcy1+0x0): multiple definition of `Tcy1'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.Tcy1+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.Tcx3+0x0): multiple definition of `Tcx3'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.Tcx3+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.Tcx2+0x0): multiple definition of `Tcx2'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.Tcx2+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.Tcx1+0x0): multiple definition of `Tcx1'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.Tcx1+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.Tca3+0x0): multiple definition of `Tca3'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.Tca3+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.Tca2+0x0): multiple definition of `Tca2'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.Tca2+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.Tca1+0x0): multiple definition of `Tca1'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.Tca1+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.b3+0x0): multiple definition of `b3'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.b3+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.b2+0x0): multiple definition of `b2'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.b2+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.b1+0x0): multiple definition of `b1'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.b1+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.a5+0x0): multiple definition of `a5'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.a5+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.a4+0x0): multiple definition of `a4'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.a4+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.a3+0x0): multiple definition of `a3'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.a3+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.a2+0x0): multiple definition of `a2'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.a2+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.a1+0x0): multiple definition of `a1'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.a1+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/IB_ga_final_param.o:(.data.m+0x0): multiple definition of `m'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_final_param.o:(.data.m+0x0): first defined here
+/tmp/ArduCopter.build/libraries/IB_Controller_Interface/Y_POSITION_CONTROL_nIB.o: In function `Y_POSITION_CONTROL_IB_init(t_IB_ga_final_state*)':
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/Y_POSITION_CONTROL_nIB.cpp:24: multiple definition of `i1_3'
+/tmp/ArduCopter.build/libraries/IB_Controller/IB_Controller_ga_attitude_final.o:/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller/IB_Controller_ga_attitude_final.cpp:25: first defined here
+collect2: error: ld returned 1 exit status
+make: *** [/tmp/ArduCopter.build/ArduCopter.elf] Error 1

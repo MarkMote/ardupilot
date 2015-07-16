@@ -9,13 +9,13 @@
 /*
 /**/
 
-#DEFINE X 0
-#DEFINE Y 1
-#DEFINE Z 2
+#define X 0
+#define Y 1
+#define Z 2
 
-#DEFINE ROLL 0
-#DEFINE PITCH 1
-#DEFINE YAW 2
+#define ROLL 0
+#define PITCH 1
+#define YAW 2
 t_MotorSpeed_io io_motors;
 
 ///Define variables for each controller
@@ -37,9 +37,9 @@ t_MotorSpeed_io io_motors;
 
 #if using_controller == IB_Controller_Interface
     //IO structure
-    t_IB_ga_final_io io;
+    t_IB_ga_final_io io_ib;
     //State structure
-    t_IB_ga_final_state state;
+    t_IB_ga_final_state state_ib;
 #endif
 
 //what is?
@@ -63,7 +63,39 @@ static inline void init_controller()
             Altitude_init(&state_alt);
             break;
         case IB_Controller_Interface:
-            IB_ga_final_init(&state);
+            IB_ga_final_init(&state_ib);
+	    io_ib.params[IB_PARAM_C1] = 15.0;
+	    io_ib.params[IB_PARAM_C2] = 6;
+	    io_ib.params[IB_PARAM_LD1] = 0.07;
+	    io_ib.params[IB_PARAM_C3] = 15.0;
+	    io_ib.params[IB_PARAM_C4] = 6.0;
+            io_ib.params[IB_PARAM_LD2] = 0.05;
+	    io_ib.params[IB_PARAM_C5] = 10.0;
+	    io_ib.params[IB_PARAM_C6] = 5.0;
+            io_ib.params[IB_PARAM_LD3] = 0.01;
+            io_ib.params[IB_PARAM_C7] = 3.5;
+            io_ib.params[IB_PARAM_C8] = 1.5;
+            io_ib.params[IB_PARAM_LD4] = 0.01;
+            io_ib.params[IB_PARAM_C9] = 10.0;
+            io_ib.params[IB_PARAM_C10] = 1.5;
+            io_ib.params[IB_PARAM_LD5] = 0.001;
+            io_ib.params[IB_PARAM_C11] = 10.0;
+            io_ib.params[IB_PARAM_C12] = 1.5;
+            io_ib.params[IB_PARAM_LD6] = 0.001;
+            io_ib.params[IB_PARAM_B0_BP] = 0.0;
+            io_ib.params[IB_PARAM_B1_BP] = 115600.0;
+            io_ib.params[IB_PARAM_B2_BP] = 0.0;
+            io_ib.params[IB_PARAM_A0_BP] = 1.0;
+            io_ib.params[IB_PARAM_A1_BP] = 1768.0;
+            io_ib.params[IB_PARAM_A2_BP] = 115600.0;
+            io_ib.params[IB_PARAM_B0_LP] = 0.0;
+            io_ib.params[IB_PARAM_B1_LP] = 0.0;
+            io_ib.params[IB_PARAM_B2_LP] = 1.0;
+            io_ib.params[IB_PARAM_A0_LP] = 1.0;
+            io_ib.params[IB_PARAM_A1_LP] = 2.0;
+            io_ib.params[IB_PARAM_A2_LP] = 1.0;
+            io_ib.params[IB_PARAM_ZOH] = 0.0;
+            io_ib.params[IB_PARAM_ENABLE_PSID] = 1.0;
             break;
     }  
 }
@@ -138,11 +170,11 @@ GAREAL* PID_calculate(float z_error, Vector3f output, float pitch, float roll)
     return io.y;
 }
 #endif
+GAREAL IB_results[4];
+double time_old = 0;
 //radians vs degrees???????????
 #if using_controller == Simple_IB_Controller
 ///Integral Backsteping main code
-GAREAL IB_results[4];
-double time_old = 0;
 //Inputs: current altitude,
 //desired altitute, current orientation, current
 //angular velocity, //ALL RADIANS
@@ -208,8 +240,6 @@ GAREAL* IB_calculate(float curr_alt, float target_alt, Vector3f curr_angle,
 #endif
 
 #if using_controller == IB_Controller_Interface
-GAREAL IB_results[4];
-double time_old = 0;
 GAREAL* IB_interface_calculate(
     const Vector3f& position,
     const Vector3f& velocity,
@@ -231,50 +261,58 @@ GAREAL* IB_interface_calculate(
         return IB_results;
     }
     //put values into GA io struct
-    io.angles[ROLL]         = orientation.x;
-    io.angles[PITCH]        = orientation.y;
-    io.angles[YAW]          = orientation.z;
-    io.anglesdot[ROLL]      = rotational_velocity.x;
-    io.anglesdot[PITCH]     = rotational_velocity.y;
-    io.anglesdot[YAW]       = rotational_velocity.z;
-    io.position[X]          = position.x;
-    io.position[Y]          = position.y;
-    io.position[Z]          = position.z;
-    io.positiondot[X]       = velocity.x;
-    io.positiondot[Y]       = velocity.y;
-    io.positiondot[Z]       = velocity.z;
-    io.positiondotdot[X]    = acceleration.x;
-    io.positiondotdot[Y]    = acceleration.y;
-    io.positiondotdot[Z]    = acceleration.z;
-    io.angles_desired[ROLL] = target_orientation.x;
-    io.angles_desired[PITCH]= target_orientation.y;
-    io.angles_desired[YAW]  = target_orientation.z;
-    io.position_desired[X]  = target_position.x;
-    io.position_desired[Y]  = target_position.y;
-    io.position_desired[Z]  = target_position.z;
-    io.t                    = time;
+    //orientation comes from AHRS and is already in radians
+    io_ib.angles[ROLL]         = orientation.x;
+    io_ib.angles[PITCH]        = orientation.y;
+    io_ib.angles[YAW]          = orientation.z;
+    io_ib.anglesdot[ROLL]      = rotational_velocity.x;
+    io_ib.anglesdot[PITCH]     = rotational_velocity.y;
+    io_ib.anglesdot[YAW]       = rotational_velocity.z;
+    //position and velocity comes from the inertial
+    //navigation system and 'should' be in meters
+    //however that system gives it to us in cm
+    io_ib.position[X]          = position.x/100.0;
+    io_ib.position[Y]          = position.y/100.0;
+    io_ib.position[Z]          = position.z/100.0;
+    io_ib.positiondot[X]       = velocity.x/100.0;
+    io_ib.positiondot[Y]       = velocity.y/100.0;
+    io_ib.positiondot[Z]       = velocity.z/100.0;
+    //accel comes from the AHRS system and is
+    //already in m/s/s
+    io_ib.positiondotdot[X]    = acceleration.x;
+    io_ib.positiondotdot[Y]    = acceleration.y;
+    io_ib.positiondotdot[Z]    = acceleration.z;
+    //assume radians
+    io_ib.angles_desired[ROLL] = target_orientation.x;
+    io_ib.angles_desired[PITCH]= target_orientation.y;
+    io_ib.angles_desired[YAW]  = target_orientation.z;
+    //I assume this conversion still needs to happen
+    io_ib.position_desired[X]  = target_position.x/100.0;
+    io_ib.position_desired[Y]  = target_position.y/100.0;
+    io_ib.position_desired[Z]  = target_position.z/100.0;
+    io_ib.t                    = time;
 
     //get controller specifict params in here next....
 
     //this order is strange
-    io.omgs[0] = motor_omega[3];
-    io.omgs[1] = motor_omega[0];
-    io.omgs[2] = motor_omega[2];
-    io.omgs[3] = motor_omega[1];
+    io_ib.omgs[0] = motor_omega[3];
+    io_ib.omgs[1] = motor_omega[0];
+    io_ib.omgs[2] = motor_omega[2];
+    io_ib.omgs[3] = motor_omega[1];
     
-    IB_Controller_ga_final_compute(&io, &state);    
-    //gcs_send_text_fmt(PSTR("U1:%f U2:%f U3:%f U4:%f \n"),motor_omega[2], motor_omega[0], motor_omega[3], motor_omega[1] );
+    IB_ga_final_compute(&io_ib, &state_ib);    
+    gcs_send_text_fmt(PSTR("w1:%f w2:%f w3:%f w4:%f \n"),motor_omega[2], motor_omega[0], motor_omega[3], motor_omega[1] );
   
     //minimum thrust
-    if (io.U1 < 6) {
+    if (io_ib.U1 < 6) {
         IB_results[0] = 6;
     } else {
-        IB_results[0] = io.U1;
+        IB_results[0] = io_ib.U1;
     }
     time_old = time;
-    IB_results[1] = io.U2;
-    IB_results[2] = io.U3;
-    IB_results[3] = io.U4;
+    IB_results[1] = io_ib.U2;
+    IB_results[2] = io_ib.U3;
+    IB_results[3] = io_ib.U4;
     return IB_results;
 }
 #endif

@@ -11,7 +11,7 @@
 
 /* Includes */
 
-#include "IB_ga_final.h"
+#include "IB_Controller_Interface.h"
 
 /* Variable definitions */
 

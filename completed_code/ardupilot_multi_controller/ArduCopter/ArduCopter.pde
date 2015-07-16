@@ -103,9 +103,9 @@
 #include <MotorSpeed.h>
 #include <PIDController.h>
 #include <IB_Controller.h>
+#include <IB_Controller_Interface.h>
+
 // Application dependencies
-
-
 #include <GCS.h>
 #include <GCS_MAVLink.h>        // MAVLink GCS definitions
 #include <AP_SerialManager.h>   // Serial manager library
@@ -910,8 +910,9 @@ void setup()
     
     ///Name of the available controller can be found in Multi_Controller.h
     using_controller = IB_Controller_Interface;
-    if (using_controller != Original_PID_Controller)
+    if (using_controller != Original_PID_Controller) {
         init_controller();
+    }
 }
 
 /*
