@@ -56,10 +56,11 @@ static void stabilize_run()
     const Vector3f& acceleration = ahrs.get_accel_ef();
     const Vector3f& orientation = Vector3f(ahrs.roll, ahrs.pitch, ahrs.yaw);
     const Vector3f& rotational_velocity = ahrs.get_gyro();
-    const Vector3f& target_position = pos_control.get_pos_target();
+    //pass target position and current position as same
+    const Vector3f& target_position = pos_control.xy_current();
     const Vector3f& target_orientation = Vector3f(
-	    attitude_control.angle_values[3],
-	    attitude_control.angle_values[4],
+	    target_roll,
+	    target_pitch,
 	    attitude_control.angle_values[5]);
     inputs_to_outputs_loiter_test(position, velocity, acceleration, orientation, rotational_velocity, target_position, target_orientation);
 }
