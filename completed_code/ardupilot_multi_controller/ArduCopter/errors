@@ -615,7 +615,7 @@ In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_m
  static bool stabilize_init(bool ignore_checks)
                                  ^
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde: In function 'GAREAL* PID_calculate(float, Vector3f, float, float)':
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:155:11: warning: declaration of 'm' shadows a global declaration [-Wshadow]
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:124:11: warning: declaration of 'm' shadows a global declaration [-Wshadow]
      float m = 1.14; //kg
            ^
 In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/IB_Controller_Interface/X_POSITION_CONTROL_nIB.h:9:0,
@@ -625,31 +625,31 @@ In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_m
  extern const volatile GAREAL m;
                               ^
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde: In function 'void inputs_to_outputs(float*, float*, Vector3f, Vector3f, float, float)':
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:353:47: warning: declaration of 'xy_desired' shadows a global declaration [-Wshadow]
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:348:47: warning: declaration of 'xy_desired' shadows a global declaration [-Wshadow]
                         float roll, float pitch)
                                                ^
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/control_multi_controller.pde:36:10: note: shadowed declaration is here
  Vector3f xy_desired;
           ^
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:353:47: warning: declaration of 'xy_current' shadows a global declaration [-Wshadow]
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:348:47: warning: declaration of 'xy_current' shadows a global declaration [-Wshadow]
                         float roll, float pitch)
                                                ^
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/control_multi_controller.pde:37:10: note: shadowed declaration is here
  Vector3f xy_current;
           ^
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:374:12: warning: enumeration value 'Simple_IB_Controller' not handled in switch [-Wswitch]
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:369:12: warning: enumeration value 'Simple_IB_Controller' not handled in switch [-Wswitch]
      switch (using_controller)
             ^
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:374:12: warning: enumeration value 'IB_Controller_Interface' not handled in switch [-Wswitch]
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:369:12: warning: enumeration value 'IB_Controller_Interface' not handled in switch [-Wswitch]
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde: At global scope:
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:352:33: warning: unused parameter 'xy_current' [-Wunused-parameter]
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:347:33: warning: unused parameter 'xy_current' [-Wunused-parameter]
                         Vector3f xy_current, Vector3f xy_desired,
                                  ^
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:352:54: warning: unused parameter 'xy_desired' [-Wunused-parameter]
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:347:54: warning: unused parameter 'xy_desired' [-Wunused-parameter]
                         Vector3f xy_current, Vector3f xy_desired,
                                                       ^
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde: In function 'void motors_output(GAREAL*)':
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:458:11: warning: declaration of 'b' shadows a global declaration [-Wshadow]
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:453:11: warning: declaration of 'b' shadows a global declaration [-Wshadow]
      float b = 0.00012; //Ns2
            ^
 In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/MotorSpeed/MotorSpeed.h:9:0,
@@ -657,7 +657,7 @@ In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_m
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/MotorSpeed/MotorSpeed_param.h:12:30: note: shadowed declaration is here
  extern const volatile GAREAL b;
                               ^
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:459:11: warning: declaration of 'd' shadows a global declaration [-Wshadow]
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:454:11: warning: declaration of 'd' shadows a global declaration [-Wshadow]
      float d = 0.000003; //Nms2
            ^
 In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/MotorSpeed/MotorSpeed.h:9:0,
@@ -665,7 +665,7 @@ In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_m
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/MotorSpeed/MotorSpeed_param.h:14:30: note: shadowed declaration is here
  extern const volatile GAREAL d;
                               ^
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:460:11: warning: declaration of 'l' shadows a global declaration [-Wshadow]
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:455:11: warning: declaration of 'l' shadows a global declaration [-Wshadow]
      float l = 0.225; //m 
            ^
 In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/MotorSpeed/MotorSpeed.h:9:0,
@@ -786,12 +786,12 @@ In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_m
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/test.pde:269:43: warning: unused parameter 'argv' [-Wunused-parameter]
  test_sonar(uint8_t argc, const Menu::arg *argv)
                                            ^
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde: In function 'void inputs_to_outputs_loiter_test(const Vector3f&, const Vector3f&, const Vector3f&, const Vector3f&, const Vector3f&, const Vector3f&, const Vector3f&)':
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:449:37: warning: 'controller_output' may be used uninitialized in this function [-Wmaybe-uninitialized]
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde: In function 'void inputs_to_outputs(float*, float*, Vector3f, Vector3f, float, float)':
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:394:37: warning: 'controller_output' may be used uninitialized in this function [-Wmaybe-uninitialized]
      motors_output(controller_output);
                                      ^
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde: In function 'void inputs_to_outputs(float*, float*, Vector3f, Vector3f, float, float)':
-/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:399:37: warning: 'controller_output' may be used uninitialized in this function [-Wmaybe-uninitialized]
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde: In function 'void inputs_to_outputs_loiter_test(const Vector3f&, const Vector3f&, const Vector3f&, const Vector3f&, const Vector3f&, const Vector3f&, const Vector3f&)':
+/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde:444:37: warning: 'controller_output' may be used uninitialized in this function [-Wmaybe-uninitialized]
      motors_output(controller_output);
                                      ^
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/GCS_Mavlink.pde: At global scope:
@@ -4494,7 +4494,7 @@ In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_m
      int16_t output_signal[4];
                             ^
 /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/AP_Motors/AP_MotorsMatrix.cpp:437:13: warning: unused variable 'out_mid_pwm' [-Wunused-variable]
-     int16_t out_mid_pwm = (out_min_pwm + out_max_pwm)/2.0;                  // mid pwm value we can send to the motors
+     int16_t out_mid_pwm = (out_min_pwm + out_max_pwm)/2.0;                // mid pwm value we can send to the motors
              ^
 In file included from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/AP_HAL/AP_HAL.h:13:0,
                  from /home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/libraries/AP_Param/AP_Param.h:24,
