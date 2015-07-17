@@ -45,10 +45,21 @@ static void stabilize_run()
     pilot_throttle_scaled = get_pilot_desired_throttle(g.rc_3.control_in);
 
     // call attitude controller
-    attitude_control.angle_ef_roll_pitch_rate_ef_yaw_smooth(target_roll, target_pitch, target_yaw_rate, get_smoothing_gain());
+    //attitude_control.angle_ef_roll_pitch_rate_ef_yaw_smooth(target_roll, target_pitch, target_yaw_rate, get_smoothing_gain());
 
     // body-frame rate controller is run directly from 100hz loop
 
     // output pilot's throttle
-    attitude_control.set_throttle_out(pilot_throttle_scaled, true);
+    //attitude_control.set_throttle_out(pilot_throttle_scaled, true);
+    const Vector3f& position =  pos_control.xy_current();
+    const Vector3f& velocity = Vector3f(0.0, 0.0, 0.0); //not used but needed
+    const Vector3f& acceleration = ahrs.get_accel_ef();
+    const Vector3f& orientation = Vector3f(ahrs.roll, ahrs.pitch, ahrs.yaw);
+    const Vector3f& rotational_velocity = ahrs.get_gyro();
+    const Vector3f& target_position = pos_control.get_pos_target();
+    const Vector3f& target_orientation = Vector3f(
+	    attitude_control.angle_values[3],
+	    attitude_control.angle_values[4],
+	    attitude_control.angle_values[5]);
+    inputs_to_outputs_loiter_test(position, velocity, acceleration, orientation, rotational_velocity, target_position, target_orientation);
 }

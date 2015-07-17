@@ -1,5 +1,5 @@
-// BUILDROOT=/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/tmp/ArduCopter.build HAL_BOARD=HAL_BOARD_AVR_SITL HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_NONE TOOLCHAIN=NATIVE EXTRAFLAGS=-DGIT_VERSION="6dcab1c5"
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/ArduCopter.pde"
+// BUILDROOT=/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/tmp/ArduCopter.build HAL_BOARD=HAL_BOARD_AVR_SITL HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_NONE TOOLCHAIN=NATIVE EXTRAFLAGS=-DGIT_VERSION="85c244d4"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/ArduCopter.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 #define THISFIRMWARE "ArduCopter V3.3-dev"
@@ -100,13 +100,14 @@
 #include <AP_HAL_Linux.h>
 #include <AP_HAL_Empty.h>
 
-// Controller
+// Controller includes
+// Add by ENSMA
 #include <MotorSpeed.h>
 #include <PIDController.h>
-#include <IB_Controller.h>
+//#include <IB_Controller.h>
+#include <IB_Controller_Interface.h>
+
 // Application dependencies
-
-
 #include <GCS.h>
 #include <GCS_MAVLink.h>        // MAVLink GCS definitions
 #include <AP_SerialManager.h>   // Serial manager library
@@ -389,24 +390,25 @@
  static bool landing_with_GPS() ;
  static bool loiter_init(bool ignore_checks) ;
  static void loiter_run() ;
- static void new_auto_run() ;
-  static void new_auto_takeoff() ;
- static void new_auto_wp() ;
-  static void new_auto_land() ;
- static void new_auto_spline() ;
-  void new_auto_circle_run() ;
-  void new_auto_loiter() ;
- static void new_land_run() ;
-  static void new_land_gps_run() ;
-  static void new_land_nogps() ;
- static void new_rtl_run() ;
- static void new_rtl_climb_return_run() ;
- static void new_rtl_loiterathome_run() ;
- static void new_rtl_descent_run() ;
- static void new_rtl_land_run() ;
- static void new_althold_run() ;
- static void new_loiter_run() ;
- static void new_circle_run() ;
+ static void new_auto_run() ;
+ static void reset_relax() ;
+  static void new_auto_takeoff() ;
+ static void new_auto_wp() ;
+  static void new_auto_land() ;
+ static void new_auto_spline() ;
+  void new_auto_circle_run() ;
+  void new_auto_loiter() ;
+ static void new_land_run() ;
+  static void new_land_gps_run() ;
+  static void new_land_nogps() ;
+ static void new_rtl_run() ;
+ static void new_rtl_climb_return_run() ;
+ static void new_rtl_loiterathome_run() ;
+ static void new_rtl_descent_run() ;
+ static void new_rtl_land_run() ;
+ static void new_althold_run() ;
+ static void new_loiter_run() ;
+ static void new_circle_run() ;
  static bool poshold_init(bool ignore_checks) ;
  static void poshold_run() ;
  static void poshold_update_pilot_lean_angle(int16_t &lean_angle_filtered, int16_t &lean_angle_raw) ;
@@ -442,9 +444,9 @@
  static bool ekf_over_threshold() ;
  static void failsafe_ekf_event() ;
  static void failsafe_ekf_off_event(void) ;
- static void esc_calibration_startup_check() ;
- static void esc_calibration_passthrough() ;
- static void esc_calibration_auto() ;
+ static void esc_calibration_startup_check() ;
+ static void esc_calibration_passthrough() ;
+ static void esc_calibration_auto() ;
  static void failsafe_radio_on_event() ;
  static void failsafe_radio_off_event() ;
   static void failsafe_battery_event(void) ;
@@ -478,8 +480,8 @@
  static void heli_stabilize_run() ;
  static void read_inertia() ;
  static void read_inertial_altitude() ;
- static bool land_complete_maybe() ;
- static void update_land_detector() ;
+ static bool land_complete_maybe() ;
+ static void update_land_detector() ;
  static void landinggear_update();
  static void update_notify() ;
  static void motor_test_output() ;
@@ -495,9 +497,10 @@
  static bool arm_checks(bool display_failure, bool arming_from_gcs) ;
  static void init_disarm_motors() ;
  static void motors_output() ;
- static inline void init_controller() ;
-  void inputs_to_outputs(float* z, float* angles,                        Vector3f xy_current, Vector3f xy_desired,                        float roll, float pitch) ;
- void motors_output(GAREAL *output_value) ;
+ static inline void init_controller() ;
+ void inputs_to_outputs(float* z, float* angles,                        Vector3f xy_current, Vector3f xy_desired,                        float roll, float pitch) ;
+ void inputs_to_outputs_loiter_test(     const Vector3f& position,     const Vector3f& velocity,     const Vector3f& acceleration,     const Vector3f& orientation,      const Vector3f& rotational_velocity,     const Vector3f& target_position,     const Vector3f& target_orientation) ;
+ void motors_output(GAREAL *output_value) ;
  static void run_nav_updates(void) ;
  static void calc_position() ;
  static void calc_distance_and_bearing() ;
@@ -568,7 +571,7 @@
  static bool should_log(uint32_t mask) ;
   static void print_hit_enter() ;
  static void tuning() ;
-#line 177 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/ArduCopter.pde"
+#line 178 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/ArduCopter.pde"
 static AP_Vehicle::MultiCopter aparm;
 
 // Local modules
@@ -1279,6 +1282,7 @@ static const AP_Scheduler::Task scheduler_tasks[] PROGMEM = {
 };
 #endif
 
+//Controllers is an enum from Multi_Controller.h
 Controllers using_controller;
 
 void setup() 
@@ -1302,9 +1306,10 @@ void setup()
     fast_loopTimer = hal.scheduler->micros();
     
     ///Name of the available controller can be found in Multi_Controller.h
-    using_controller = New_PID_Controller;
-    if (using_controller != Original_PID_Controller)
+    using_controller = IB_Controller_Interface;
+    if (using_controller != Original_PID_Controller) {
         init_controller();
+    }
 }
 
 /*
@@ -1389,8 +1394,11 @@ static void fast_loop()
     update_heli_control_dynamics();
 #endif //HELI_FRAME
     
-    if ((using_controller == Original_PID_Controller)||(control_mode == STABILIZE))
+    //NOTICE: New controllers only used for modes other than STABILIZE
+    if ((using_controller == Original_PID_Controller) || (control_mode == STABILIZE)) {
+        //call into motors.pde
         motors_output();
+    }
  
     // Inertial Nav
     // --------------------
@@ -1739,7 +1747,7 @@ static void update_altitude()
 
 AP_HAL_MAIN();
 
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/AP_State.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/AP_State.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // set_home_state - update home state
@@ -1891,7 +1899,7 @@ void set_pre_arm_rc_check(bool b)
     }
 }
 
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/Attitude.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/Attitude.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // get_smoothing_gain - returns smoothing gain to be passed into attitude_control.angle_ef_roll_pitch_rate_ef_yaw_smooth
@@ -2168,7 +2176,7 @@ static void set_accel_throttle_I_from_pilot_throttle(int16_t pilot_throttle)
     // shift difference between pilot's throttle and hover throttle into accelerometer I
     g.pid_throttle_accel.set_integrator(pilot_throttle-g.throttle_cruise);
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/GCS_Mavlink.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/GCS_Mavlink.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // default sensors are present and healthy: gyro, accelerometer, barometer, rate_control, attitude_stabilization, yaw_position, altitude control, x/y position control, motor_control
@@ -3850,7 +3858,7 @@ static void gcs_send_text_fmt(const prog_char_t *fmt, ...)
         }
     }
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/Log.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/Log.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 #if LOGGING_ENABLED == ENABLED
@@ -4491,7 +4499,7 @@ static int8_t process_logs(uint8_t argc, const Menu::arg *argv) {
 }
 
 #endif // LOGGING_DISABLED
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/Parameters.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/Parameters.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 /*
    This program is free software: you can redistribute it and/or modify
@@ -4520,6 +4528,134 @@ static int8_t process_logs(uint8_t argc, const Menu::arg *argv) {
 #define GOBJECTN(v, pname, name, class) { AP_PARAM_GROUP, name, Parameters::k_param_ ## pname, &v, {group_info : class::var_info} }
 
 const AP_Param::Info var_info[] PROGMEM = {
+    //IB Parameters
+
+    // @Param: IB_C1
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_c1       ,"IB_C1"    ,IB_C1_DEFAULT),
+    // @Param: IB_C2
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_c2       ,"IB_C2"    ,IB_C2_DEFAULT),
+    // @Param: IB_LD1
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_ld1      ,"IB_LD1"   ,IB_LD1_DEFAULT),
+    // @Param: IB_C3
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_c3       ,"IB_C3"    ,IB_C3_DEFAULT),
+    // @Param: IB_C4
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_c4       ,"IB_C4"    ,IB_C4_DEFAULT),
+    // @Param: IB_LD2
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_ld2      ,"IB_LD2"   ,IB_LD2_DEFAULT),
+    // @Param: IB_C5
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_c5       ,"IB_C5"    ,IB_C5_DEFAULT),
+    // @Param: IB_C6
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_c6       ,"IB_C6"    ,IB_C6_DEFAULT),
+    // @Param: IB_LD3
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_ld3      ,"IB_LD3"   ,IB_LD3_DEFAULT),
+    // @Param: IB_C7
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_c7       ,"IB_C7"    ,IB_C7_DEFAULT),
+    // @Param: IB_C8
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_c8       ,"IB_C8"    ,IB_C8_DEFAULT),
+    // @Param: IB_LD4
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_ld4      ,"IB_LD4"   ,IB_LD4_DEFAULT),
+    // @Param: IB_C9
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_c9       ,"IB_C9"    ,IB_C9_DEFAULT),
+    // @Param: IB_C10
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_c10      ,"IB_C10"   ,IB_C10_DEFAULT),
+    // @Param: IB_LD5
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_ld5      ,"IB_LD5"   ,IB_LD5_DEFAULT),
+    // @Param: IB_C11
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_c11      ,"IB_C11"   ,IB_C11_DEFAULT),
+    // @Param: IB_C12
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_c12      ,"IB_C12"   ,IB_C12_DEFAULT),
+    // @Param: IB_LD6
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_ld6      ,"IB_LD6"   ,IB_LD6_DEFAULT),
+    // @Param: IB_B0_BP
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_b0_bp    ,"IB_B0_BP" ,IB_B0_BP_DEFAULT),
+    // @Param: IB_B1_BP
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_b1_bp    ,"IB_B1_BP" ,IB_B1_BP_DEFAULT),
+    // @Param: IB_B2_BP
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_b2_bp    ,"IB_B2_BP" ,IB_B2_BP_DEFAULT),
+    // @Param: IB_A0_BP
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_a0_bp    ,"IB_A0_BP" ,IB_A0_BP_DEFAULT),
+    // @Param: IB_A1_BP
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_a1_bp    ,"IB_A1_BP" ,IB_A1_BP_DEFAULT),
+    // @Param: IB_A2_BP
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_a2_bp    ,"IB_A2_BP" ,IB_A2_BP_DEFAULT),
+    // @Param: IB_ZOH
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_zoh      ,"IB_ZOH"   ,IB_ZOH_DEFAULT),
+
     // @Param: SYSID_SW_MREV
     // @DisplayName: Eeprom format version number
     // @Description: This value is incremented when changes are made to the eeprom format
@@ -5609,7 +5745,7 @@ static void load_parameters(void)
         cliSerial->printf_P(PSTR("load_all took %luus\n"), micros() - before);
     }
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/UserCode.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/UserCode.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 #ifdef USERHOOK_INIT
@@ -5654,7 +5790,7 @@ void userhook_SuperSlowLoop()
     // put your 1Hz code here
 }
 #endif
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/commands.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/commands.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -5810,7 +5946,7 @@ static void check_gps_base_pos()
         ap.gps_base_pos_set = true;
     }
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/commands_logic.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/commands_logic.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // forward declarations to make compiler happy
@@ -6743,7 +6879,7 @@ static void do_take_picture()
     }
 #endif
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/compassmot.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/compassmot.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -7013,7 +7149,7 @@ static uint8_t mavlink_compassmot(mavlink_channel_t chan)
     return 0;
 }
 
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/compat.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/compat.pde"
 
 
 static void delay(uint32_t ms)
@@ -7030,7 +7166,7 @@ static uint32_t micros()
 {
     return hal.scheduler->micros();
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/control_acro.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/control_acro.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -7183,7 +7319,7 @@ static void get_pilot_desired_angle_rates(int16_t roll_in, int16_t pitch_in, int
     pitch_out = rate_bf_request.y;
     yaw_out = rate_bf_request.z;
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/control_althold.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/control_althold.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -7264,7 +7400,7 @@ static void althold_run()
         pos_control.update_z_controller();
     }
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/control_auto.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/control_auto.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 /*
  * control_auto.pde - init and run calls for auto flight mode
@@ -7429,8 +7565,9 @@ static void auto_wp_run()
 {
     // if not auto armed set throttle to zero and exit immediately
     if(!ap.auto_armed) {
-        // To-Do: reset waypoint origin to current location because copter is probably on the ground so we don't want it lurching left or right on take-off
-        //    (of course it would be better if people just used take-off)
+        // To-Do: reset waypoint origin to current location because copter is
+        // probably on the ground so we don't want it lurching left or right on take-off
+        // (of course it would be better if people just used take-off)
         attitude_control.relax_bf_rate_controller();
         attitude_control.set_yaw_target_to_current_heading();
         attitude_control.set_throttle_out(0, false);
@@ -7916,7 +8053,7 @@ float get_auto_heading(void)
         break;
     }
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/control_autotune.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/control_autotune.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 #if AUTOTUNE_ENABLED == ENABLED
@@ -8778,7 +8915,7 @@ void autotune_update_gcs(uint8_t message_id)
     }
 }
 #endif  // AUTOTUNE_ENABLED == ENABLED
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/control_circle.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/control_circle.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -8862,7 +8999,7 @@ static void circle_run()
     pos_control.set_alt_target_from_climb_rate(target_climb_rate, G_Dt);
     pos_control.update_z_controller();
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/control_drift.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/control_drift.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -8987,7 +9124,7 @@ int16_t get_throttle_assist(float velz, int16_t pilot_throttle_scaled)
     
     return pilot_throttle_scaled + thr_assist;
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/control_flip.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/control_flip.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -9210,7 +9347,7 @@ static void flip_run()
     // output pilot's throttle without angle boost
     attitude_control.set_throttle_out(throttle_out, false);
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/control_guided.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/control_guided.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -9603,7 +9740,7 @@ static bool guided_limit_check()
     // if we got this far we must be within limits
     return false;
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/control_land.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/control_land.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 static bool land_with_gps;
@@ -9830,7 +9967,7 @@ static bool landing_with_GPS() {
     return (control_mode == LAND && land_with_gps);
 }
 
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/control_loiter.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/control_loiter.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -9934,18 +10071,25 @@ static void loiter_run()
         pos_control.update_z_controller();
     }
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/control_multi_controller.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/control_multi_controller.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 /*
  * control_multi_controller.pde
  *
- * This file contains the implementation for Land, Waypoint navigation and Takeoff from Auto mode using a virtual controller 
+ * This file contains the implementation for Land, Waypoint navigation and
+ * Takeoff from Auto mode using a virtual controller 
  * Command execution code (i.e. command_logic.pde) should:
- *      a) switch to Auto flight mode with set_mode() function.  This will cause auto_init to be called
- *      b) call one of the three auto initialisation functions: auto_wp_start(), auto_takeoff_start(), auto_land_start()
- *      c) call one of the verify functions auto_wp_verify(), auto_takeoff_verify, auto_land_verify repeated to check if the command has completed
- * The main loop (i.e. fast loop) will call update_flight_modes() which will in turn call auto_run() which, based upon the auto_mode variable will call
- *      correct auto_wp_run, auto_takeoff_run or auto_land_run to actually implement the feature
+ *      a) switch to Auto flight mode with set_mode() function.  This will cause
+ *         auto_init to be called
+ *      b) call one of the three auto initialisation functions: auto_wp_start(),
+ *         auto_takeoff_start(), auto_land_start()
+ *      c) call one of the verify functions auto_wp_verify(),
+ *         auto_takeoff_verify, auto_land_verify repeated to check if the
+ *         command has completed
+ * The main loop (i.e. fast loop) will call update_flight_modes() which will in
+ * turn call auto_run() which, based upon the auto_mode variable will call
+ * correct auto_wp_run, auto_takeoff_run or auto_land_run to actually implement
+ * the feature
  */
 
 /*
@@ -10013,19 +10157,29 @@ static void new_auto_run()
         break;
     }
 }
+//added to remove redundancy
+static void reset_relax() {
+     // initialise wpnav targets
+    wp_nav.shift_wp_origin_to_current_pos();
+    // reset attitude control targets
+    attitude_control.relax_bf_rate_controller();
+    attitude_control.set_yaw_target_to_current_heading();
+    attitude_control.set_throttle_out(0, false);
+    // tell motors to do a slow start
+    motors.slow_start(true);
+}
+
+//This code was present in some functions that wanted the pilot yaw rate.
+//Re-introduce it if you want to.
+/*if(!failsafe.radio) {
+        target_yaw_rate = get_pilot_desired_yaw_rate(g.rc_4.control_in);
+}*/
 
 static void new_auto_takeoff()
 {
     // if not auto armed set throttle to zero and exit immediately
     if(!ap.auto_armed) {
-        // initialise wpnav targets
-        wp_nav.shift_wp_origin_to_current_pos();
-        // reset attitude control targets
-        attitude_control.relax_bf_rate_controller();
-        attitude_control.set_yaw_target_to_current_heading();
-        attitude_control.set_throttle_out(0, false);
-        // tell motors to do a slow start
-        motors.slow_start(true);
+        reset_relax();
         return;
     }
 
@@ -10035,24 +10189,19 @@ static void new_auto_takeoff()
         // get pilot's desired yaw rate
         target_yaw_rate = get_pilot_desired_yaw_rate(g.rc_4.control_in);
     }*/
-
     // run waypoint controller
     wp_nav.update_wpnav();
     
     // Get the desired x,y position in earth-frame
     pos_control.get_stopping_point_xy(xy_desired);
-    
      // This function will get the current position in x,y respectively
     xy_current = pos_control.xy_current();
-
     //Get altitude values (current, desire, error)
     pos_control.update_z_controller_new();
     z_outputs = pos_control.z_values;
-    
     //Get angle values (error in Roll, Pitch, Yaw, target Roll, Pitch, Yaw)
     attitude_control.new_angle_ef_roll_pitch_rate_ef_yaw(wp_nav.get_roll(), wp_nav.get_pitch(), target_yaw_rate);
     angle_outputs = attitude_control.angle_values;
-
     ///Send values to the general handling code
     inputs_to_outputs(z_outputs, angle_outputs, xy_current, xy_desired, ahrs.roll, ahrs.pitch);
 }
@@ -10063,27 +10212,9 @@ static void new_auto_wp()
 {
     // if not auto armed set throttle to zero and exit immediately
     if(!ap.auto_armed) {
-        // To-Do: reset waypoint origin to current location because copter is probably on the ground so we don't want it lurching left or right on take-off
-        //    (of course it would be better if people just used take-off)
-        attitude_control.relax_bf_rate_controller();
-        attitude_control.set_yaw_target_to_current_heading();
-        attitude_control.set_throttle_out(0, false);
-        // tell motors to do a slow start
-        motors.slow_start(true);
+        reset_relax();
         return;
     }
-
-    /*// process pilot's yaw input
-    float target_yaw_rate = 0;
-    if (!failsafe.radio) {
-        // get pilot's desired yaw rate
-        target_yaw_rate = get_pilot_desired_yaw_rate(g.rc_4.control_in);
-        if (target_yaw_rate != 0) {
-            set_auto_yaw_mode(AUTO_YAW_HOLD);
-        }
-    }*/
-    
-    
     // run waypoint controller
     wp_nav.update_wpnav();
     
@@ -10111,51 +10242,37 @@ static void new_auto_land()
 {
     // if not auto armed set throttle to zero and exit immediately
     if(!ap.auto_armed || ap.land_complete) {
-        attitude_control.relax_bf_rate_controller();
-        attitude_control.set_yaw_target_to_current_heading();
-        attitude_control.set_throttle_out(0, false);
-        // set target to current position
-        wp_nav.init_loiter_target();
+        reset_relax();
         return;
     }    
     
     int16_t roll_control = 0, pitch_control = 0;
     float target_yaw_rate = 0;
-
     // if not auto armed set throttle to zero and exit immediately
    // relax loiter targets if we might be landed
     if (land_complete_maybe()) {
         wp_nav.loiter_soften_for_landing();
     }
-
     // process roll, pitch inputs
     wp_nav.set_pilot_desired_acceleration(roll_control, pitch_control);
-
     // run loiter controller
     wp_nav.update_loiter(ekfGndSpdLimit, ekfNavVelGainScaler);
-
     // call z-axis position controller
     float cmb_rate = get_land_descent_speed();
     pos_control.set_alt_target_from_climb_rate(cmb_rate, G_Dt, true);
-      
     // record desired climb rate for logging
     desired_climb_rate = cmb_rate;
-    
      // Get the desired x,y position in earth-frame. 
     // Therefore xy_desired.x = x_desired; xy_desired.y = y_desired; Do not use xy_desired.z, use z_values[1] instead
     pos_control.get_stopping_point_xy(xy_desired);
-    
     // This function will get the current position in x,y respectively
     xy_current = pos_control.xy_current();
-
     //Get altitude values (current, desire, error)
     pos_control.update_z_controller_new();
     z_outputs = pos_control.z_values;
-    
     //Get angle values (error in Roll, Pitch, Yaw, target Roll, Pitch, Yaw)
     attitude_control.new_angle_ef_roll_pitch_rate_ef_yaw(wp_nav.get_roll(), wp_nav.get_pitch(), target_yaw_rate);
     angle_outputs = attitude_control.angle_values;
-    
     ///Send values to the general handling code
     inputs_to_outputs(z_outputs, angle_outputs, xy_current, xy_desired, ahrs.roll, ahrs.pitch);
 
@@ -10167,45 +10284,23 @@ static void new_auto_spline()
 {
     // if not auto armed set throttle to zero and exit immediately
     if(!ap.auto_armed) {
-        // To-Do: reset waypoint origin to current location because copter is probably on the ground so we don't want it lurching left or right on take-off
-        //    (of course it would be better if people just used take-off)
-        attitude_control.relax_bf_rate_controller();
-        attitude_control.set_yaw_target_to_current_heading();
-        attitude_control.set_throttle_out(0, false);
-        // tell motors to do a slow start
-        motors.slow_start(true);
+        reset_relax();
         return;
     }
-
-    // process pilot's yaw input
-    float target_yaw_rate = 0;
-    /*if (!failsafe.radio) {
-        // get pilot's desired yaw rate
-        target_yaw_rate = get_pilot_desired_yaw_rate(g.rc_4.control_in);
-        if (target_yaw_rate != 0) {
-            set_auto_yaw_mode(AUTO_YAW_HOLD);
-        }
-    }*/
-
     // run waypoint controller
     wp_nav.update_spline();
-
     // Get the desired x,y position in earth-frame. 
     // Therefore xy_desired.x = x_desired; xy_desired.y = y_desired; Do not use xy_desired.z, use z_values[1] instead
     pos_control.get_stopping_point_xy(xy_desired);
-    
     // call z-axis position controller (wpnav should have already updated it's alt target)
     //z_values includes current_z, desired_z, pos_error_z respectively
-       
     pos_control.update_z_controller_new();
     z_outputs = pos_control.z_values;    
     // This function will get the current position in x,y respectively
     xy_current = pos_control.xy_current();
-    
     // This function will get the error of roll, pitch, yaw in bf respectively
     attitude_control.new_angle_ef_roll_pitch_yaw(wp_nav.get_roll(), wp_nav.get_pitch(), get_auto_heading(),true);
     angle_outputs = attitude_control.angle_values;
-    
     ///Send values to the general handling code
     inputs_to_outputs(z_outputs, angle_outputs, xy_current, xy_desired, ahrs.roll, ahrs.pitch);
 }
@@ -10214,20 +10309,14 @@ void new_auto_circle_run()
 {
     // call circle controller
     circle_nav.update();
-
     // call z-axis position controller
     pos_control.update_z_controller_new();
     z_outputs = pos_control.z_values; 
-
-    
     pos_control.get_stopping_point_xy(xy_desired);  
-
     xy_current = pos_control.xy_current();
-
     // roll & pitch from waypoint controller, yaw rate from pilot
     attitude_control.new_angle_ef_roll_pitch_yaw(circle_nav.get_roll(), circle_nav.get_pitch(), circle_nav.get_yaw(),true);
     angle_outputs = attitude_control.angle_values;
-    
     ///Send values to the general handling code
     inputs_to_outputs(z_outputs, angle_outputs, xy_current, xy_desired, ahrs.roll, ahrs.pitch);
 }
@@ -10236,34 +10325,21 @@ void new_auto_loiter()
 {
     // if not auto armed set throttle to zero and exit immediately
     if(!ap.auto_armed || ap.land_complete) {
-        attitude_control.relax_bf_rate_controller();
-        attitude_control.set_yaw_target_to_current_heading();
-        attitude_control.set_throttle_out(0, false);
+        reset_relax();
         return;
     }
-
-    // accept pilot input of yaw
-    float target_yaw_rate = 0;
-    /*if(!failsafe.radio) {
-        target_yaw_rate = get_pilot_desired_yaw_rate(g.rc_4.control_in);
-    }*/
-
     // run waypoint and z-axis postion controller
     wp_nav.update_wpnav();
     // Get the desired x,y position in earth-frame
     pos_control.get_stopping_point_xy(xy_desired);
-    
      // This function will get the current position in x,y respectively
     xy_current = pos_control.xy_current();
-
     //Get altitude values (current, desire, error)
     pos_control.update_z_controller_new();
     z_outputs = pos_control.z_values;
-    
     //Get angle values (error in Roll, Pitch, Yaw, target Roll, Pitch, Yaw)
-    attitude_control.new_angle_ef_roll_pitch_rate_ef_yaw(wp_nav.get_roll(), wp_nav.get_pitch(), target_yaw_rate);
+    attitude_control.new_angle_ef_roll_pitch_rate_ef_yaw(wp_nav.get_roll(), wp_nav.get_pitch(), 0.0);
     angle_outputs = attitude_control.angle_values;
-
     ///Send values to the general handling code
     inputs_to_outputs(z_outputs, angle_outputs, xy_current, xy_desired, ahrs.roll, ahrs.pitch);
     
@@ -10275,53 +10351,40 @@ static void new_land_run()
 {
     if (land_with_gps) {
         new_land_gps_run();
-    }else{
+    } else {
         new_land_nogps();
     }
-
 }
 
 static void new_land_gps_run()
 {
     int16_t roll_control = 0, pitch_control = 0;
-    float target_yaw_rate = 0;
-    
     // relax loiter target if we might be landed
     if (land_complete_maybe()) {
         wp_nav.loiter_soften_for_landing();
     }
-
     // process roll, pitch inputs
     wp_nav.set_pilot_desired_acceleration(roll_control, pitch_control);
-
     // run loiter controller
     wp_nav.update_loiter(ekfGndSpdLimit, ekfNavVelGainScaler);
-
     //Get angle values (error in Roll, Pitch, Yaw, target Roll, Pitch, Yaw)
-    attitude_control.new_angle_ef_roll_pitch_rate_ef_yaw(wp_nav.get_roll(), wp_nav.get_pitch(), target_yaw_rate);
+    attitude_control.new_angle_ef_roll_pitch_rate_ef_yaw(wp_nav.get_roll(), wp_nav.get_pitch(), 0.0);
     angle_outputs = attitude_control.angle_values;
-
     // pause 4 seconds before beginning land descent
     float cmb_rate;
-    if(land_pause && millis()-land_start_time < 4000) {
+    if(land_pause && millis() - land_start_time < 4000) {
         cmb_rate = 0;
     } else {
         land_pause = false;
         cmb_rate = get_land_descent_speed();
     }
-
     // record desired climb rate for logging
     desired_climb_rate = cmb_rate;
-
     // update altitude target and call position controller
     pos_control.set_alt_target_from_climb_rate(cmb_rate, G_Dt, true);
-    
-    
     pos_control.get_stopping_point_xy(xy_desired);
-    
     // This function will get the current position in x,y respectively
     xy_current = pos_control.xy_current();
-
     //Get altitude values (current, desire, error)
     pos_control.update_z_controller_new();
     z_outputs = pos_control.z_values;
@@ -10432,6 +10495,8 @@ static void new_rtl_climb_return_run()
         attitude_control.set_yaw_target_to_current_heading();
         attitude_control.set_throttle_out(0, false);
         // To-Do: re-initialise wpnav targets
+        // tell motors to do a slow start
+        motors.slow_start(true);
         return;
     }
 
@@ -10483,6 +10548,8 @@ static void new_rtl_loiterathome_run()
         attitude_control.set_yaw_target_to_current_heading();
         attitude_control.set_throttle_out(0, false);
         // To-Do: re-initialise wpnav targets
+        // tell motors to do a slow start
+        motors.slow_start(true);
         return;
     }
 
@@ -10543,6 +10610,8 @@ static void new_rtl_descent_run()
         attitude_control.relax_bf_rate_controller();
         attitude_control.set_yaw_target_to_current_heading();
         attitude_control.set_throttle_out(0, false);
+        // tell motors to do a slow start
+        motors.slow_start(true);
         // set target to current position
         wp_nav.init_loiter_target();
         return;
@@ -10693,6 +10762,8 @@ static void new_althold_run()
         attitude_control.set_yaw_target_to_current_heading();
         attitude_control.set_throttle_out(0, false);
         pos_control.set_alt_target_to_current_alt();
+        // tell motors to do a slow start
+        motors.slow_start(true);
         return;
     }
 
@@ -10760,7 +10831,7 @@ static void new_althold_run()
     }
 }
 
-//////////////////////////////////////////////////LOITER MODE///////////////////////////////////////////////////////
+//////////////////////////////////////////////////LOITER MODE///////////////////
 static void new_loiter_run()
 {
     float target_yaw_rate = 0;
@@ -10773,6 +10844,8 @@ static void new_loiter_run()
         attitude_control.set_yaw_target_to_current_heading();
         attitude_control.set_throttle_out(0, false);
         pos_control.set_alt_target_to_current_alt();
+        // tell motors to do a slow start
+        motors.slow_start(true);
         return;
     }
 
@@ -10780,16 +10853,12 @@ static void new_loiter_run()
     if (!failsafe.radio) {
         // apply SIMPLE mode transform to pilot inputs
         update_simple_mode();
-
         // process pilot's roll and pitch input
         wp_nav.set_pilot_desired_acceleration(g.rc_1.control_in, g.rc_2.control_in);
-
         // get pilot's desired yaw rate
         target_yaw_rate = get_pilot_desired_yaw_rate(g.rc_4.control_in);
-
         // get pilot desired climb rate
         target_climb_rate = get_pilot_desired_climb_rate(g.rc_3.control_in);
-
         // check for pilot requested take-off
         if (ap.land_complete && target_climb_rate > 0) {
             // indicate we are taking off
@@ -10801,12 +10870,10 @@ static void new_loiter_run()
         // clear out pilot desired acceleration in case radio failsafe event occurs and we do not switch to RTL for some reason
         wp_nav.clear_pilot_desired_acceleration();
     }
-
     // relax loiter target if we might be landed
     if (land_complete_maybe()) {
         wp_nav.loiter_soften_for_landing();
     }
-
     // when landed reset targets and output zero throttle
     if (ap.land_complete) {
         wp_nav.init_loiter_target();
@@ -10818,32 +10885,33 @@ static void new_loiter_run()
     }else{
         // run loiter controller
         wp_nav.update_loiter(ekfGndSpdLimit, ekfNavVelGainScaler);
-
         // call attitude controller
         attitude_control.new_angle_ef_roll_pitch_rate_ef_yaw(wp_nav.get_roll(), wp_nav.get_pitch(), target_yaw_rate);
         angle_outputs = attitude_control.angle_values;
-        
-
         // run altitude controller
         if (sonar_alt_health >= SONAR_ALT_HEALTH_MAX) {
             // if sonar is ok, use surface tracking
             target_climb_rate = get_throttle_surface_tracking(target_climb_rate, pos_control.get_alt_target(), G_Dt);
         }
-
         // update altitude target and call position controller
         pos_control.set_alt_target_from_climb_rate(target_climb_rate, G_Dt);
         pos_control.update_z_controller_new();
         z_outputs = pos_control.z_values;
-        
          // Get the desired x,y position in earth-frame
-        
         pos_control.get_stopping_point_xy(xy_desired);
-    
         // This function will get the current position in x,y respectively
-        xy_current = pos_control.xy_current();
-        
-        ///Send values to the general handling code
-        inputs_to_outputs(z_outputs, angle_outputs, xy_current, xy_desired, ahrs.roll, ahrs.pitch);
+        // ACTUALLY IN XYZ: xy_current() RETURNS XYZ VALUE OMG 
+        const Vector3f& position =  pos_control.xy_current();
+        const Vector3f& velocity = Vector3f(0.0, 0.0, 0.0); //not used but needed
+        const Vector3f& acceleration = ahrs.get_accel_ef();
+        const Vector3f& orientation = Vector3f(ahrs.roll, ahrs.pitch, ahrs.yaw);
+        const Vector3f& rotational_velocity = ahrs.get_gyro();
+        const Vector3f& target_position = pos_control.get_pos_target();
+        const Vector3f& target_orientation = Vector3f(
+	    attitude_control.angle_values[3],
+	    attitude_control.angle_values[4],
+	    attitude_control.angle_values[5]);
+        inputs_to_outputs_loiter_test(position, velocity, acceleration, orientation, rotational_velocity, target_position, target_orientation);
         // body-frame rate controller is run directly from 100hz loop
     }
 }
@@ -10860,14 +10928,9 @@ static void new_circle_run()
 
     // if not auto armed set throttle to zero and exit immediately
     if(!ap.auto_armed || ap.land_complete) {
-        // To-Do: add some initialisation of position controllers
-        attitude_control.relax_bf_rate_controller();
-        attitude_control.set_yaw_target_to_current_heading();
-        attitude_control.set_throttle_out(0, false);
-        pos_control.set_alt_target_to_current_alt();
+        reset_relax();
         return;
     }
-
     // process pilot inputs
     if (!failsafe.radio) {
         // get pilot's desired yaw rate
@@ -10887,10 +10950,8 @@ static void new_circle_run()
             set_throttle_takeoff();
         }
     }
-
     // run circle controller
     circle_nav.update();
-
     // call attitude controller
     if (circle_pilot_yaw_override) {
         attitude_control.new_angle_ef_roll_pitch_rate_ef_yaw(circle_nav.get_roll(), circle_nav.get_pitch(), target_yaw_rate);
@@ -10898,7 +10959,6 @@ static void new_circle_run()
         attitude_control.new_angle_ef_roll_pitch_yaw(circle_nav.get_roll(), circle_nav.get_pitch(), circle_nav.get_yaw(),true);
     }
     angle_outputs = attitude_control.angle_values;
-
     // run altitude controller
     if (sonar_alt_health >= SONAR_ALT_HEALTH_MAX) {
         // if sonar is ok, use surface tracking
@@ -10908,19 +10968,14 @@ static void new_circle_run()
     pos_control.set_alt_target_from_climb_rate(target_climb_rate, G_Dt);
     pos_control.update_z_controller_new();
     z_outputs = pos_control.z_values;
-    
    // Get the desired x,y position in earth-frame
-    
     pos_control.get_stopping_point_xy(xy_desired);
-   
    // This function will get the current position in x,y respectively
     xy_current = pos_control.xy_current();
-        
    ///Send values to the general handling code
     inputs_to_outputs(z_outputs, angle_outputs, xy_current, xy_desired, ahrs.roll, ahrs.pitch);
-    
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/control_poshold.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/control_poshold.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 #if POSHOLD_ENABLED == ENABLED
@@ -11984,7 +12039,7 @@ static void new_poshold_run()
 }
 
 #endif  // POSHOLD_ENABLED == ENABLED
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/control_rtl.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/control_rtl.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -12395,7 +12450,7 @@ static float get_RTL_alt()
     return rtl_alt;
 }
 
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/control_sport.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/control_sport.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -12496,7 +12551,7 @@ static void sport_run()
         pos_control.update_z_controller();
     }
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/control_stabilize.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/control_stabilize.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -12551,7 +12606,7 @@ static void stabilize_run()
     // output pilot's throttle
     attitude_control.set_throttle_out(pilot_throttle_scaled, true);
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/crash_check.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/crash_check.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // Code to detect a crash main ArduCopter code
@@ -12744,7 +12799,7 @@ static void parachute_manual_release()
 }
 
 #endif // PARACHUTE == ENABLED
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/ekf_check.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/ekf_check.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /**
@@ -12922,7 +12977,7 @@ static void failsafe_ekf_off_event(void)
     failsafe.ekf = false;
     Log_Write_Error(ERROR_SUBSYSTEM_FAILSAFE_EKFINAV, ERROR_CODE_FAILSAFE_RESOLVED);
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/esc_calibration.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/esc_calibration.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*****************************************************************************
@@ -13062,7 +13117,7 @@ static void esc_calibration_auto()
     // block until we restart
     while(1) { delay(5); }
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/events.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/events.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -13397,7 +13452,7 @@ static void update_events()
     ServoRelayEvents.update_events();
 }
 
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/failsafe.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/failsafe.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 //
 //  failsafe support
@@ -13468,7 +13523,7 @@ void failsafe_check()
         }
     }
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/fence.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/fence.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // Code to integrate AC_Fence library with main ArduCopter code
@@ -13550,7 +13605,7 @@ static void fence_send_mavlink_status(mavlink_channel_t chan)
 }
 
 #endif
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/flight_mode.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/flight_mode.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -13910,7 +13965,7 @@ print_flight_mode(AP_HAL::BetterStream *port, uint8_t mode)
     }
 }
 
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/heli.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/heli.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // Traditional helicopter variables and functions
@@ -14072,7 +14127,7 @@ static void heli_update_rotor_speed_targets()
 }
 
 #endif  // FRAME_CONFIG == HELI_FRAME
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/heli_control_acro.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/heli_control_acro.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 #if FRAME_CONFIG == HELI_FRAME
 /*
@@ -14139,7 +14194,7 @@ static void get_pilot_desired_yaw_rate(int16_t yaw_in, float &yaw_out)
 }
 
 #endif  //HELI_FRAME
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/heli_control_stabilize.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/heli_control_stabilize.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 #if FRAME_CONFIG == HELI_FRAME
 /*
@@ -14200,7 +14255,7 @@ static void heli_stabilize_run()
 }
 
 #endif  //HELI_FRAME
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/inertia.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/inertia.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // read_inertia - read inertia in from accelerometers
@@ -14218,7 +14273,7 @@ static void read_inertial_altitude()
     current_loc.flags.relative_alt = true;
     climb_rate = inertial_nav.get_velocity_z();
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/land_detector.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/land_detector.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // counter to verify landings
@@ -14262,7 +14317,7 @@ static void update_land_detector()
     // set land maybe flag
     set_land_complete_maybe(land_detector >= LAND_DETECTOR_MAYBE_TRIGGER);
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/landing_gear.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/landing_gear.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // Run landing gear controller at 10Hz
@@ -14294,7 +14349,7 @@ static void landinggear_update(){
         last_deploy_status = landinggear.deployed();        
     }
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/leds.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/leds.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // updates the status of notify
@@ -14304,7 +14359,7 @@ static void update_notify()
     notify.update();
 }
 
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/motor_test.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motor_test.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*
@@ -14470,7 +14525,7 @@ static void motor_test_stop()
     // turn off notify leds
     AP_Notify::flags.esc_calibration = false;
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/motors.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 #define ARM_DELAY               20  // called at 10hz so 2 seconds
@@ -15203,68 +15258,87 @@ static void init_disarm_motors()
 }
 
 // motors_output - send output to motors library which will adjust and send to ESCs and servos
+// Called from ArduCopter.pde
 static void motors_output()
 {
     // check if we are performing the motor test
     if (ap.motor_test) {
         motor_test_output();
     } else {
+        // motors is an AP_Motors_Class instance
         motors.output();
     }
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/motors_new.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/motors_new.pde"
 ///This is the main file implementing the new controllers
-///The Switch command is the main function, which will switch around controller depending on the chosen controller
+///The Switch command is the main function, which will switch
+///around controller depending on the chosen controller
 /* New functions for a new method to calculate output pwm
-/*
+/* ENSMA
 /* Modified by NGUYEN Anh Quang
 /*
 /* Last update 23/4/2015
 /*
 /**/
+#include "Parameters.h"
 
+#define X 0
+#define Y 1
+#define Z 2
+
+#define ROLL 0
+#define PITCH 1
+#define YAW 2
 t_MotorSpeed_io io_motors;
 
 ///Define variables for each controller
 #if using_controller == New_PID_Controller
-//IO structure 
-t_PIDcontroller_io io;
-// State structure
-t_PIDcontroller_state state;
+    //IO structure 
+    t_PIDcontroller_io io;
+    //State structure
+    t_PIDcontroller_state state;
 #endif
 
-#if using_controller == Simple_IB_Controller
-//IO structure 
-t_IB_Controller_ga_attitude_final_io io_attitude;
-t_Altitude_io io_alt;
-// State structure
-t_IB_Controller_ga_attitude_final_state state_attitude;
-t_Altitude_state state_alt;
+//#if using_controller == Simple_IB_Controller
+//    //IO structure 
+//    t_IB_Controller_ga_attitude_final_io io_attitude;
+//    t_Altitude_io io_alt;
+//    //State structure
+//    t_IB_Controller_ga_attitude_final_state state_attitude;
+//    t_Altitude_state state_alt;
+//#endif
+
+#if using_controller == IB_Controller_Interface
+    //IO structure
+    t_IB_ga_final_io io_ib;
+    //State structure
+    t_IB_ga_final_state state_ib;
 #endif
 
-double Rotate_speed[4] = {0,0,0,0}; 
+//what is?
+double motor_omega[4] = {0,0,0,0}; 
 
 
 ///Initial command for each controller
+//DANGEROUS
+//this function depends on being inlined
 static inline void init_controller()
 {
     switch (using_controller)
     {
         case Original_PID_Controller:
             break;
-        
         case New_PID_Controller:
             PIDcontroller_init(&state);            
             break;
-           
         case Simple_IB_Controller:
-            IB_Controller_ga_attitude_final_init(&state_attitude);
-            Altitude_init(&state_alt);
+ //           IB_Controller_ga_attitude_final_init(&state_attitude);
+ //           Altitude_init(&state_alt);
             break;
-
-    }
-    
-    
+        case IB_Controller_Interface:
+            IB_ga_final_init(&state_ib);
+            break;
+    }  
 }
 
 ///Declaration to make the program happy
@@ -15272,10 +15346,18 @@ static inline void init_controller()
 ///PID controller main code
 GAREAL* PID_calculate(float z_error, Vector3f output, float pitch, float roll)
 {
-    double time =(double) millis()/1000.0;
-   
-    float Kp_z = THROTTLE_ACCEL_P*3.0;
-    float Ki_z = THROTTLE_ACCEL_I/10.0;
+    double time = (double) millis() / 1000.0;
+    /*
+     * Although these can be modified mid-flight with MAVlink packets,
+     * Note that there are strange domain restrictions, particulary in the
+     * roll, pitch and yaw derivatives.
+     * 
+     * The explanation for the domain restrictions is that
+     * these are the parameters for the original PID controller
+     * and they have been stolen for use on the new PID controller.
+     */
+    float Kp_z = THROTTLE_ACCEL_P * 3.0;
+    float Ki_z = THROTTLE_ACCEL_I / 10.0;
     float Kd_z = THROTTLE_ACCEL_D;
         
     float Kp_phi = RATE_ROLL_P;
@@ -15288,7 +15370,7 @@ GAREAL* PID_calculate(float z_error, Vector3f output, float pitch, float roll)
  
     float Kp_psi = RATE_YAW_P;
     float Ki_psi = RATE_YAW_I;
-    float Kd_psi = RATE_YAW_D +2.0;
+    float Kd_psi = RATE_YAW_D + 2.0;
     
     float gains[12]=  {Kp_z, Ki_z, Kd_z,
                        Kp_phi, Ki_phi, Kd_phi,
@@ -15296,13 +15378,16 @@ GAREAL* PID_calculate(float z_error, Vector3f output, float pitch, float roll)
                        Kp_psi, Ki_psi, Kd_psi};
     
     io.t = time;
-    for (int i=0; i<12; i++)
-      io.gains[i] = gains[i];
+    for (int i=0; i<12; i++) {
+        //copy the gains 
+        io.gains[i] = gains[i];
+    }
     
+    //why?
     io.e[0] = z_error/100.0;
-    io.e[1] = output.x/100.0*PI/180.0;
-    io.e[2] = output.y/100.0*PI/180.0;
-    io.e[3] = output.z/100.0*PI/180.0;    
+    io.e[1] = output.x/100.0 * PI/180.0;
+    io.e[2] = output.y/100.0 * PI/180.0;
+    io.e[3] = output.z/100.0 * PI/180.0;    
     //gcs_send_text_fmt(PSTR("z: %f \n"),z_error/100.0);
     
     PIDcontroller_compute(&io,&state);
@@ -15310,12 +15395,13 @@ GAREAL* PID_calculate(float z_error, Vector3f output, float pitch, float roll)
     //gcs_send_text_fmt(PSTR("io.y[0]: %f \n"),io.y[0]);
     float m = 1.14; //kg
     
-    if ((cos(roll)*cos(pitch)) != 0.0)
+    if ((cos(roll) * cos(pitch)) != 0.0)
     {   
-        io.y[0] = (io.y[0] + 9.81)*m/(cos(roll)*cos(pitch));
+        io.y[0] = (io.y[0] + 9.81) * m / (cos(roll) * cos(pitch));
     }
-    else io.y[0] = (io.y[0] + 9.81)*m/(cos(roll)*cos(pitch)+0.001);
-    
+    else {
+    io.y[0] = (io.y[0] + 9.81) * m / (cos(roll) * cos(pitch) + 0.001);
+    }    
     //Constrain for io.y
     io.y[0] = constrain_float(io.y[0], 0, 22.34);
     io.y[1] = constrain_float(io.y[1], -1.257, 1.257); 
@@ -15325,72 +15411,182 @@ GAREAL* PID_calculate(float z_error, Vector3f output, float pitch, float roll)
     return io.y;
 }
 #endif
-
-#if using_controller == Simple_IB_Controller
-///Integral Backsteping main code
 GAREAL IB_results[4];
 double time_old = 0;
-GAREAL* IB_calculate(float curr_alt, float alt_des, Vector3f angle_cur, Vector3f angular_speed, 
-                    Vector3f angles_tar)
-{
-    double time =(double) millis()/1000.0;
-    if (fabs(time-time_old)>1.0)
+//radians vs degrees???????????
+//#if using_controller == Simple_IB_Controller
+/////Integral Backsteping main code
+////Inputs: current altitude,
+////desired altitute, current orientation, current
+////angular velocity, //ALL RADIANS
+//GAREAL* IB_calculate(float curr_alt, float target_alt, Vector3f curr_angle,
+//    Vector3f angular_speed, Vector3f target_angle)
+//{
+//    double time = (double) millis() / 1000.0;
+//    //if sample time is over a second, something is horribly wrong
+//    if (fabs(time - time_old) > 1.0)
+//    {
+//        time_old = time;
+//        IB_results[0] = 0;
+//        IB_results[1] = 0;
+//        IB_results[2] = 0;
+//        IB_results[3] = 0;
+//        return IB_results;
+//    }
+//
+//    //Get the values
+//    io_alt.z = curr_alt/100.0;
+//    io_alt.zd = target_alt/100.0;
+//    
+//    io_alt.dt = time - time_old;
+//    io_alt.phi = curr_angle.x;
+//    io_alt.theta = curr_angle.y;
+//    
+//    Altitude_compute(&io_alt, &state_alt);
+//    //minimum thrust
+//    if (io_alt.U1 < 6) {
+//        IB_results[0] = 6;
+//    } else {
+//        IB_results[0] = io_alt.U1;
+//    }
+//    io_attitude.angles[0] = curr_angle.x;
+//    io_attitude.angles[1] = curr_angle.y;
+//    io_attitude.angles[2] = curr_angle.z;
+//    io_attitude.angles[3] = angular_speed.x;
+//    io_attitude.angles[4] = angular_speed.y;
+//    io_attitude.angles[5] = angular_speed.z;
+//    io_attitude.dt = time - time_old;
+//    //subtraction???
+//    io_attitude.phid = target_angle.x + curr_angle.x;
+//    io_attitude.thetad = target_angle.y + curr_angle.y;
+//    io_attitude.psid = target_angle.z;
+//
+//    //this order though
+//    io_attitude.omgs[0] = motor_omega[3];
+//    io_attitude.omgs[1] = motor_omega[0];
+//    io_attitude.omgs[2] = motor_omega[2];
+//    io_attitude.omgs[3] = motor_omega[1];
+//    
+//    //gcs_send_text_fmt(PSTR("U1:%f U2:%f U3:%f U4:%f \n"),motor_omega[2], motor_omega[0], motor_omega[3], motor_omega[1] );
+//    IB_Controller_ga_attitude_final_compute(&io_attitude,&state_attitude);    
+//  
+//    time_old = time;
+// 
+//    IB_results[1] = io_attitude.U2;
+//    IB_results[2] = io_attitude.U3;
+//    IB_results[3] = io_attitude.U4;
+//
+//    return IB_results;
+//}
+//#endif
+
+#if using_controller == IB_Controller_Interface
+GAREAL* IB_interface_calculate(
+    const Vector3f& position,
+    const Vector3f& velocity,
+    const Vector3f& acceleration,
+    const Vector3f& orientation, 
+    const Vector3f& rotational_velocity,
+    const Vector3f& target_position,
+    const Vector3f& target_orientation) {
+
+    double time = (double) millis() / 1000.0;
+    //if sample time is over a second, something is horribly wrong
+    if (fabs(time - time_old) > 1.0)
     {
         time_old = time;
-        IB_results[0] = 0;
-        IB_results[1] = 0;
-        IB_results[2] = 0;
-        IB_results[3] = 0;
+        IB_results[0] = 0.0;
+        IB_results[1] = 0.0;
+        IB_results[2] = 0.0;
+        IB_results[3] = 0.0;
         return IB_results;
     }
-        
-    //Get the values
+    //put values into GA io struct
+    //orientation comes from AHRS and is already in radians
+    io_ib.angles[ROLL]         = orientation.x;
+    io_ib.angles[PITCH]        = orientation.y;
+    io_ib.angles[YAW]          = orientation.z;
+    io_ib.anglesdot[ROLL]      = rotational_velocity.x;
+    io_ib.anglesdot[PITCH]     = rotational_velocity.y;
+    io_ib.anglesdot[YAW]       = rotational_velocity.z;
+    //position and velocity comes from the inertial
+    //navigation system and 'should' be in meters
+    //however that system gives it to us in cm
+    io_ib.position[X]          = position.x/100.0;
+    io_ib.position[Y]          = position.y/100.0;
+    io_ib.position[Z]          = position.z/100.0;
+    io_ib.positiondot[X]       = velocity.x/100.0;
+    io_ib.positiondot[Y]       = velocity.y/100.0;
+    io_ib.positiondot[Z]       = velocity.z/100.0;
+    //accel comes from the AHRS system and is
+    //already in m/s/s
+    io_ib.positiondotdot[X]    = acceleration.x;
+    io_ib.positiondotdot[Y]    = acceleration.y;
+    io_ib.positiondotdot[Z]    = acceleration.z;
+    //assume radians
+    io_ib.angles_desired[ROLL] = target_orientation.x;
+    io_ib.angles_desired[PITCH]= target_orientation.y;
+    io_ib.angles_desired[YAW]  = target_orientation.z;
+    //I assume this conversion still needs to happen
+    io_ib.position_desired[X]  = target_position.x/100.0;
+    io_ib.position_desired[Y]  = target_position.y/100.0;
+    io_ib.position_desired[Z]  = target_position.z/100.0;
+    io_ib.t                    = time;
 
-    io_alt.z = curr_alt/100.0;
-    io_alt.zd = alt_des/100.0;
-     
-    
-    io_alt.dt = time - time_old;
-    io_alt.phi = angle_cur.x;
-    io_alt.theta = angle_cur.y;
-    
-    Altitude_compute(&io_alt,&state_alt);
-    if (io_alt.U1 > 6)
-        IB_results[0] = io_alt.U1;
-    else IB_results[0] = 6;    
+    //get controller specifict params in here next....
 
+    //this order is strange
+    io_ib.omgs[0] = motor_omega[3];
+    io_ib.omgs[1] = motor_omega[0];
+    io_ib.omgs[2] = motor_omega[2];
+    io_ib.omgs[3] = motor_omega[1];
+    // IB parameters
+    io_ib.params[IB_PARAM_C1] = g.ib_c1;
+    io_ib.params[IB_PARAM_C2] = g.ib_c2;
+    io_ib.params[IB_PARAM_LD1] = g.ib_ld1;
+    io_ib.params[IB_PARAM_C3] = g.ib_c3;
+    io_ib.params[IB_PARAM_C4] = g.ib_c4;
+    io_ib.params[IB_PARAM_LD2] = g.ib_ld2;
+    io_ib.params[IB_PARAM_C5] = g.ib_c5;
+    io_ib.params[IB_PARAM_C6] = g.ib_c6;
+    io_ib.params[IB_PARAM_LD3] = g.ib_ld3;
+    io_ib.params[IB_PARAM_C7] = g.ib_c7;
+    io_ib.params[IB_PARAM_C8] = g.ib_c8;
+    io_ib.params[IB_PARAM_LD4] = g.ib_ld4;
+    io_ib.params[IB_PARAM_C9] = g.ib_c9;
+    io_ib.params[IB_PARAM_C10] = g.ib_c10;
+    io_ib.params[IB_PARAM_LD5] = g.ib_ld5;
+    io_ib.params[IB_PARAM_C11] = g.ib_c11;
+    io_ib.params[IB_PARAM_C12] = g.ib_c12;
+    io_ib.params[IB_PARAM_LD6] = g.ib_ld6;
+    io_ib.params[IB_PARAM_B0_BP] = g.ib_b0_bp;
+    io_ib.params[IB_PARAM_B1_BP] = g.ib_b1_bp;
+    io_ib.params[IB_PARAM_B2_BP] = g.ib_b2_bp;
+    io_ib.params[IB_PARAM_A0_BP] = g.ib_a0_bp;
+    io_ib.params[IB_PARAM_A1_BP] = g.ib_a1_bp;
+    io_ib.params[IB_PARAM_A2_BP] = g.ib_a2_bp;
+    io_ib.params[IB_PARAM_ZOH] = g.ib_zoh;
     
-    io_attitude.angles[0] = angle_cur.x;
-    io_attitude.angles[1] = angle_cur.y;
-    io_attitude.angles[2] = angle_cur.z;
-    io_attitude.angles[3] = angular_speed.x/100.0*PI/180.0;
-    io_attitude.angles[4] = angular_speed.y/100.0*PI/180.0;
-    io_attitude.angles[5] = angular_speed.z/100.0*PI/180.0;
-    io_attitude.dt = time - time_old;
-    io_attitude.phid = angles_tar.x/100.0*PI/180.0 + angle_cur.x;
-    io_attitude.thetad = angles_tar.y/100.0*PI/180.0 + angle_cur.y;
-    io_attitude.psid = angles_tar.z/100.0*PI/180.0;
-           
-    io_attitude.omgs[0] = Rotate_speed[3];
-    io_attitude.omgs[1] = Rotate_speed[0];
-    io_attitude.omgs[2] = Rotate_speed[2];
-    io_attitude.omgs[3] = Rotate_speed[1];
-    
-    //gcs_send_text_fmt(PSTR("U1:%f U2:%f U3:%f U4:%f \n"),Rotate_speed[2], Rotate_speed[0], Rotate_speed[3], Rotate_speed[1] );
-        
-    IB_Controller_ga_attitude_final_compute(&io_attitude,&state_attitude);    
+    IB_ga_final_compute(&io_ib, &state_ib);    
+    gcs_send_text_fmt(PSTR("w1:%f w2:%f w3:%f w4:%f \n"),motor_omega[2], motor_omega[0], motor_omega[3], motor_omega[1] );
   
+    //minimum thrust
+    if (io_ib.U1 < 6) {
+        IB_results[0] = 6;
+    } else {
+        IB_results[0] = io_ib.U1;
+    }
     time_old = time;
- 
-    IB_results[1] = io_attitude.U2;
-    IB_results[2] = io_attitude.U3;
-    IB_results[3] = io_attitude.U4;
-
+    IB_results[1] = io_ib.U2;
+    IB_results[2] = io_ib.U3;
+    IB_results[3] = io_ib.U4;
     return IB_results;
 }
 #endif
 
-///get inputs from the auto mode and then pass it into controllers
+///Receive the sensor values from auto mode and then pass them into controllers
+///Each controller needs to accept the inputs it expect, therefore not all
+///inputs will be used.
 ///Meaning of the inputs
 //  z[0]: current_z      in cm 
 //  z[1]: desired_z      in cm
@@ -15412,18 +15608,17 @@ GAREAL* IB_calculate(float curr_alt, float alt_des, Vector3f angle_cur, Vector3f
 
 //  xy_current.x: current position      in centimeter from home
 //  xy_current.y: current position      in centimeter from home
-//  xy_current.z: current position      do not used this
+//  xy_current.z: current position      DO NOT USE
 //  xy_desired.x: target position       in centimeter from home
 //  xy_desired.y: target position       in centimeter from home
-//  xy_desired.z: target position       do not used this
+//  xy_desired.z: target position       DO NOT USE
 //  roll :        current roll          radian
-//  pitch:        current pitch         radian  
-
+//  pitch:        current pitch         radian
+//  Called from control_multi_controller.pde
 void inputs_to_outputs(float* z, float* angles,
                        Vector3f xy_current, Vector3f xy_desired,
                        float roll, float pitch)
 {
-    Vector3f destination = wp_nav.get_wp_destination();
     Vector3f angle_error;
              angle_error.x = angles[0];
              angle_error.y = angles[1];
@@ -15439,98 +15634,148 @@ void inputs_to_outputs(float* z, float* angles,
      Vector3f desired_angles;
              desired_angles.x = angles[0];
              desired_angles.y = angles[1];
-             desired_angles.z = angles[5]; 
-   
-    if (using_controller != Original_PID_Controller)
+             desired_angles.z = angles[5];
+    //controller_output is the 4-vector of U values
+    GAREAL *controller_output;
+    //Integrate the calculation for new controllers here
+    switch (using_controller)
     {
-        
-        GAREAL *rad_per_second;
-        //Integrate the calculation for new controllers here
-        switch (using_controller)
+        case Original_PID_Controller:
+            break;
+        case New_PID_Controller:
         {
-            case Original_PID_Controller:
-                break;
-            
-            case New_PID_Controller:
-            {
-                //Inputs: z_error; roll_error; pitch_error; yaw_error
-                //Outputs: angular speed of each motors
-                //gcs_send_text_fmt(PSTR("r: %f p: %f y: %f \n"),input1,input2,input3);
-                //gcs_send_text_fmt(PSTR("p1:%f p2:%f p3:%f\n"),angles[1], angles[4], angles[10]);
-                //gcs_send_text_fmt(PSTR("z: %f\n"),z_error);
-                rad_per_second = PID_calculate(z[2], angle_error, ahrs.roll, ahrs.pitch);
-                
-                break;
-             }   
-             
-            case Simple_IB_Controller:
-            {
-                //Inputs:current_z, desired_z, current_angles, angular_speed, desired_angles
-                //Outputs: angular speed of each motors
-                //gcs_send_text_fmt(PSTR("y: %f yd: %f  \n"),angle_current.z, desired_angles.z);
-                rad_per_second = IB_calculate(z[0], z[1], current_angles, change_rate, desired_angles);
-                //gcs_send_text_fmt(PSTR("r1: %f r2: %f r3: %f r4: %f  \n"),rad_per_second[0], rad_per_second[1], rad_per_second[2], rad_per_second[3] );
-                break;
-            }
-                                       
-        }
-        motors_output(rad_per_second);
+            //Inputs: z_error; roll_error; pitch_error; yaw_error
+            //Outputs: angular speed of each motors
+            //gcs_send_text_fmt(PSTR("r: %f p: %f y: %f \n"),input1,input2,input3);
+            //gcs_send_text_fmt(PSTR("p1:%f p2:%f p3:%f\n"),angles[1], angles[4], angles[10]);
+            //gcs_send_text_fmt(PSTR("z: %f\n"),z_error);
+            controller_output = PID_calculate(z[2], angle_error, ahrs.roll, ahrs.pitch);
+            break;
+        }   
+        //case Simple_IB_Controller:
+        //{
+        //    //Inputs:current_z, desired_z, current_angles, angular_speed, desired_angles
+        //    //Outputs: angular speed of each motors
+        //    //gcs_send_text_fmt(PSTR("y: %f yd: %f  \n"),angle_current.z, desired_angles.z);
+        //    controller_output = IB_calculate(z[0], z[1], current_angles, change_rate, desired_angles);
+        //    //gcs_send_text_fmt(PSTR("r1: %f r2: %f r3: %f r4: %f  \n"),controller_output[0], controller_output[1], controller_output[2], controller_output[3] );
+        //    break;
+        //}
+                                   
     }
-    else return; 
-    
-    
+    motors_output(controller_output);
 }
 
+//We want to test a more unified parameter passing scheme, but we will experiment
+//with loiter mode only first. Compared to the original inputs to outputs above,
+//this function should receive :
+//
+// r       : current position (AP_InertialNav)
+// v       : current velocity (working on finding this, maybe AP_InertialNav)
+// a       : current acceleration (from AP_AHRS)
+// theta   : a vector of roll, pitch, yaw in the earth frame (AP_AHRS)
+// omega   : a vector of angular velocities (AP_AHRS)
+// r_d     : desired position
+// theta_d : desired orientation
+//
+// Only works for the new IB controller right now
+void inputs_to_outputs_loiter_test(
+    const Vector3f& position,
+    const Vector3f& velocity,
+    const Vector3f& acceleration,
+    const Vector3f& orientation, 
+    const Vector3f& rotational_velocity,
+    const Vector3f& target_position,
+    const Vector3f& target_orientation)
+{
+    //controller_output is the 4-vector of U values
+    GAREAL *controller_output;
+    //Integrate the calculation for new controllers here
+    switch (using_controller)
+    {
+        case Original_PID_Controller:
+            break;
+        case New_PID_Controller:
+            break;
+        case Simple_IB_Controller:
+        {
+            //Inputs:current_z, desired_z, current_angles, angular_speed, desired_angles
+            //Outputs: angular speed of each motors
+            //gcs_send_text_fmt(PSTR("y: %f yd: %f  \n"),angle_current.z, desired_angles.z);
+            // controller_output = IB_calculate(current_z, desired_z, orientation, rotational_velocity, target_orientation);
+            //gcs_send_text_fmt(PSTR("r1: %f r2: %f r3: %f r4: %f  \n"),controller_output[0], controller_output[1], controller_output[2], controller_output[3] );
+            break;
+        }
+        case IB_Controller_Interface:
+            controller_output = IB_interface_calculate(position, velocity, acceleration, orientation, rotational_velocity, target_position, target_orientation);
+            break;
+        default:
+        break;
+
+    }
+    motors_output(controller_output);
+}
 
 /// motors_output - send output to motors library which will adjust and send to ESCs and servos
+/// ENSMA
 void motors_output(GAREAL *output_value)
 {
     // Limits for our quadrotor
+    // are these rotor parameters?
     float b = 0.00012; //Ns2
     float d = 0.000003; //Nms2
-    float l = 0.225; //m
-    float Torque = output_value[0];    
+    float l = 0.225; //m 
 
-    io_motors.U1 = output_value[0];
-    io_motors.U2 = output_value[1];
-    io_motors.U3 = output_value[2];
-    io_motors.U4 = output_value[3];
+    io_motors.U1 = output_value[0]; //THRUST
+    io_motors.U2 = output_value[1]; //MOMENT
+    io_motors.U3 = output_value[2]; //MOMENT
+    io_motors.U4 = output_value[3]; //MOMENT
         
-    //gcs_send_text_fmt(PSTR("U1:%f U2:%f U3:%f U4:%f \n"),io_motors.U1, io_motors.U2, io_motors.U3, io_motors.U4 );
-        
-    MotorSpeed_compute(&io_motors);
+    gcs_send_text_fmt(PSTR("U1:%f U2:%f U3:%f U4:%f \n"),io_motors.U1, io_motors.U2, io_motors.U3, io_motors.U4 );
     
-    ///Developing + frame
-    if (using_controller == New_PID_Controller)
-    {        
-        Rotate_speed[3] = io_motors.omgs2[0];
-        Rotate_speed[0] = io_motors.omgs2[1];
-        Rotate_speed[2] = io_motors.omgs2[2];
-        Rotate_speed[1] = io_motors.omgs2[3]; 
-     }
-     if ((using_controller == Simple_IB_Controller))
-     {     
-        Rotate_speed[0] =(double) sqrt(abs(Torque/(4.0*b)-output_value[1]/(2.0*b*l)+output_value[3]/(4.0*d)));
-        Rotate_speed[1] =(double) sqrt(abs(Torque/(4.0*b)+output_value[1]/(2.0*b*l)+output_value[3]/(4.0*d)));
-        Rotate_speed[2] =(double) sqrt(abs(Torque/(4.0*b)+output_value[2]/(2.0*b*l)-output_value[3]/(4.0*d)));
-        Rotate_speed[3] =(double) sqrt(abs(Torque/(4.0*b)-output_value[2]/(2.0*b*l)-output_value[3]/(4.0*d)));
-      }  
-    
-    
+    switch (using_controller)
+    {
+        case New_PID_Controller:
+        {
+            //Call to the GA U -> omega transformation
+            MotorSpeed_compute(&io_motors);        
+            motor_omega[3] = io_motors.omgs2[0];
+            motor_omega[0] = io_motors.omgs2[1];
+            motor_omega[2] = io_motors.omgs2[2];
+            motor_omega[1] = io_motors.omgs2[3]; 
+            break;
+        }
+        default:
+        {
+            motor_omega[0] =(double) sqrt(abs(output_value[0] / (4.0 * b)
+               - output_value[1] / (2.0 * b * l)
+               + output_value[3] / (4.0 * d)));
+            motor_omega[1] =(double) sqrt(abs(output_value[0] / (4.0 * b)
+               + output_value[1] / (2.0 * b * l)
+               + output_value[3] / (4.0 * d)));
+             motor_omega[2] =(double) sqrt(abs(output_value[0] / (4.0 * b)
+               + output_value[2] / (2.0 * b * l)
+               - output_value[3] / (4.0 * d)));
+            motor_omega[3] =(double) sqrt(abs(output_value[0] / (4.0 * b)
+               - output_value[2] / (2.0 * b * l)
+               - output_value[3] / (4.0 * d)));
+        }
+    }
+    //limits
     for (uint8_t i = 0; i<4; i++)
     {
-        if (Rotate_speed[i]<=0.0)
-            Rotate_speed[i] = 0 ;
-        if (Rotate_speed[i]>216.0)
-            Rotate_speed[i] = 216.0;        
+        if (motor_omega[i] <= 0.0) {
+            motor_omega[i] = 0 ;
+        }
+        if (motor_omega[i] > 216.0) {
+            motor_omega[i] = 216.0;        
+        }
     }
-  
   //gcs_send_text_fmt(PSTR("r1: %f r2: %f r3: %f r4: %f  \n"),output_value[0], output_value[1], output_value[2], output_value[3] );
-    
-  motors.output_signal(Rotate_speed);
+  motors.output_signal(motor_omega);
    
 }   
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/navigation.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/navigation.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // run_nav_updates - top level call for the autopilot
@@ -15615,7 +15860,7 @@ static void run_autopilot()
         mission.update();
     }
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/perf_info.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/perf_info.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 //
 //  high level performance monitoring
@@ -15695,7 +15940,7 @@ static uint16_t perf_info_get_num_long_running()
 {
     return perf_info_long_running;
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/position_vector.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/position_vector.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // position_vector.pde related utility functions
@@ -15763,7 +16008,7 @@ float pv_get_horizontal_distance_cm(const Vector3f &origin, const Vector3f &dest
 {
     return pythagorous2(destination.x-origin.x,destination.y-origin.y);
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/radio.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/radio.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 // Function that will read the radio data, limit servos and trigger a failsafe
@@ -15955,7 +16200,7 @@ static void set_throttle_zero_flag(int16_t throttle_control)
     }
 }
 
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/sensors.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/sensors.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 static void init_barometer(bool full_calibration)
@@ -16141,7 +16386,7 @@ void epm_update()
     epm.update();
 }
 #endif
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/setup.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/setup.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 #if CLI_ENABLED == ENABLED
@@ -16676,7 +16921,7 @@ static void report_version()
     print_divider();
     print_blanks(2);
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/switches.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/switches.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 #define CONTROL_SWITCH_DEBOUNCE_TIME_MS  200
@@ -17189,7 +17434,7 @@ static void auto_trim()
     }
 }
 
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/system.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/system.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 /*****************************************************************************
 *   The init_ardupilot function processes everything we need for an in - air restart
@@ -17630,7 +17875,7 @@ static bool should_log(uint32_t mask)
     return false;
 #endif
 }
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/test.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/test.pde"
 // -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 #if CLI_ENABLED == ENABLED
@@ -17930,7 +18175,7 @@ static void print_hit_enter()
 }
 
 #endif // CLI_ENABLED
-#line 1 "/home/mark/Desktop/ardupilot/Completed_versions/ardupilot_multi_controller/ArduCopter/tuning.pde"
+#line 1 "/home/gustavo/Desktop/ardupilot/completed_code/ardupilot_multi_controller/ArduCopter/tuning.pde"
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
 /*

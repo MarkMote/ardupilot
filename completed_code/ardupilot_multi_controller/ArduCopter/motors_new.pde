@@ -261,8 +261,6 @@ GAREAL* IB_interface_calculate(
     io_ib.position_desired[Z]  = target_position.z/100.0;
     io_ib.t                    = time;
 
-    //get controller specifict params in here next....
-
     //this order is strange
     io_ib.omgs[0] = motor_omega[3];
     io_ib.omgs[1] = motor_omega[0];
@@ -389,7 +387,6 @@ void inputs_to_outputs(float* z, float* angles,
         //    //gcs_send_text_fmt(PSTR("r1: %f r2: %f r3: %f r4: %f  \n"),controller_output[0], controller_output[1], controller_output[2], controller_output[3] );
         //    break;
         //}
-                                   
     }
     motors_output(controller_output);
 }
@@ -499,7 +496,6 @@ void motors_output(GAREAL *output_value)
             motor_omega[i] = 216.0;        
         }
     }
-  //gcs_send_text_fmt(PSTR("r1: %f r2: %f r3: %f r4: %f  \n"),output_value[0], output_value[1], output_value[2], output_value[3] );
-  motors.output_signal(motor_omega);
-   
+    //gcs_send_text_fmt(PSTR("r1: %f r2: %f r3: %f r4: %f  \n"),output_value[0], output_value[1], output_value[2], output_value[3] );
+    motors.output_signal(motor_omega);
 }   
