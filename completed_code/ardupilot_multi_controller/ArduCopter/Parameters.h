@@ -185,6 +185,29 @@ public:
         k_param_serial2_protocol, // deprecated
         k_param_serial_manager,  // 119
 
+        //120: IB Parameters;
+        //
+        k_param_ib_c1 = 120,
+        k_param_ib_c2,
+        k_param_ib_ld1,
+        k_param_ib_c3,
+        k_param_ib_c4,
+        k_param_ib_ld2,
+        k_param_ib_c5,
+        k_param_ib_c6,
+        k_param_ib_ld3,
+        k_param_ib_c7,
+        k_param_ib_c8, //130
+        k_param_ib_ld4,
+        k_param_ib_c9,
+        k_param_ib_c10,
+        k_param_ib_ld5,
+        k_param_ib_c11,
+        k_param_ib_c12,
+        k_param_ib_ld6,
+        k_param_ib_b0_bp,
+        k_param_ib_b1_bp, //139
+
         //
         // 140: Sensor parameters
         //
@@ -315,7 +338,14 @@ public:
         k_param_acro_balance_roll,
         k_param_acro_balance_pitch,
         k_param_acro_yaw_p, // 244
-        
+
+        //more IB params
+        //245
+        k_param_ib_b2_bp = 245,
+        k_param_ib_a0_bp,
+        k_param_ib_a1_bp,
+        k_param_ib_a2_bp,
+        k_param_ib_zoh
   
 
         // 254,255: reserved
@@ -353,6 +383,33 @@ public:
     AP_Int16        poshold_brake_rate;         // PosHold flight mode's rotation rate during braking in deg/sec
     AP_Int16        poshold_brake_angle_max;    // PosHold flight mode's max lean angle during braking in centi-degrees
     
+    //IB declarations
+    AP_Float        ib_c1;
+    AP_Float        ib_c2;
+    AP_Float        ib_ld1;
+    AP_Float        ib_c3;
+    AP_Float        ib_c4;
+    AP_Float        ib_ld2;
+    AP_Float        ib_c5;
+    AP_Float        ib_c6;
+    AP_Float        ib_ld3;
+    AP_Float        ib_c7;
+    AP_Float        ib_c8;
+    AP_Float        ib_ld4;
+    AP_Float        ib_c9;
+    AP_Float        ib_c10;
+    AP_Float        ib_ld5;
+    AP_Float        ib_c11;
+    AP_Float        ib_c12;
+    AP_Float        ib_ld6;
+    AP_Float        ib_b0_bp;
+    AP_Float        ib_b1_bp;
+    AP_Float        ib_b2_bp;
+    AP_Float        ib_a0_bp;
+    AP_Float        ib_a1_bp;
+    AP_Float        ib_a2_bp;
+    AP_Float        ib_zoh;
+
     // Waypoints
     //
     AP_Int32        rtl_loiter_time;

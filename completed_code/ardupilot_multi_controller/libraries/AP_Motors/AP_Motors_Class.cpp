@@ -224,6 +224,10 @@ void AP_Motors::update_max_throttle()
     }
 }
 
+/*
+    Gets passed an array of omegas
+    4 since it's a quadcopter.
+*/
 void AP_Motors::output_signal(double *input)
 {
     // update max throttle

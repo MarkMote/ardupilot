@@ -704,6 +704,83 @@
  # define THROTTLE_ACCEL_IMAX   800
 #endif
 
+// IB Default values
+#ifndef IB_C1_DEFAULT
+  #define IB_C1_DEFAULT         15.0
+#endif
+#ifndef IB_C2_DEFAULT
+  #define IB_C2_DEFAULT         6.0
+#endif
+#ifndef IB_LD1_DEFAULT
+  #define IB_LD1_DEFAULT        0.07
+#endif
+#ifndef IB_C3_DEFAULT
+  #define IB_C3_DEFAULT         15.0
+#endif
+#ifndef IB_C4_DEFAULT
+  #define IB_C4_DEFAULT         6.0
+#endif
+#ifndef IB_LD2_DEFAULT
+  #define IB_LD2_DEFAULT        0.05
+#endif
+#ifndef IB_C5_DEFAULT
+  #define IB_C5_DEFAULT         10.0
+#endif
+#ifndef IB_C6_DEFAULT
+  #define IB_C6_DEFAULT         5.0
+#endif
+#ifndef IB_LD3_DEFAULT
+  #define IB_LD3_DEFAULT        0.01
+#endif
+#ifndef IB_C7_DEFAULT
+  #define IB_C7_DEFAULT         3.5
+#endif
+#ifndef IB_C8_DEFAULT
+  #define IB_C8_DEFAULT         1.5
+#endif
+#ifndef IB_LD4_DEFAULT
+  #define IB_LD4_DEFAULT        0.01
+#endif
+#ifndef IB_C9_DEFAULT
+  #define IB_C9_DEFAULT         10.0
+#endif
+#ifndef IB_C10_DEFAULT
+  #define IB_C10_DEFAULT        1.5
+#endif
+#ifndef IB_LD5_DEFAULT
+  #define IB_LD5_DEFAULT        0.001
+#endif
+#ifndef IB_C11_DEFAULT
+  #define IB_C11_DEFAULT        10.0
+#endif
+#ifndef IB_C12_DEFAULT
+  #define IB_C12_DEFAULT        1.5
+#endif
+#ifndef IB_LD6_DEFAULT
+  #define IB_LD6_DEFAULT        0.001
+#endif
+#ifndef IB_B0_BP_DEFAULT
+  #define IB_B0_BP_DEFAULT      0.0
+#endif
+#ifndef IB_B1_BP_DEFAULT
+  #define IB_B1_BP_DEFAULT      115600
+#endif
+#ifndef IB_B2_BP_DEFAULT
+  #define IB_B2_BP_DEFAULT      0.0
+#endif
+#ifndef IB_A0_BP_DEFAULT
+  #define IB_A0_BP_DEFAULT      1.0
+#endif
+#ifndef IB_A1_BP_DEFAULT
+  #define IB_A1_BP_DEFAULT      1768.0
+#endif
+#ifndef IB_A2_BP_DEFAULT
+  #define IB_A2_BP_DEFAULT      115600.0
+#endif
+#ifndef IB_ZOH_DEFAULT
+  #define IB_ZOH_DEFAULT        0.0
+#endif
+
 // default maximum vertical velocity and acceleration the pilot may request
 #ifndef PILOT_VELZ_MAX
  # define PILOT_VELZ_MAX    250     // maximum vertical velocity in cm/s

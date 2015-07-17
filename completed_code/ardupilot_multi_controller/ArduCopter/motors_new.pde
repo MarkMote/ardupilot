@@ -64,38 +64,6 @@ static inline void init_controller()
             break;
         case IB_Controller_Interface:
             IB_ga_final_init(&state_ib);
-	    io_ib.params[IB_PARAM_C1] = 15.0;
-	    io_ib.params[IB_PARAM_C2] = 6;
-	    io_ib.params[IB_PARAM_LD1] = 0.07;
-	    io_ib.params[IB_PARAM_C3] = 15.0;
-	    io_ib.params[IB_PARAM_C4] = 6.0;
-            io_ib.params[IB_PARAM_LD2] = 0.05;
-	    io_ib.params[IB_PARAM_C5] = 10.0;
-	    io_ib.params[IB_PARAM_C6] = 5.0;
-            io_ib.params[IB_PARAM_LD3] = 0.01;
-            io_ib.params[IB_PARAM_C7] = 3.5;
-            io_ib.params[IB_PARAM_C8] = 1.5;
-            io_ib.params[IB_PARAM_LD4] = 0.01;
-            io_ib.params[IB_PARAM_C9] = 10.0;
-            io_ib.params[IB_PARAM_C10] = 1.5;
-            io_ib.params[IB_PARAM_LD5] = 0.001;
-            io_ib.params[IB_PARAM_C11] = 10.0;
-            io_ib.params[IB_PARAM_C12] = 1.5;
-            io_ib.params[IB_PARAM_LD6] = 0.001;
-            io_ib.params[IB_PARAM_B0_BP] = 0.0;
-            io_ib.params[IB_PARAM_B1_BP] = 115600.0;
-            io_ib.params[IB_PARAM_B2_BP] = 0.0;
-            io_ib.params[IB_PARAM_A0_BP] = 1.0;
-            io_ib.params[IB_PARAM_A1_BP] = 1768.0;
-            io_ib.params[IB_PARAM_A2_BP] = 115600.0;
-            io_ib.params[IB_PARAM_B0_LP] = 0.0;
-            io_ib.params[IB_PARAM_B1_LP] = 0.0;
-            io_ib.params[IB_PARAM_B2_LP] = 1.0;
-            io_ib.params[IB_PARAM_A0_LP] = 1.0;
-            io_ib.params[IB_PARAM_A1_LP] = 2.0;
-            io_ib.params[IB_PARAM_A2_LP] = 1.0;
-            io_ib.params[IB_PARAM_ZOH] = 0.0;
-            io_ib.params[IB_PARAM_ENABLE_PSID] = 1.0;
             break;
     }  
 }
@@ -159,7 +127,7 @@ GAREAL* PID_calculate(float z_error, Vector3f output, float pitch, float roll)
         io.y[0] = (io.y[0] + 9.81) * m / (cos(roll) * cos(pitch));
     }
     else {
-	io.y[0] = (io.y[0] + 9.81) * m / (cos(roll) * cos(pitch) + 0.001);
+    io.y[0] = (io.y[0] + 9.81) * m / (cos(roll) * cos(pitch) + 0.001);
     }    
     //Constrain for io.y
     io.y[0] = constrain_float(io.y[0], 0, 22.34);
@@ -299,6 +267,32 @@ GAREAL* IB_interface_calculate(
     io_ib.omgs[1] = motor_omega[0];
     io_ib.omgs[2] = motor_omega[2];
     io_ib.omgs[3] = motor_omega[1];
+    // IB parameters
+    io_ib.params[IB_PARAM_C1] = ib_c1;
+    io_ib.params[IB_PARAM_C2] = ib_c2;
+    io_ib.params[IB_PARAM_LD1] = ib_ld1;
+    io_ib.params[IB_PARAM_C3] = ib_c3;
+    io_ib.params[IB_PARAM_C4] = ib_c4;
+    io_ib.params[IB_PARAM_LD2] = ib_ld2;
+    io_ib.params[IB_PARAM_C5] = ib_c5;
+    io_ib.params[IB_PARAM_C6] = ib_c6;
+    io_ib.params[IB_PARAM_LD3] = ib_ld3;
+    io_ib.params[IB_PARAM_C7] = ib_c7;
+    io_ib.params[IB_PARAM_C8] = ib_c8;
+    io_ib.params[IB_PARAM_LD4] = ib_ld4;
+    io_ib.params[IB_PARAM_C9] = ib_c9;
+    io_ib.params[IB_PARAM_C10] = ib_c10;
+    io_ib.params[IB_PARAM_LD5] = ib_ld5;
+    io_ib.params[IB_PARAM_C11] = ib_c11;
+    io_ib.params[IB_PARAM_C12] = ib_c12;
+    io_ib.params[IB_PARAM_LD6] = ib_ld6;
+    io_ib.params[IB_PARAM_B0_BP] = ib_b0_bp;
+    io_ib.params[IB_PARAM_B1_BP] = ib_b1_bp;
+    io_ib.params[IB_PARAM_B2_BP] = ib_b2_bp;
+    io_ib.params[IB_PARAM_A0_BP] = ib_a0_bp;
+    io_ib.params[IB_PARAM_A1_BP] = ib_a1_bp;
+    io_ib.params[IB_PARAM_A2_BP] = ib_a2_bp;
+    io_ib.params[IB_PARAM_ZOH] = ib_zoh;
     
     IB_ga_final_compute(&io_ib, &state_ib);    
     gcs_send_text_fmt(PSTR("w1:%f w2:%f w3:%f w4:%f \n"),motor_omega[2], motor_omega[0], motor_omega[3], motor_omega[1] );
@@ -443,7 +437,7 @@ void inputs_to_outputs_loiter_test(
             controller_output = IB_interface_calculate(position, velocity, acceleration, orientation, rotational_velocity, target_position, target_orientation);
             break;
         default:
-	    break;
+        break;
 
     }
     motors_output(controller_output);

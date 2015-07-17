@@ -50,7 +50,7 @@ void AP_MotorsMatrix::set_update_rate( uint16_t speed_hz )
     uint32_t mask = 0;
     for( i=0; i<AP_MOTORS_MAX_NUM_MOTORS; i++ ) {
         if( motor_enabled[i] ) {
-		mask |= 1U << pgm_read_byte(&_motor_to_channel_map[i]);
+		    mask |= 1U << pgm_read_byte(&_motor_to_channel_map[i]);
         }
     }
     hal.rcout->set_freq( mask, _speed_hz );
@@ -181,7 +181,7 @@ void AP_MotorsMatrix::output_armed()
         // Every thing is limited
         limit.roll_pitch = true;
         limit.yaw = true;
-
+    //if we are sending a throttle output...
     } else {
 
         // check if throttle is below limit
@@ -425,7 +425,7 @@ void AP_MotorsMatrix::remove_all_motors()
 }
 
 //Added by ENSMA
-
+//These numbers need to change
 void AP_MotorsMatrix::output_armed_new(double *input)
 {
     //Calculate output
@@ -434,10 +434,11 @@ void AP_MotorsMatrix::output_armed_new(double *input)
     int16_t level = 1400; 
     int16_t out_min_pwm = 1050; //_rc_throttle.radio_min + _min_throttle; // minimum pwm value we can send to the motors
     int16_t out_max_pwm = 1700; //_rc_throttle.radio_max;                 // maximum pwm value we can send to the motors
-    int16_t out_mid_pwm = (out_min_pwm + out_max_pwm)/2.0;                  // mid pwm value we can send to the motors
+    int16_t out_mid_pwm = (out_min_pwm + out_max_pwm)/2.0;                // mid pwm value we can send to the motors
     flag_max_speed = false;
     int16_t output_signal[4];
-    //Linearising the output value base on a simulation radio control signal
+    //Linearising the output value base on a simulation
+    //radio control signal
     for (int i = 0; i<4; i++)
     {
         if  (input[i] > balance_rotate_speed)
@@ -454,13 +455,16 @@ void AP_MotorsMatrix::output_armed_new(double *input)
             output_signal[i] = out_max_pwm;
             flag_max_speed = true;
         }
-        else if (output_signal[i] == 0)
+        else if (output_signal[i] == 0) {
             output_signal[i] = (int16_t) out_min_pwm + 10;
+        }
     }
     // send output to each motor
+    // MOTORS !!!!!!!!!!!!
     for(uint8_t i=0; i<AP_MOTORS_MAX_NUM_MOTORS; i++ ) 
     {
-        if( motor_enabled[i] ) {
+        if (motor_enabled[i])
+        {
             hal.rcout->write(pgm_read_byte(&_motor_to_channel_map[i]), output_signal[i]);
         }
     }

@@ -26,6 +26,134 @@
 #define GOBJECTN(v, pname, name, class) { AP_PARAM_GROUP, name, Parameters::k_param_ ## pname, &v, {group_info : class::var_info} }
 
 const AP_Param::Info var_info[] PROGMEM = {
+    //IB Parameters
+
+    // @Param: IB_C1
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_c1       ,"IB_C1"    ,IB_C1_DEFAULT),
+    // @Param: IB_C2
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_c2       ,"IB_C2"    ,IB_C2_DEFAULT),
+    // @Param: IB_LD1
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_ld1      ,"IB_LD1"   ,IB_LD1_DEFAULT),
+    // @Param: IB_C3
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_c3       ,"IB_C3"    ,IB_C3_DEFAULT),
+    // @Param: IB_C4
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_c4       ,"IB_C4"    ,IB_C4_DEFAULT),
+    // @Param: IB_LD2
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_ld2      ,"IB_LD2"   ,IB_LD2_DEFAULT),
+    // @Param: IB_C5
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_c5       ,"IB_C5"    ,IB_C5_DEFAULT),
+    // @Param: IB_C6
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_c6       ,"IB_C6"    ,IB_C6_DEFAULT),
+    // @Param: IB_LD3
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_ld3      ,"IB_LD3"   ,IB_LD3_DEFAULT),
+    // @Param: IB_C7
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_c7       ,"IB_C7"    ,IB_C7_DEFAULT),
+    // @Param: IB_C8
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_c8       ,"IB_C8"    ,IB_C8_DEFAULT),
+    // @Param: IB_LD4
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_ld4      ,"IB_LD4"   ,IB_LD4_DEFAULT),
+    // @Param: IB_C9
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_c9       ,"IB_C9"    ,IB_C9_DEFAULT),
+    // @Param: IB_C10
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_c10      ,"IB_C10"   ,IB_C10_DEFAULT),
+    // @Param: IB_LD5
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_ld5      ,"IB_LD5"   ,IB_LD5_DEFAULT),
+    // @Param: IB_C11
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_c11      ,"IB_C11"   ,IB_C11_DEFAULT),
+    // @Param: IB_C12
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_c12      ,"IB_C12"   ,IB_C12_DEFAULT),
+    // @Param: IB_LD6
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_ld6      ,"IB_LD6"   ,IB_LD6_DEFAULT),
+    // @Param: IB_B0_BP
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_b0_bp    ,"IB_B0_BP" ,IB_B0_BP_DEFAULT),
+    // @Param: IB_B1_BP
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_b1_bp    ,"IB_B1_BP" ,IB_B1_BP_DEFAULT),
+    // @Param: IB_B2_BP
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_b2_bp    ,"IB_B2_BP" ,IB_B2_BP_DEFAULT),
+    // @Param: IB_A0_BP
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_a0_bp    ,"IB_A0_BP" ,IB_A0_BP_DEFAULT),
+    // @Param: IB_A1_BP
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_a1_bp    ,"IB_A1_BP" ,IB_A1_BP_DEFAULT),
+    // @Param: IB_A2_BP
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_a2_bp    ,"IB_A2_BP" ,IB_A2_BP_DEFAULT),
+    // @Param: IB_ZOH
+    // @DisplayName: IB Controller Parameter
+    // @Description: <Fill in here>
+    // @User: Advanced
+    GSCALAR(ib_zoh      ,"IB_ZOH"   ,IB_ZOH_DEFAULT),
+
     // @Param: SYSID_SW_MREV
     // @DisplayName: Eeprom format version number
     // @Description: This value is incremented when changes are made to the eeprom format
