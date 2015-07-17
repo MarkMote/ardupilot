@@ -220,15 +220,15 @@ GAREAL* IB_interface_calculate(
 
     double time = (double) millis() / 1000.0;
     //if sample time is over a second, something is horribly wrong
-    if (fabs(time - time_old) > 1.0)
-    {
-        time_old = time;
-        IB_results[0] = 0.0;
-        IB_results[1] = 0.0;
-        IB_results[2] = 0.0;
-        IB_results[3] = 0.0;
-        return IB_results;
-    }
+    //if (fabs(time - time_old) > 1.0)
+    //{
+    //    time_old = time;
+    //    IB_results[0] = 0.0;
+    //    IB_results[1] = 0.0;
+    //    IB_results[2] = 0.0;
+    //    IB_results[3] = 0.0;
+    //    return IB_results;
+    //}
     //put values into GA io struct
     //orientation comes from AHRS and is already in radians
     io_ib.angles[ROLL]         = orientation.x;
